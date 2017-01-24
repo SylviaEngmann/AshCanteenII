@@ -16,6 +16,7 @@
 		<link rel="stylesheet" href="css/jqm-icon-pack-fa.css">
 		<link rel="stylesheet" href="css/jqm-demos">
 		<link rel="stylesheet" href="css/jquery.mobile.icons-1.4.5">
+        <link rel="stylesheet" href="css/style.css">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
 
     <script>
@@ -60,6 +61,18 @@
                 </div><!--content-->
         </div><!-- /page -->
 
+        <div data-role="page" id="tryflip">
+            <div data-role="content">
+                <div class="card effect__EFFECT">
+                    <div class="card__front">
+                        <span class="card__text">front</span>
+                    </div>
+                    <div class="card__back">
+                        <span class="card__text">back</span>
+                    </div>
+                </div><!-- /card -->
+            </div><!--content-->
+        </div><!--page-->
 		
     
 		<script src="scripts/jquery.js"></script>
@@ -95,7 +108,22 @@
         		 	});
         })(jQuery);
         </script>
-    
+        <script>
+        (function() {
+        var cards = document.querySelectorAll(".card.effect__click");
+            for ( var i  = 0, len = cards.length; i < len; i++ ) {
+                var card = cards[i];
+                clickListener( card );
+                }
+
+            function clickListener(card) {
+             card.addEventListener( "click", function() {
+                 var c = this.classList;
+                c.contains("flipped") === true ? c.remove("flipped") : c.add("flipped");
+                });
+            }
+        })();
+        </script>
 		
 	</body>
 </html>
