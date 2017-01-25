@@ -34,36 +34,38 @@
 	</head>
 	<body>
 	   <body>
-        <div data-role="page" id="loginpage" style="background:#ff9e80">
+        <div data-role="page" id="loginpage" style="background:white">
                 <div data-role="content">
-                <h3 class="black-text"><center><strong>Welcome</strong></center></h3>
-                <p4 class="black-text"><center>Please Log In</center></p4>
+                <center><img src="my_logo.png" width="150" height="150" alt="Bon Appetit"></center>
                 </br>
-                <div class="row">
+                <div class = "container">
+                  <div class="row">
                         <form method="get" action="#loginpage" class="col s12">
                                 <div class="row">
                                   <div class="input-field col s12">
                                    <i class="tiny material-icons prefix">email</i>
-                                    <input type="text" id="email" name="username" class="validate">
-                                    <label for="email">Email</label></div>
+                                    <input type="text" id="uname" name="username" class="validate">
+                                    <label for="uname">Username</label></div>
                                   <div class="input-field col s12">
                                     <i class="tiny material-icons prefix">lock</i>
-                                    <input type="password" id="password" name="password" class="validate">
+                                    <input type="password" id="pword" name="password" class="validate">
                                     <label for="password">Password</label>
-                                    </div></div>
+                                    </div></div>   
                 				<div class="row">
 								  <div class="col s12">
                         <button class="btn-large waves-effect waves-light deep-orange" onclick="login()" type="submit" name="action"><a class="white-text">Log in <i class="material-icons right">send</i></a></button>
 
                         <button class="btn-large waves-effect waves-light deep-orange"><a class="white-text" href="#signup">Sign Up<i class="material-icons right">send</i></a></button></div></div>
                     	</form></div>
+                      </div>
                 </div><!--content-->
         </div><!-- /page -->
     
-    <div data-role="page" id="signup" style="background:#ff9e80">
+    <div data-role="page" id="signup" style="background:white">
                 <div data-role="content">
-                <h3 class="black-text"><center><strong>Enter Your Details</strong></center></h3>
+                <center><img src="my_logo.png" width="150" height="150" alt="Bon Appetit"></center>
                 </br>
+                <p3 class="black-text"><center><strong>Enter Your Details</strong></center></p3>
                 <div class="row">
                         <form method="get" action="#signup" class="col s12">
                                 <div class="row">
@@ -99,10 +101,10 @@
                 </div><!--content-->
         </div><!-- /page -->
 
-        <div data-role="page" id="dashboard" style="background:#ff9e80">
+        <div data-role="page" id="dashboard">
         	<nav >
-        		<div class="nav-wrapper" style="background:#f4511e">
-        			<a href="#" class="brand-logo"><span class="black-text">Foodables</span></a>
+        		<div class="nav-wrapper" style="background:#ff9e80">
+        			<a href="#" class="brand-logo"><span class="white-text">Bon Appetit</span></a>
         			 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 						<ul class="side-nav" id="mobile-demo">
 							<li>
@@ -116,34 +118,23 @@
         					<li><a href="#"><i class="material-icons">help</i>Help</a></li>
         				</ul>
         	</nav>
-        	<div class="fixed-action-btn">
-    			<a class="btn-floating btn-large red">
-      			<i class="large material-icons">menu</i>
-    			</a>
-    		<ul>
-      			<li><a class="btn-floating tooltipped red" data-position="left" data-delay="50" data-tooltip="View Menu"><i class="material-icons">insert_chart</i></a></li>
-      			<li><a class="btn-floating tooltipped yellow darken-1" data-position="left" data-delay="50" data-tooltip="Reviews"><i class="material-icons">format_quote</i></a></li>
-      			<li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
-    		</ul>
-  			</div>
-                <div data-role="content">
+        	      <div data-role="content">
                 </br>
-                <p4 class="black-text"><center><strong>Choose a Cafeteria</strong></center></p4>
                 </br>
                 <a href="#amenu">
-  					<img src="akornno.png" alt="Akornno">
+  					     <center><img src="akornno.png" alt="Akornno"></center>
 				        </a>
 				    </br></br>
 				        <a href="#bmenu">
-  					<img src="big_ben.png" alt="Big Ben">
+  					     <center><img src="big_ben.png" alt="Big Ben"></center>
 				        </a>
                 </div><!--content-->
         </div><!-- /page -->
 
-        <div data-role="page" id="amenu" style="background:#ff9e80">
+        <div data-role="page" id="amenu">
           <nav >
-            <div class="nav-wrapper" style="background:#f4511e">
-              <a href="#" class="brand-logo"><span class="white-text">Foodables</span></a>
+            <div class="nav-wrapper" style="background:#ff9e80">
+              <a href="#" class="brand-logo"><span class="white-text">Bon Appetit</span></a>
                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul class="side-nav" id="mobile-demo">
               <li>
@@ -156,17 +147,7 @@
                   <li><a href="#"><i class="material-icons">settings</i>Settings</a></li>
                 </ul>
           </nav>
-          <div class="fixed-action-btn">
-          <a class="btn-floating btn-large red">
-            <i class="large material-icons">menu</i>
-          </a>
-        <ul>
-            <li><a class="btn-floating tooltipped red" data-position="left" data-delay="50" data-tooltip="View Menu"><i class="material-icons">insert_chart</i></a></li>
-            <li><a class="btn-floating tooltipped yellow darken-1" data-position="left" data-delay="50" data-tooltip="Reviews"><i class="material-icons">format_quote</i></a></li>
-            <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
-        </ul>
-        </div>
-                <div data-role="content">
+          <div data-role="content">
             <div class="nav-wrapper">
               <form>
                 <div class="input-field">
@@ -365,6 +346,71 @@
         		 	});
         })(jQuery);
         </script>
+      <script>
+        function loginComplete(xhr,status){
+                if(status!="success"){
+                    divStatus.innerHTML="error sending request";
+                    return;
+                }
+                divStatus=xhr.responseText;
+                var obj=JSON.parse(xhr.responseText);
+                if(obj.result==0){
+                    divStatus=obj.message;
+                }else{
+                    divStatus.innerHTML= "Log in Success";
+                }
+                window.location="#dashboard";
+
+            currentObject=null;
+            }
+            
+            function login()
+            {
+                var username = document.getElementById("uname").value;
+                var password = document.getElementById("pword").value;
+
+                //$.ajax("http://52.89.116.249/~sylvia.engmann/ridealong/signin.php?username="+username+"&password="+password,{async:true,complete:loginComplete});
+                
+                $.ajax("functions.php?cmd=1&username="+username+"&password="+password,
+                    {async:true,complete:loginComplete}
+                    );
+                
+                
+            }
+        function loginComplete(xhr,status){
+                if(status!="success"){
+                    divStatus.innerHTML="error sending request";
+                    return;
+                }
+                divStatus=xhr.responseText;
+                var obj=JSON.parse(xhr.responseText);
+                if(obj.result==0){
+                    divStatus=obj.message;
+                }else{
+                    divStatus.innerHTML= "Log in Success";
+                }
+                window.location="#dashboard";
+
+            currentObject=null;
+            }
+            
+            function login()
+            {
+                var username = document.getElementById("uname").value;
+                var password = document.getElementById("pword").value;
+
+                //$.ajax("http://52.89.116.249/~sylvia.engmann/ridealong/signin.php?username="+username+"&password="+password,{async:true,complete:loginComplete});
+                
+                $.ajax("functions.php?cmd=1&username="+username+"&password="+password,
+                    {async:true,complete:loginComplete}
+                    );
+                
+                
+            }
+        
+        </script>
+
+      </script>
     
 		
 	</body>
