@@ -7,10 +7,10 @@ include_once("db_setting.php");
 /**
 * Database connection helper class
 */
-class adb{
+class db_connect{
 	var $db=null;
 	var $result=null;
-	function adb(){
+	function db_connect(){
 	}
 	/**
 	*Connect to database

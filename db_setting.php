@@ -7,5 +7,5 @@
 define("DB_HOST","localhost");
 define("DB_USERNAME","root");
 define("DB_PASSWORD","");
-define("DB_NAME","bon_appetit");
+define("DB_NAME","cafeteria_app");
 ?>
