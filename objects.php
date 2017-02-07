@@ -1,4 +1,7 @@
 <?php
+session_start();
+  ?>
+<?php
 /**
 */
 include_once("db_connect.php");
@@ -28,6 +31,10 @@ class object extends db_connect{
 		
 	function login($username,$password){
 		$strQuery="SELECT * from person WHERE username= '$username' AND password=MD5('$password')";
+		return $this->query($strQuery);
+	}
+	function getCafeteria(){
+		$strQuery="SELECT cafeteria_name,picture from cafeteria";
 		return $this->query($strQuery);
 	}
 }

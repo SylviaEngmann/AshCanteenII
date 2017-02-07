@@ -142,7 +142,24 @@
         		</ul>
         	</nav>
         	 <div data-role="content">
-                <br><br>
+              <div class="container">
+                <div class="col s6 card-panel" style="">
+                  <center><h3>Cafeterias</h3></center>
+                    <ul class="collection">
+                      <?php
+                            include('objects.php');
+                                $obj=new object();
+                        $row=$obj->login($username, $password);
+                        if($row==true){
+                          $row=$obj->fetch();
+                          echo '{"result":1,"user":';
+                          echo json_encode($row);
+                          echo "}";
+                        }
+                        else{
+                          echo '{"result":0,"message":"Login failed"}';
+                        }
+                      ?>  
               <a href="#amenu">
   					     <center><img src="akornno.png" alt="Akornno"></center>
 				      </a>
