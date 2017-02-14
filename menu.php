@@ -74,21 +74,25 @@
               <div class="container">
                 <div class="col s6 card-panel" style="">
                     <ul class="collection">
-                      <?php
-                          include('objects.php');
+                    <?php
+                           include('objects.php');
                             $obj=new object();
                             $result=$obj->getAkMeals();
                             if($result==false){
                               echo "'$result' is false";
                             }else{
                               $row=$obj->fetch();
+                              echo "<span><center><img src='akornno.png' style='width:300px;height:100px'></center></span>";
                               while($row){
+                                echo "<ul class='collection'>";
                                 echo "<li class='collection-item avatar'>";
-                                echo "<span><p><center>{$row['meal_name']}</center></p></span>";
-                                echo '<span style:"margin-right:2cm"><a href="#"><center><i class="material-icons">shopping_cart</i></center></a></span>';
+                                echo "<img src='{$row['picture']}' style='width:50px;'>";
+                                echo "<span class='title'>{$row['meal_name']}</span>";
+                                echo "<p>{$row['description']}</p>";
+                                echo '<span style:"margin-right:2cm"><a href="#" class="right"><i class="material-icons">shopping_cart</i></a></span>';
                                 echo "</li>";
+                                echo "</ul>";
                                 $row=$obj->fetch();
-
                               }
                             }
                       ?>

@@ -25,6 +25,11 @@ class object extends db_connect{
 		$strQuery="SELECT cafeteria_name,picture from cafeteria";
 		return $this->query($strQuery);
 	}
+	function getAkCafeteria(){
+		$strQuery="SELECT picture from cafeteria where cid=1";
+		return $this->query($strQuery);
+	}
+	
 	function getAkMeals(){
 		$strQuery="SELECT * from menu where cid=1";
 		return $this->query($strQuery);
