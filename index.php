@@ -1,11 +1,3 @@
-<!--<?php
-//session_start();
-  //if(!isset($_SESSION['person']['pid'])){
-    //header("Location: index.php");
-    //exit();
-  //}
-  ?>-->
-
 <!DOCTYPE html>
 <html>
 	<head>
@@ -47,10 +39,14 @@
                 <div class ="container">
                   <div class="section">                           
                 		<div class="row">
-								      <div class="col s12 s4">
+								      <div class="col s5">
                         <div class="row center">
                           <button class="btn-small waves-effect waves-light deep-orange" name="action" id="fixed-btn"><a class="white-text" href="#loginpage">Log in</a>
                           </button>
+                        </div>
+                      </div>
+                      <div class="col s9">
+                        <div class="row center">
                           <button class="btn-small waves-effect waves-light deep-orange" name="action" id="fixed-btnn"><a class="white-text" href="#signup">Sign Up</a></button>
                         </div>
                       </div>
@@ -137,15 +133,18 @@
         })(jQuery); // end of jQuery name space
         </script>
       <script>
+
         function signupComplete(xhr,status){
                 if(status!="success"){
                     divStatus.innerHTML="error sending request";
                     return;
                 }
                 divStatus=xhr.responseText;
+                //alert(xhr.responseText);
                 var obj=JSON.parse(xhr.responseText);
                 if(obj.result==0){
-                    divStatus=obj.message;
+                   // divStatus=obj.message;
+                  divStatus.innerHTML=obj.message;  
                      alert(obj.message);
                 }else{
                     divStatus.innerHTML= "You've been added";
@@ -153,18 +152,16 @@
                       alert("Please log in now");
                 }
                 window.location="#loginpage";
-
-            currentObject=null;
+                currentObject=null;
             }
-            
+        
+      
             function signup()
             {
               var name = document.getElementById("name").value;
               var username = document.getElementById("username").value;    
               var email = document.getElementById("email").value;
               var password = document.getElementById("pword").value;
-
-                //$.ajax("http://52.89.116.249/~sylvia.engmann/ridealong/signin.php?username="+username+"&password="+password,{async:true,complete:loginComplete});
                 
                 $.ajax("functions.php?cmd=1&name="+name+"&username="+username+"&email="+email+"&password="+password,
                     {async:true,complete:signupComplete}

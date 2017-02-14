@@ -1,7 +1,9 @@
+.nav-wrapper{
+  height: :200px;
+}
 #fixed-btn {
     position: fixed;
     bottom: 0px;
-    left: 200px;
     border-radius: 12px;
     width: 150px;
  
@@ -9,7 +11,6 @@
 #fixed-btnn {
     position: fixed;
     bottom: 0px;
-    right: 200px; 
     border-radius: 12px;
     width: 150px;
 }

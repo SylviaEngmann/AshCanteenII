@@ -1,10 +1,10 @@
-<?php
-session_start();
-  if(!isset($_SESSION['person']['pid'])){
-    header("Location: index.php");
-    exit();
-  }
-  ?>
+<!--<?php
+//session_start();
+  //if(!isset($_SESSION['person']['pid'])){
+    //header("Location: index.php");
+    //exit();
+  //}
+  ?>-->
 
 <!DOCTYPE html>
 <html>
@@ -83,14 +83,9 @@ session_start();
                               while($row){
                                 echo "<li class='collection-item avatar'>";
                                 echo "<span style:'margin-right:30cm'><center><img src='{$row['picture']}' style='width:150px;'></center></span>";
-                                echo '<span style:"margin-right:2cm"><a href="#menu"><center><button class="btn waves-effect white">Menu</button></center></a></span>';
+                                echo '<span style:"margin-right:2cm"><a href="menu.php"><center><button class="btn waves-effect white">Menu</button></center></a></span>';
                                 echo "</li>";
                                 $row=$obj->fetch();
-
-
-      //echo '<a href="http://35.166.18.143/~gifty.mate-kole/store/edit.php?pno='.$row['pno'].'&pname='.$row['pname'].'&qoh='.$row['qoh'].'&price='.$row['price'].'&olevel='.$row['olevel'].'"><button id="btn_menu" class="btn waves-effect waves-teal" style="margin-left:2em">Edit</button></a>';
-
-      //echo "<span class='title' style='font-size:20px;margin-left:2em'>Order level: {$row['olevel']}</span>"; 
 
                               }
                             }
