@@ -177,7 +177,8 @@
                     divStatus.innerHTML= "Log in Success";
                       alert("Log in Success")
                 }
-                window.location="dashboard.php";
+                //window.location="dashboard.php";
+                window.location="http://35.166.18.143/~sylvia.engmann/applied/dashboard.php";
 
             currentObject=null;
             }
@@ -187,11 +188,10 @@
               var username = document.getElementById("username").value;
               var password = document.getElementById("pword").value;
 
-                //$.ajax("http://52.89.116.249/~sylvia.engmann/ridealong/signin.php?username="+username+"&password="+password,{async:true,complete:loginComplete});
+                $.ajax("http://35.166.18.143/~sylvia.engmann/applied/login.php?username="+username+"&password="+password,
+                  {async:true,complete:loginComplete});
                 
-                $.ajax("login.php?username="+username+"&password="+password,
-                    {async:true,complete:loginComplete}
-                    );    
+                //$.ajax("login.php?username="+username+"&password="+password,{async:true,complete:loginComplete});    
             }
         
         </script>    

@@ -5,12 +5,6 @@
     width: 150px;
  
 }
-#fixed-btnn {
-    position: fixed;
-    bottom: 0px;
-    border-radius: 12px;
-    width: 150px;
-}
 #initpage{
   background-image: url("../mp-09.png");
 }

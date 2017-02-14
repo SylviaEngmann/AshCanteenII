@@ -25,11 +25,12 @@
 			$result=$obj->login($username, $password);
 			$result=$obj->fetch();
 			if(!$result){
-				$response='<div style="position:absolute; top:300px; font-size:25px; color:red; margin-left:41%;">Username or Password is wrong.</div>';
-               echo $response;
+               	echo '{"result":0,"message":"Username or Password is wrong"}';
+
            	}else{
            			session_start();
            			$_SESSION['person']=$result;
-				header("Location:dashboard.php");
+				//header("Location:dashboard.php");
+				header("Location:http://35.166.18.143/~sylvia.engmann/applied/dashboard.php");
 				}
 ?>          
