@@ -84,7 +84,7 @@
                                 echo "<li class='collection-item avatar'>";
                                 echo "<span style:'margin-right:30cm'><center><img src='{$row['picture']}' style='width:150px;'></center></span>";
                                 //echo '<span style:"margin-right:2cm"><a href="menu.php"><center><button class="btn waves-effect white">Menu</button></center></a></span>';
-                                echo '<span style:"margin-right:2cm"><a href="http://35.166.18.143/~sylvia.engmann/applied/menu.php"><center><button class="btn waves-effect white">Menu</button></center></a></span>';
+                                echo '<span style:"margin-right:2cm"><a href="http://35.166.18.143/~sylvia.engmann/applied/AshCanteen/menu.php"><center><button class="btn waves-effect white">Menu</button></center></a></span>';
                                 echo "</li>";
                                 $row=$obj->fetch();
                               }

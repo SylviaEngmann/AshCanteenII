@@ -31,6 +31,6 @@
            			session_start();
            			$_SESSION['person']=$result;
 				//header("Location:dashboard.php");
-				header("Location:http://35.166.18.143/~sylvia.engmann/applied/dashboard.php");
+				header("Location:http://35.166.18.143/~sylvia.engmann/applied/AshCanteen/dashboard.php");
 				}
 ?>          

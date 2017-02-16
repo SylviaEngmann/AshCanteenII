@@ -42,10 +42,10 @@
 								      <div class="col s6">
                           <button class="btn-small waves-effect waves-light deep-orange" name="action" id="fixed-btn"><a class="white-text" href="#loginpage">Log in</a>
                           </button>
-                        </div>
+                      </div>
                       <div class="col s6">
-                          <button class="btn-small waves-effect waves-light deep-orange" name="action" id="fixed-btnn"><a class="white-text" href="#signup">Sign Up</a></button>
-                        </div>
+                          <button class="btn-small waves-effect waves-light deep-orange" name="action" id="fixed-btn"><a class="white-text" href="#signup">Sign Up</a></button>
+                      </div>
                     </div>
                   </div>
                 </div><!--container-->
@@ -178,7 +178,7 @@
                       alert("Log in Success")
                 }
                 //window.location="dashboard.php";
-                window.location="http://35.166.18.143/~sylvia.engmann/applied/dashboard.php";
+                window.location="http://35.166.18.143/~sylvia.engmann/applied/AshCanteen/dashboard.php";
 
             currentObject=null;
             }
@@ -188,7 +188,7 @@
               var username = document.getElementById("username").value;
               var password = document.getElementById("pword").value;
 
-                $.ajax("http://35.166.18.143/~sylvia.engmann/applied/login.php?username="+username+"&password="+password,
+                $.ajax("http://35.166.18.143/~sylvia.engmann/applied/AshCanteen/login.php?username="+username+"&password="+password,
                   {async:true,complete:loginComplete});
                 
                 //$.ajax("login.php?username="+username+"&password="+password,{async:true,complete:loginComplete});    
