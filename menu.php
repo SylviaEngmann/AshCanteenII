@@ -53,17 +53,17 @@
             <ul class="side-nav" id="mobile-demo">
               <li>
                  <div class="userView">
-                    <!--<a href="#!name"><span class="black-text name">Sylvia Engmann</span></a>
-                    <a href="#!email"><span class="black-text email">sylvia.engmann8@gmail.com</span></a>-->
                     <?php 
-                            echo $_SESSION['person']['name'];
-                            echo $_SESSION['person']['email'];
+                            session_start();
+                            echo "<span class='black-text'>{$_SESSION['username']}</span>";
                     ?>
                   </div>
               </li>
+
               <li><a href="#"><i class="material-icons">menu</i>Menu</a></li>
-              <li><a href="#"><i class="material-icons">menu</i>Order History</a></li>
-              <li><a href="#"><i class="material-icons">settings</i>Settings</a>
+              <li><a href="#"><i class="material-icons">account_circle</i>Account</a></li>
+              <li><a href="#"><i class="material-icons">message</i>Notifications</a></li>
+              <li><a href="#"><i class="material-icons">settings_applications</i>Settings</a>
               </li>
               <li><a href="#"><i class="material-icons">help</i>Help</a>
               </li>
@@ -71,6 +71,8 @@
             </div>
           </nav>
            <div data-role="content">
+            <a class="btn-floating btn-large waves-effect waves-light red right" href="cart.php"><i class="material-icons">shopping_cart</i></a>
+
               <div class="container">
                 <div class="col s6 card-panel" style="">
                     <ul class="collection">
@@ -98,7 +100,9 @@
                       ?>
                     </ul>
                 </div>
-              </div><!--container-->  
+              </div><!--container-->
+              <a class="btn-floating btn-large waves-effect waves-light orange top right" href="cart.php"><i class="material-icons">shopping_cart</i></a>
+
             </div><!--content-->
         </div><!-- /page -->
 

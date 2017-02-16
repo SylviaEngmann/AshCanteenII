@@ -143,7 +143,7 @@
                   divStatus.innerHTML=obj.message;  
                      alert(obj.message);
                 }else{
-                    divStatus.innerHTML= "You've been added";
+                    //divStatus.innerHTML= "You've been added";
                       alert("You've been added");
                       alert("Please log in now");
                 }
@@ -159,6 +159,8 @@
               var email = document.getElementById("email").value;
               var password = document.getElementById("pword").value;
                 
+              //$.ajax("http://35.166.18.143/~sylvia.engmann/applied/AshCanteen/functions.php?cmd=1&name="+name+"&username="+username+"&email="+email+"&password="+password,{async:true,complete:signupComplete});   
+
                 $.ajax("functions.php?cmd=1&name="+name+"&username="+username+"&email="+email+"&password="+password,
                     {async:true,complete:signupComplete}
                     );   
@@ -166,7 +168,8 @@
 
         function loginComplete(xhr,status){
                 if(status!="success"){
-                    divStatus.innerHTML="error sending request";
+                    //divStatus.innerHTML="error sending request";
+                    alert("error ");
                     return;
                 }
                 divStatus=xhr.responseText;
@@ -174,13 +177,12 @@
                 if(obj.result==0){
                     divStatus=obj.message;
                 }else{
-                    divStatus.innerHTML= "Log in Success";
-                      alert("Log in Success")
+                    //divStatus.innerHTML= "Log in Success";
+                      alert("Log in Success");
+                      window.location="dashboard.php";
                 }
-                //window.location="dashboard.php";
-                window.location="http://35.166.18.143/~sylvia.engmann/applied/AshCanteen/dashboard.php";
-
-            currentObject=null;
+                //window.location="http://35.166.18.143/~sylvia.engmann/applied/AshCanteen/dashboard.php";
+                currentObject=null;
             }
             
             function login()
@@ -188,10 +190,11 @@
               var username = document.getElementById("username").value;
               var password = document.getElementById("pword").value;
 
-                $.ajax("http://35.166.18.143/~sylvia.engmann/applied/AshCanteen/login.php?username="+username+"&password="+password,
-                  {async:true,complete:loginComplete});
+                //$.ajax("http://35.166.18.143/~sylvia.engmann/applied/AshCanteen/login.php?username="+username+"&password="+password,{async:true,complete:loginComplete});
                 
-                //$.ajax("login.php?username="+username+"&password="+password,{async:true,complete:loginComplete});    
+                $.ajax("login.php?username="+username+"&password="+password,{
+                  async:true,complete:loginComplete
+                });    
             }
         
         </script>    

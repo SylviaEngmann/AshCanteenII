@@ -1,11 +1,3 @@
-<!--<?php
-//session_start();
-  //if(!isset($_SESSION['person']['pid'])){
-    //header("Location: index.php");
-    //exit();
-  //}
-  ?>-->
-
 <!DOCTYPE html>
 <html>
 	<head>
@@ -52,15 +44,15 @@
 						<ul class="side-nav" id="mobile-demo">
 							<li>
 							   <div class="userView">
-                    <!--<a href="#!name"><span class="black-text name">Sylvia Engmann</span></a>
-                    <a href="#!email"><span class="black-text email">sylvia.engmann8@gmail.com</span></a>-->
                     <?php 
-                            echo $_SESSION['person']['name'];
-                            echo $_SESSION['person']['email'];
+                            session_start();
+                            echo "<span class='black-text'>{$_SESSION['username']}</span>";
                     ?>
                   </div>
 							</li>
+
         			<li><a href="#"><i class="material-icons">menu</i>Menu</a></li>
+              <li><a href="#"><i class="material-icons">account_circle</i>Account</a></li>
         			<li><a href="#"><i class="material-icons">settings</i>Settings</a>
               </li>
         			<li><a href="#"><i class="material-icons">help</i>Help</a>
@@ -83,8 +75,8 @@
                               while($row){
                                 echo "<li class='collection-item avatar'>";
                                 echo "<span style:'margin-right:30cm'><center><img src='{$row['picture']}' style='width:150px;'></center></span>";
-                                //echo '<span style:"margin-right:2cm"><a href="menu.php"><center><button class="btn waves-effect white">Menu</button></center></a></span>';
-                                echo '<span style:"margin-right:2cm"><a href="http://35.166.18.143/~sylvia.engmann/applied/AshCanteen/menu.php"><center><button class="btn waves-effect white">Menu</button></center></a></span>';
+                                echo '<span style:"margin-right:2cm"><a href="menu.php"><center><button class="btn waves-effect white">Menu</button></center></a></span>';
+                                //echo '<span style:"margin-right:2cm"><a href="http://35.166.18.143/~sylvia.engmann/applied/AshCanteen/menu.php"><center><button class="btn waves-effect white">Menu</button></center></a></span>';
                                 echo "</li>";
                                 $row=$obj->fetch();
                               }

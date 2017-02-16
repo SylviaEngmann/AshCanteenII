@@ -26,12 +26,13 @@ function addUser(){
 	$obj=new object();
 	$row=$obj->addUser($name, $username, $email, $password);
 
-	if($row==true){
-		echo '{"result":1,"message":"You have been registered"}';
+	if(!$row==true){
+		echo '{"result":0,"message":"You have not been added"}';
 	}
 
 	else{
-		echo '{"result":0,"message":"You have not been added"}';
+		echo '{"result":1,"message":"You have been registered"}';
+
 	}
 
 }

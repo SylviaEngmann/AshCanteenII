@@ -16,21 +16,27 @@
 				echo '{"result":0,"message":"Please enter password"}';
 					return;
 				}
-			
+
+			session_start();
+
 			$username=$_REQUEST['username'];
 			$password=$_REQUEST['password'];
 
+			$_SESSION['username']=$username;
+
 			include('objects.php');
 			$obj=new object();
-			$result=$obj->login($username, $password);
-			$result=$obj->fetch();
-			if(!$result){
-               	echo '{"result":0,"message":"Username or Password is wrong"}';
-
-           	}else{
-           			session_start();
-           			$_SESSION['person']=$result;
+			$row=$obj->login($username, $password);
+			$row=$obj->fetch();
+			if(!$row){
+              echo '{"row":0,"message":"Username or Password is wrong"}';
+           	}
+           	else{
+           			//session_start();
+           			//$_SESSION['person']=$row;
+           		$_SESSION['username']=$username;
+           		 echo '{"row":1,"message":"Log in success"}';
 				//header("Location:dashboard.php");
-				header("Location:http://35.166.18.143/~sylvia.engmann/applied/AshCanteen/dashboard.php");
+				//header("Location:http://35.166.18.143/~sylvia.engmann/applied/AshCanteen/dashboard.php");
 				}
 ?>          
