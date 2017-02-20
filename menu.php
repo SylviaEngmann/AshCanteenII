@@ -91,7 +91,7 @@
                                 echo "<img src='{$row['picture']}' style='width:50px;'>";
                                 echo "<span class='title'>{$row['meal_name']}</span>";
                                 echo "<p>{$row['description']}</p>";
-                                echo '<span style:"margin-right:2cm"><a href="#" class="right"><i class="material-icons">shopping_cart</i></a></span>';
+                                echo "<button onclick='add({$row['meal_id']})'<a><i class='material-icons'>shopping_cart</i></a></button>";
                                 echo "</li>";
                                 echo "</ul>";
                                 $row=$obj->fetch();
@@ -119,6 +119,17 @@
 
              }); // end of document ready
         })(jQuery); // end of jQuery name space
-        </script>    
+        </script>
+    <script>
+        function addComplete(){
+
+        }
+        
+        function add(meal_id){
+          var url="functions.php?cmd=2&meal_id="+meal_id;
+          $ajax(url,
+            {async:true,complete:addComplete});
+        }
+    </script>        
   </body>
 </html>

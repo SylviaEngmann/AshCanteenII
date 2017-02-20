@@ -7,6 +7,9 @@ $cmd=$_REQUEST['cmd'];
 		case 1:
 			addUser();
 		break;
+		case 2:
+			addtoCart();
+		break;	
 		default:
 			echo '{"result":0,"message":"Wrong command"}';
 		break;
@@ -35,6 +38,9 @@ function addUser(){
 
 	}
 
+}
+function addtoCart(){
+	
 }
 ?>
 		
