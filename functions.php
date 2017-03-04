@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 //check command
 if(isset($_REQUEST['cmd'])){
@@ -9,7 +10,10 @@ $cmd=$_REQUEST['cmd'];
 		break;
 		case 2:
 			addtoCart();
-		break;	
+		break;
+		case 3:
+			getCart();
+		break;		
 		default:
 			echo '{"result":0,"message":"Wrong command"}';
 		break;
@@ -39,8 +43,33 @@ function addUser(){
 	}
 
 }
+
 function addtoCart(){
-	
-}
+	$meal_id=$_REQUEST['meal_id'];
+	session_start();
+	$_SESSION['cart'];
+
+	$cart_array = array('meal_id'=>$meal_id);
+		if(!isset($_SESSION['cart'])){
+    		$_SESSION['cart'] = array();
+    	}
+    	if(array_key_exists($meal_id, $_SESSION['cart'])){
+    		echo '{"result":0,"message":"Meal Not Added to Cart"}';
+    		}
+    		else{
+    			$_SESSION['cart'][$meal_id]=$cart_array;
+    			echo '{"result":1,"message":"Meal Added to Cart"}';
+    		}
+    	}
+
+	function getCart(){
+	$_SESSION['cart'][] = $meal_id;
+
+		foreach ($_SESSION['cart'] as $key => $value) {
+		# code...
+		echo $meal_id;
+	}	
+	}
+
 ?>
 		

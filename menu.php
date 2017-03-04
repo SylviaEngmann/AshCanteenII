@@ -1,10 +1,6 @@
-<!--<?php
-//session_start();
-  //if(!isset($_SESSION['person']['pid'])){
-    //header("Location: index.php");
-    //exit();
-  //}
-  ?>-->
+<?php
+session_start();
+?>
 
 <!DOCTYPE html>
 <html>
@@ -42,7 +38,7 @@
     
   </head>
   <body>
-      <div data-role="page" id="dashboard" style="background:white">
+      <div data-role="page" id="menu" style="background:white">
           <nav >
             <div class="nav-wrapper" style="background:#ff9e80">
               <a href="#" class="center brand-logo"><span class="white-text">Bon Appetit</span>
@@ -73,7 +69,6 @@
            <div data-role="content">
             <a class="btn-floating btn-large waves-effect waves-light red right" href="cart.php"><i class="material-icons">shopping_cart</i></a>
 
-              <div class="container">
                 <div class="col s6 card-panel" style="">
                     <ul class="collection">
                     <?php
@@ -84,14 +79,15 @@
                               echo "'$result' is false";
                             }else{
                               $row=$obj->fetch();
-                              echo "<span><center><img src='akornno.png' style='width:300px;height:100px'></center></span>";
+                              //echo "<span><center><img src='akornno.png' style='width:300px;height:100px'></center></span>";
                               while($row){
                                 echo "<ul class='collection'>";
                                 echo "<li class='collection-item avatar'>";
                                 echo "<img src='{$row['picture']}' style='width:50px;'>";
                                 echo "<span class='title'>{$row['meal_name']}</span>";
                                 echo "<p>{$row['description']}</p>";
-                                echo "<button onclick='add({$row['meal_id']})'<a><i class='material-icons'>shopping_cart</i></a></button>";
+                                echo "<button onclick='add({$row['meal_id']})'><a><i class='material-icons'>shopping_cart</i></a></button>";
+                                //echo "<a href='functions.php?cmd=2&meal_id={row['meal_id']}'><i class='material-icons'>shopping_cart</i></a>";
                                 echo "</li>";
                                 echo "</ul>";
                                 $row=$obj->fetch();
@@ -100,9 +96,6 @@
                       ?>
                     </ul>
                 </div>
-              </div><!--container-->
-              <a class="btn-floating btn-large waves-effect waves-light orange top right" href="cart.php"><i class="material-icons">shopping_cart</i></a>
-
             </div><!--content-->
         </div><!-- /page -->
 
@@ -120,14 +113,26 @@
              }); // end of document ready
         })(jQuery); // end of jQuery name space
         </script>
-    <script>
-        function addComplete(){
 
-        }
-        
+    <script>
+        function addComplete(xhr,status){
+          if(status!="success"){
+            alert("Error");
+            return;
+          }
+          divStatus=xhr.responseText;
+          var obj=JSON.parse(xhr.responseText);
+          if(obj.result==0){  
+                     alert(obj.message);
+                }else{
+                      alert("Added to cart");
+                }
+              }
+              
         function add(meal_id){
+          var meal_id = meal_id;
           var url="functions.php?cmd=2&meal_id="+meal_id;
-          $ajax(url,
+          $.ajax(url,
             {async:true,complete:addComplete});
         }
     </script>        
