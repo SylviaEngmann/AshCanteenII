@@ -43,10 +43,11 @@ function addUser(){
 	}
 
 }
+$cart_array;
 
 function addtoCart(){
 	$meal_id=$_REQUEST['meal_id'];
-	session_start();
+	//session_start();
 	$_SESSION['cart'];
 
 	$cart_array = array('meal_id'=>$meal_id);
@@ -54,7 +55,7 @@ function addtoCart(){
     		$_SESSION['cart'] = array();
     	}
     	if(array_key_exists($meal_id, $_SESSION['cart'])){
-    		echo '{"result":0,"message":"Meal Not Added to Cart"}';
+    		echo '{"result":0,"message":"Meal Not Added: It already is in the cart"}';
     		}
     		else{
     			$_SESSION['cart'][$meal_id]=$cart_array;
@@ -63,13 +64,26 @@ function addtoCart(){
     	}
 
 	function getCart(){
-	$_SESSION['cart'][] = $meal_id;
+		
+		$cart_array=$_SESSION['cart'];    
+        $items = $cart_array;
+        print json_encode($items);
+                    
+			//foreach ($_SESSION['cart'] as $key => $value)
+		//$cart = isset($_SESSION['cart'])?$_SESSION['cart']:false;
+			//foreach ($_SESSION['cart'] as $cart_array)
+			 //{
+				//echo $key. ": ".$value. "<br>";
+				//echo "Meal" .$cart_array. "<br>";
 
-		foreach ($_SESSION['cart'] as $key => $value) {
-		# code...
-		echo $meal_id;
-	}	
-	}
+			 //}
+			}	
 
+	//function getCart(){
+		//$items = $_SESSION['cart'];
+			//for($i=1; $i= $items; $i++){
+				//$cart_array[]= array('id'=>$_SESSION['meal_id'.$i]);
+			//echo $key. ": ".$value. "<br>";}
+		//return $cart_array;}
 ?>
 		

@@ -1,10 +1,6 @@
-<!--<?php
-//session_start();
-  //if(!isset($_SESSION['person']['pid'])){
-    //header("Location: index.php");
-    //exit();
-  //}
-  ?>-->
+<?php
+session_start();
+?>
 
 <!DOCTYPE html>
 <html>
@@ -22,9 +18,6 @@
   <link rel="stylesheet" href="css/jquery.mobile-1.4.5.css">
   <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.css">
   <link rel="stylesheet" href="css/jquery.mobile.theme-1.4.5.css">
-  <!--<link rel="stylesheet" href="css/jqm-icon-pack-fa.css">
-  <link rel="stylesheet" href="css/jqm-demos">-->
-  <!--<link rel="stylesheet" href="css/jquery.mobile.icons-1.4.5">-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
 
          <script>
@@ -74,26 +67,10 @@
                 <div class="col s6 card-panel" style="">
                     <ul class="collection">
                     <?php
-                           include('objects.php');
-                            $obj=new object();
-                            $result=$obj->getOrder();
-                            if($result==false){
-                              echo "'$result' is false";
-                            }else{
-                              $row=$obj->fetch();
-                              while($row){
-                                echo "<ul class='collection'>";
-                                echo "<li class='collection-item avatar'>";
-                                echo "<img src='{$row['picture']}' style='width:50px;'>";
-                                echo "<span class='title'>{$row['meal_name']}</span>";
-                                echo "<p>{$row['price']}</p>";
-                                echo "<button onclick='add({$row['meal_id']})'<a>Remove</a></button>";
-                                echo "</li>";
-                                echo "</ul>";
-                                $row=$obj->fetch();
-                              }
-                            }
-                      ?>
+                        $cart_array=$_SESSION['cart'];    
+                        $items = $cart_array;
+                        print json_encode($items);
+                    ?>
                     </ul>
                 </div>
                 <div class="row">

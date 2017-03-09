@@ -32,11 +32,7 @@
               echo '{"row":0,"message":"Username or Password is wrong"}';
            	}
            	else{
-           			//session_start();
-           			//$_SESSION['person']=$row;
            		$_SESSION['username']=$username;
            		 echo '{"row":1,"message":"Log in success"}';
-				//header("Location:dashboard.php");
-				//header("Location:http://35.166.18.143/~sylvia.engmann/applied/AshCanteen/dashboard.php");
 				}
 ?>          

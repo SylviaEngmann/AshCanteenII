@@ -70,7 +70,7 @@
                         </form>   
                         <div class="row">
                         <div class="col s12">
-                        <button class="btn-large waves-effect waves-light deep-orange" onclick="login()" type="submit" name="action"><a class="white-text">Log in <i class="material-icons right">send</i></a>
+                        <button class="btn-large waves-effect waves-light deep-orange" id="btnlogin" type="submit" name="action"><a class="white-text">Log in <i class="material-icons right">send</i></a>
                         </button>
                         </div>
                         </div>
@@ -103,7 +103,7 @@
                                 </div>
                 				<div class="row">
 								          <div class="col s12">
-                            <button class="btn-large waves-effect waves-light deep-orange" onclick="signup()" type="submit" name="action"><a class="white-text">Register<i class="material-icons right">send</i>
+                            <button class="btn-large waves-effect waves-light deep-orange" id="btnsignup" type="submit" name="action"><a class="white-text">Register<i class="material-icons right">send</i>
                             </a>
                             </button>
                             </div>
@@ -129,6 +129,8 @@
         })(jQuery); // end of jQuery name space
         </script>
       <script>
+      document.getElementById ("btnlogin").addEventListener ("click", login, false);
+      document.getElementById ("btnsignup").addEventListener ("click", signup, false);
 
         function signupComplete(xhr,status){
                 if(status!="success"){
@@ -139,11 +141,9 @@
                 //alert(xhr.responseText);
                 var obj=JSON.parse(xhr.responseText);
                 if(obj.result==0){
-                   // divStatus=obj.message;
                   divStatus.innerHTML=obj.message;  
                      alert(obj.message);
                 }else{
-                    //divStatus.innerHTML= "You've been added";
                       alert("You've been added");
                       alert("Please log in now");
                 }
