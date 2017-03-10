@@ -47,7 +47,10 @@ $cart_array;
 
 function addtoCart(){
 	$meal_id=$_REQUEST['meal_id'];
-	//session_start();
+	include('objects.php');
+	$obj=new object();
+	$result=$obj->getMeal($meal_id);
+
 	$_SESSION['cart'];
 
 	$cart_array = array('meal_id'=>$meal_id);
@@ -63,27 +66,21 @@ function addtoCart(){
     		}
     	}
 
-	function getCart(){
-		
+	function getCart(){                
 		$cart_array=$_SESSION['cart'];    
         $items = $cart_array;
-        print json_encode($items);
+        //print json_encode($items);
+        echo json_encode($items);
+        if($items!=false){
+                echo ",";
+            }
+        else 
+        {
+        	echo " ";
+        }    
+    }
+
                     
-			//foreach ($_SESSION['cart'] as $key => $value)
-		//$cart = isset($_SESSION['cart'])?$_SESSION['cart']:false;
-			//foreach ($_SESSION['cart'] as $cart_array)
-			 //{
-				//echo $key. ": ".$value. "<br>";
-				//echo "Meal" .$cart_array. "<br>";
-
-			 //}
-			}	
-
-	//function getCart(){
-		//$items = $_SESSION['cart'];
-			//for($i=1; $i= $items; $i++){
-				//$cart_array[]= array('id'=>$_SESSION['meal_id'.$i]);
-			//echo $key. ": ".$value. "<br>";}
-		//return $cart_array;}
+			
 ?>
 		

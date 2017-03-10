@@ -64,15 +64,7 @@ session_start();
             </div>
           </nav>
            <div data-role="content">
-                <div class="col s6 card-panel" style="">
-                    <ul class="collection">
-                    <?php
-                        $cart_array=$_SESSION['cart'];    
-                        $items = $cart_array;
-                        print json_encode($items);
-                    ?>
-                    </ul>
-                </div>
+                <div id ="cart_display"></div>
                 <div class="row">
                   <div class="col s6">
                     <a href="menu.php"><button>Continue</button></a>
@@ -99,15 +91,33 @@ session_start();
         })(jQuery); // end of jQuery name space
         </script>
     <script>
-        function addComplete(){
+        function viewCartComplete(xhr,status){
+            if(status!="success"){
+              alert("Error");
+                //pools.innerHTML = "error fetching cart";
+                return;
+            }
+            var obj = JSON.parse(xhr.responseText);
+            if(obj.result==0){
+                //items.innerHTML = obj.message;
+                alert("Non-existent");
+            }
+            else{
+               var viewid = document.getElementById("cart_display");
+               for(var i=0; i<obj.meal_id.length; i++){
+
+               }
+
+            currentObject=null;
 
         }
-        
-        function add(meal_id){
-          var url="functions.php?cmd=2&meal_id="+meal_id;
-          $ajax(url,
-            {async:true,complete:addComplete});
+      }
+        function viewCart(){
+          var url="functions.php?cmd=3";
+          $.ajax(url,
+            {async:true,complete:viewCartComplete});
         }
+        
     </script>        
   </body>
 </html>
