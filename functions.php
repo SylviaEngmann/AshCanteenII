@@ -39,21 +39,21 @@ function addUser(){
 
 	else{
 		echo '{"result":1,"message":"You have been registered"}';
-
 	}
-
 }
+
 $cart_array;
 
 function addtoCart(){
 	$meal_id=$_REQUEST['meal_id'];
 	include('objects.php');
 	$obj=new object();
-	$result=$obj->getMeal($meal_id);
+	$row=$obj->getMeal($meal_id);
+	$row=$obj->fetch();
 
 	$_SESSION['cart'];
+	//$cart_array = array($meal_id);
 
-	$cart_array = array('meal_id'=>$meal_id);
 		if(!isset($_SESSION['cart'])){
     		$_SESSION['cart'] = array();
     	}
@@ -62,9 +62,9 @@ function addtoCart(){
     		}
     		else{
     			$_SESSION['cart'][$meal_id]=$cart_array;
+    			$count = count($cart_array);
     			echo '{"result":1,"message":"Meal Added to Cart"}';
     		}
-    	}
 
 	function getCart(){                
 		$cart_array=$_SESSION['cart'];    
@@ -80,7 +80,6 @@ function addtoCart(){
         }    
     }
 
-                    
-			
+    			
 ?>
 		

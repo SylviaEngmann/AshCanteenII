@@ -91,6 +91,10 @@ session_start();
         })(jQuery); // end of jQuery name space
         </script>
     <script>
+    $(document).ready(function (){
+        viewCart();
+           });
+
         function viewCartComplete(xhr,status){
             if(status!="success"){
               alert("Error");
@@ -103,20 +107,25 @@ session_start();
                 alert("Non-existent");
             }
             else{
-               var viewid = document.getElementById("cart_display");
-               for(var i=0; i<obj.meal_id.length; i++){
-
-               }
-
+               var result="";
+               var length = obj.meal_id.length;
+               var meals = obj.meal_id;
+               while(length>0){
+                    result="<div class='col s6 card-panel' style=''><ul class='collection'>"+meals[length-1].meal_id+"</ul></div><div class='row'><div class='col s6'><a href='menu.php'><button>Continue</button></a></div><div class='col s6'><button>Checkout</button></div></div>";
+                    length-=1;
+                  }
+                
+              result= document.getElementById("cart_display");
+            }           
             currentObject=null;
-
         }
-      }
         function viewCart(){
           var url="functions.php?cmd=3";
           $.ajax(url,
             {async:true,complete:viewCartComplete});
         }
+
+        window.onload=viewCart();
         
     </script>        
   </body>

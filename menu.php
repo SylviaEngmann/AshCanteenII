@@ -64,7 +64,8 @@ session_start();
             </div>
           </nav>
            <div data-role="content">
-            <a class="btn-floating btn-large waves-effect waves-light red right" href="cart.php"><i class="material-icons">shopping_cart</i></a>
+           <div id="shoppingcart"></div>
+            <!--<a class="btn-floating btn-large waves-effect waves-light red right" href="cart.php"><i class="material-icons">shopping_cart</i></a>-->
 
                 <div class="col s6 card-panel" style="">
                     <ul class="collection">
@@ -76,7 +77,6 @@ session_start();
                               echo "'$result' is false";
                             }else{
                               $row=$obj->fetch();
-                              //echo "<span><center><img src='akornno.png' style='width:300px;height:100px'></center></span>";
                               while($row){
                                 echo "<ul class='collection'>";
                                 echo "<li class='collection-item avatar'>";
@@ -123,6 +123,8 @@ session_start();
                      alert(obj.message);
                 }else{
                       alert("Added to cart");
+                      //var shoppingcart= //"<a class='btn-floating btn-large waves-effect waves-light red right' href='cart.php'><span class='badge'>{$count}</span><i class='material-icons'>shopping_cart</i></a>";
+                $("#shoppingcart").append("<a class='btn-floating btn-large waves-effect waves-light red right' href='cart.php'><span class='badge'>5</span><i class='material-icons'>shopping_cart</i></a>");
                 }
               }
               
