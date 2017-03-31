@@ -97,12 +97,15 @@ session_start();
                        echo '<li class="collection-item avatar">';
                        echo '<p>';
                        //echo '<p class="p-name">'.$item['meal_id'].'</p>';
+                       //echo '<span class="p-name">'.$item['meal_id'].'</span>';
+
                        echo '<span class="p-name" style="font-size:20px;margin-left:-3em;margin-down:3em">'.$item['meal_name'].'</span>';
                        //echo "<span class='product-quantity'>";
                        //echo "<input type='number' value='1' min='1' id='in'>";
                        //echo "</span>";
-                       echo "<span style='margin-down:3em'><a onclick='remove({$item['meal_id']}) 'href=''><i class='material-icons'>delete</i></a></span>";
+                       echo "<span style='margin-down:3em'><a href=''><i class='material-icons'>delete</i></a></span>";
                        echo '</p>';
+                       //echo "<button class='waves-effect red btn-small' style='margin-left:2em;' onclick='rem()'> Remove</button>";
                        echo "</br>";
                        echo "</li>";    
                        //$subtotal = ($cart_itm["price"]*$cart_itm["qty"]);
@@ -155,30 +158,6 @@ session_start();
       function menu(){
         window.location.href = "menu.php";
       }
-    </script>
-    <script type="text/javascript">
-    function removeComplete(xhr,status){
-          if(status!="success"){
-            alert("Error");
-            return;
-          }
-          divStatus=xhr.responseText;
-          var obj=JSON.parse(xhr.responseText);
-          if(obj.result==0){  
-                     alert(obj.message);
-                }else{
-                      alert("Removed");
-                    window.location.href = "cart.php";
-                }
-              }
-              
-        function remove(meal_id){
-          var meal_id = meal_id;
-          var url="functions.php?cmd=3&meal_id="+meal_id;
-          $.ajax(url,
-            {async:true,complete:removeComplete});
-        }
-        </script>
-
+    </script>  
   </body>
 </html>

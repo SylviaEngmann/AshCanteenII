@@ -11,14 +11,15 @@ class object extends db_connect{
 	function object(){
 	}
     /*This function takes in the entered parameters and enters them in the database*/
-	function addUser($name,$username,$email,$password){
+    function addUser($name,$username,$email,$password){
 		$strQuery="insert into person
-						(name,username,email,password)
-						VALUES('$name','$username','$email',MD5('$password'))";
+						(name,username,password)
+						VALUES('$name','$username',MD5('$password'))";
 		return $this->query($strQuery);
 		}	
+	
 	function login($username,$password){
-		$strQuery="SELECT * from person WHERE username= '$username' AND password=MD5('$password')";
+		$strQuery="select * from person where username = '$username' and Password='$password'";
 		return $this->query($strQuery);
 	}
 	function getCafeteria(){
@@ -29,20 +30,34 @@ class object extends db_connect{
 		$strQuery="SELECT picture from cafeteria where cid=1";
 		return $this->query($strQuery);
 	}
-	
+
 	function getAkMeals(){
 		$strQuery="SELECT * from menu where cid=1";
 		return $this->query($strQuery);
 	}
-	function getBbMeals(){
-		$strQuery="SELECT * from menu where cid=2";
+	/*function addUser($name,$username,$password){
+		$strQuery="insert into customers
+						(cName,username,password)
+						VALUES('$name','$username',MD5('$password'))";
+		return $this->query($strQuery);
+		}	*/
+	
+	/*function login($username,$password){
+		$strQuery="select * from customers where username = '$username' and Password='$password'";
+		return $this->query($strQuery);
+	}*/
+	/*function getCafeteria(){
+		$strQuery="	select * from canteens";
 		return $this->query($strQuery);
 	}
+	function getCategories(){
+		$strQuery="	select * from meal_cat";
+		return $this->query($strQuery);
+	}*/
 	function getMeal($meal_id){
 		$strQuery="SELECT * from menu where meal_id='$meal_id'";
 		return $this->query($strQuery);
 	}
-	
 	function cuisine(){
 		$strQuery="SELECT menu.meal_name,menu.meal_type,menu.description,cuisine.meal_id from cuisine inner join menu on menu.meal_id= cuisine.meal_id";
 		return $this->query($strQuery);

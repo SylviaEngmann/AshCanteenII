@@ -54,6 +54,8 @@
               </li>
         			<li><a href="#"><i class="material-icons">help</i>Help</a>
               </li>
+              <li><a href="logout.php"><i class="material-icons">exit_to_app</i>Log out</a>
+              </li>
         		</ul>
             </div>
         	</nav>
@@ -72,7 +74,7 @@
                               while($row){
                                 echo "<li class='collection-item avatar'>";
                                 echo "<span style:'margin-right:30cm'><center><img src='{$row['picture']}' style='width:150px;'></center></span>";
-                                echo '<span style:"margin-right:2cm"><a href="menu.php"><center><button class="btn waves-effect white">Menu</button></center></a></span>';
+                                echo '<span style:"margin-right:2cm"><a onclick="menu()" href=""><center><button class="btn waves-effect white">Menu</button></center></a></span>';
                                 //echo '<span style:"margin-right:2cm"><a href="http://35.166.18.143/~sylvia.engmann/applied/AshCanteen/menu.php"><center><button class="btn waves-effect white">Menu</button></center></a></span>';
                                 echo "</li>";
                                 $row=$obj->fetch();
@@ -98,6 +100,11 @@
 
              }); // end of document ready
         })(jQuery); // end of jQuery name space
-        </script>    
+        </script>  
+    <script type="text/javascript">
+      function menu(){
+        window.location.href = "menu.php";
+      }
+    </script>      
 	</body>
 </html>

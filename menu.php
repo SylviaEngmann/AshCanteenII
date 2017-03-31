@@ -40,7 +40,9 @@ session_start();
             <div class="nav-wrapper" style="background:#ff9e80">
               <a href="#" class="center brand-logo"><span class="white-text">Bon Appetit</span>
               </a>
-              <a href="cart.php" class="right"><i class="material-icons">shopping_cart</i></a> 
+              <a href="cart.php" class="right">
+              <span class="badge" id="comparison-count">1</span><i class="material-icons">shopping_cart</i>
+              </a> 
               <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i>
               </a>
             <ul class="side-nav" id="mobile-demo">
@@ -59,6 +61,8 @@ session_start();
               <li><a href="#"><i class="material-icons">settings_applications</i>Settings</a>
               </li>
               <li><a href="#"><i class="material-icons">help</i>Help</a>
+              </li>
+              <li><a href="logout.php"><i class="material-icons">exit_to_app</i>Log out</a>
               </li>
             </ul>
             </div>
@@ -123,8 +127,7 @@ session_start();
                      alert(obj.message);
                 }else{
                       alert("Added to cart");
-                      //var shoppingcart= //"<a class='btn-floating btn-large waves-effect waves-light red right' href='cart.php'><span class='badge'>{$count}</span><i class='material-icons'>shopping_cart</i></a>";
-                $("#shoppingcart").append("<a class='btn-floating btn-large waves-effect waves-light red right' href='cart.php'><span class='badge'>5</span><i class='material-icons'>shopping_cart</i></a>");
+               // $("#shoppingcart").append("<a class='btn-floating btn-large waves-effect waves-light red right' href='cart.php'><span class='badge'>5</span><i class='material-icons'>shopping_cart</i></a>");
                 }
               }
               

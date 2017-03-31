@@ -12,13 +12,14 @@ $cmd=$_REQUEST['cmd'];
 			addtoCart();
 		break;
 		case 3:
-			getCart();
+			removefromCart();
 		break;		
 		default:
 			echo '{"result":0,"message":"Wrong command"}';
 		break;
 	}
 }
+
 function addUser(){
 	if(!isset($_REQUEST['name'])){
 		echo '{"result":0,"message":"Please enter name"}';
@@ -42,7 +43,7 @@ function addUser(){
 	}
 }
 
-$cart_array;
+//$cart_array;
 
 function addtoCart(){
 	$meal_id=$_REQUEST['meal_id'];
@@ -51,35 +52,44 @@ function addtoCart(){
 	$row=$obj->getMeal($meal_id);
 	$row=$obj->fetch();
 
-	$_SESSION['cart'];
-	//$cart_array = array($meal_id);
+	if($row){
+		//$cart_array = (array('meal_id'=>$row['meal_id'],'meal_name'=>$row['meal_name']);
 
 		if(!isset($_SESSION['cart'])){
-    		$_SESSION['cart'] = array();
-    	}
-    	if(array_key_exists($meal_id, $_SESSION['cart'])){
-    		echo '{"result":0,"message":"Meal Not Added: It already is in the cart"}';
-    		}
-    		else{
-    			$_SESSION['cart'][$meal_id]=$cart_array;
-    			$count = count($cart_array);
-    			echo '{"result":1,"message":"Meal Added to Cart"}';
-    		}
+			$_SESSION['cart'] = array();
+		}
+		//if(array_key_exists($meal_id, $_SESSION['cart'])){
+			if(array_key_exists($meal_id, $_SESSION['cart'])){
+			echo '{"result":0,"message":"Meal Not Added: Already exists"}';}
+		else{
+			//$cart_array = $_SESSION['cart'];
+			//$_SESSION['cart']=$cart_array;
+			array_push($_SESSION['cart'],$row);
+			echo '{"result":1,"message":"Meal Added to Cart"}';
+			//print_r($_SESSION['cart']);
+		}
+	}
+}
 
-	function getCart(){                
-		$cart_array=$_SESSION['cart'];    
-        $items = $cart_array;
-        //print json_encode($items);
-        echo json_encode($items);
-        if($items!=false){
-                echo ",";
-            }
-        else 
-        {
-        	echo " ";
-        }    
-    }
+function removefromCart(){
+	$meal_id=$_REQUEST['meal_id'];
+	if(isset($_SESSION['cart'])){
+		foreach ($_SESSION['cart'] as $item)
+		{
+			unset($_SESSION['cart'][$meal_id]);
+		}
+	}
+	if(array_key_exists($meal_id, $_SESSION['cart'])){
+		echo '{"result":0, "message":"Error while deleting"}';
+	}
+	else
+	{
+		echo '{"result":1, "message":"Meal Removed"}';
+	}
+}
+	
 
+	
     			
 ?>
 		
