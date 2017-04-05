@@ -61,7 +61,6 @@
         	</nav>
         	 <div data-role="content">
               <div class="container">
-                <div class="col s6 card-panel" style="">
                     <ul class="collection">
                       <?php
                           include('objects.php');
@@ -72,11 +71,13 @@
                             }else{
                               $row=$obj->fetch();
                               while($row){
-                                echo "<li class='collection-item avatar'>";
+                                //echo "<li class='collection-item avatar'>";
+                                echo "<div class='col s6 card-panel'>";
                                 echo "<span style:'margin-right:30cm'><center><img src='{$row['picture']}' style='width:150px;'></center></span>";
                                 echo '<span style:"margin-right:2cm"><a onclick="menu()" href=""><center><button class="btn waves-effect white">Menu</button></center></a></span>';
+                                echo "</div>";
                                 //echo '<span style:"margin-right:2cm"><a href="http://35.166.18.143/~sylvia.engmann/applied/AshCanteen/menu.php"><center><button class="btn waves-effect white">Menu</button></center></a></span>';
-                                echo "</li>";
+                                //echo "</li>";
                                 $row=$obj->fetch();
                               }
                             }

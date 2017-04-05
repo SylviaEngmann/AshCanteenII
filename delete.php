@@ -76,16 +76,7 @@ session_start();
             </div>
 
             <div class="col s12 card-panel">
-              
               <?php
-
-              //$cart_array=$_SESSION['cart'];
-                  //if(isset($_SESSION['cart'])){
-                   // foreach ($_SESSION['cart'] as $item) {
-                     // echo "<li class='collection-item avatar'>";
-                     // echo "<span>{$cart_array[$_SESSION['cart']]}</span";
-                     // echo "</li>";}}
-
                   if(isset($_SESSION['cart']))
                   {
                     $total = 0;

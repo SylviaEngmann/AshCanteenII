@@ -54,6 +54,20 @@ class object extends db_connect{
 		$strQuery="	select * from meal_cat";
 		return $this->query($strQuery);
 	}*/
+	function addtoCart($meal_id,$qty,$price){
+		$strQuery="INSERT into temp_orders
+					(meal_id,qty,price)
+					VALUES('meal_id','qty','$price')";
+		return $this->query($strQuery);
+	}
+	function remove($meal_id){
+		$strQuery="DELETE from temp_orders where meal_id='$meal_id'";
+		return $this->query($strQuery);
+	}
+	function getOrders($pid){
+		$strQuery="select * from temp_orders where pid='$pid'";
+		return $this->query($strQuery);
+	}
 	function getMeal($meal_id){
 		$strQuery="SELECT * from menu where meal_id='$meal_id'";
 		return $this->query($strQuery);

@@ -43,50 +43,36 @@ function addUser(){
 	}
 }
 
-//$cart_array;
-
 function addtoCart(){
 	$meal_id=$_REQUEST['meal_id'];
+	$qty=$_REQUEST['qty'];
+	$price=$_REQUEST['price'];
+
 	include('objects.php');
 	$obj=new object();
-	$row=$obj->getMeal($meal_id);
-	$row=$obj->fetch();
-
-	if($row){
-		//$cart_array = (array('meal_id'=>$row['meal_id'],'meal_name'=>$row['meal_name']);
-
-		if(!isset($_SESSION['cart'])){
-			$_SESSION['cart'] = array();
-		}
-		//if(array_key_exists($meal_id, $_SESSION['cart'])){
-			if(array_key_exists($meal_id, $_SESSION['cart'])){
-			echo '{"result":0,"message":"Meal Not Added: Already exists"}';}
-		else{
-			//$cart_array = $_SESSION['cart'];
-			//$_SESSION['cart']=$cart_array;
-			array_push($_SESSION['cart'],$row);
-			echo '{"result":1,"message":"Meal Added to Cart"}';
-			//print_r($_SESSION['cart']);
+	$row=$obj->addtoCart($meal_id,$qty,$price);
+	if($row==true){
+		echo '{"result":0,"message":"Meal added to cart"}';
+	}
+	else{
+			echo '{"result":1,"message":"Meal not added Cart"}';
 		}
 	}
-}
+
 
 function removefromCart(){
 	$meal_id=$_REQUEST['meal_id'];
-	if(isset($_SESSION['cart'])){
-		foreach ($_SESSION['cart'] as $item)
-		{
-			unset($_SESSION['cart'][$meal_id]);
+	include('objects.php');
+	$obj=new object();
+	$row=$obj->remove($meal_id);
+
+	if($row==true){
+		echo '{"result":0,"message":"Removed from cart"}';
+	}
+	else{
+			echo '{"result":1,"message":"Meal not added Removed"}';
 		}
 	}
-	if(array_key_exists($meal_id, $_SESSION['cart'])){
-		echo '{"result":0, "message":"Error while deleting"}';
-	}
-	else
-	{
-		echo '{"result":1, "message":"Meal Removed"}';
-	}
-}
 	
 
 	

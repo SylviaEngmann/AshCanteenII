@@ -33,6 +33,8 @@
            	}
            	else{
            		$_SESSION['username']=$username;
+           		$_SESSION['person_id']=$row['pid'];
+
            		 echo '{"row":1,"message":"Log in success"}';
 				}
 ?>          

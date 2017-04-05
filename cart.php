@@ -78,53 +78,49 @@ session_start();
             <div class="col s12 card-panel">
               
               <?php
+                  $pid = $_SESSION['person_id'];
+                include('objects.php');
+                            $obj=new object();
+                            $result=$obj->getOrders($pid);
+                            if($result==false){
+                              echo "'$result' is false";
+                            }
+                            else{
+                              while($result){
+                                $total = 0;
+                                 echo '<form method="post" action="checkout.php">';
+                                 echo '<ul class="collection">';
+                                 echo '<li class="collection-item avatar">';
+                                 echo '<p>';
+                               //echo '<p class="p-name">'.$item['meal_id'].'</p>';
+                                 echo '<span class="p-name" style="font-size:20px;margin-left:-3em;margin-down:3em">'.$item['meal_name'].'</span>';
+                                 echo '<span class="p-name" style="font-size:20px;margin-left:-3em;margin-down:3em">'.$item['qty'].'</span>';
+                                 echo '<span class="p-name" style="font-size:20px;margin-left:-3em;margin-down:3em">'.$item['price'].'</span>';
 
-              //$cart_array=$_SESSION['cart'];
-                  //if(isset($_SESSION['cart'])){
-                   // foreach ($_SESSION['cart'] as $item) {
-                     // echo "<li class='collection-item avatar'>";
-                     // echo "<span>{$cart_array[$_SESSION['cart']]}</span";
-                     // echo "</li>";}}
+                                 echo "<span style='margin-down:3em'><a onclick='remove({$item['meal_id']}) 'href=''><i class='material-icons'>delete</i></a></span>";
+                                 echo '</p>';
+                                   echo "</br>";
+                                   echo "</li>";    
+                                   //$subtotal = ($cart_itm["price"]*$cart_itm["qty"]);
+                                   //$total = ($total + $subtotal);
 
-                  if(isset($_SESSION['cart']))
-                  {
-                    $total = 0;
-                     echo '<form method="post" action="checkout.php">';
-                      echo '<ul class="collection">';
-                     //$cart_items = 0;
-                     foreach ($_SESSION['cart'] as $item)
-                     {
-                       echo '<li class="collection-item avatar">';
-                       echo '<p>';
-                       //echo '<p class="p-name">'.$item['meal_id'].'</p>';
-                       echo '<span class="p-name" style="font-size:20px;margin-left:-3em;margin-down:3em">'.$item['meal_name'].'</span>';
-                       //echo "<span class='product-quantity'>";
-                       //echo "<input type='number' value='1' min='1' id='in'>";
-                       //echo "</span>";
-                       echo "<span style='margin-down:3em'><a onclick='remove({$item['meal_id']}) 'href=''><i class='material-icons'>delete</i></a></span>";
-                       echo '</p>';
-                       echo "</br>";
-                       echo "</li>";    
-                       //$subtotal = ($cart_itm["price"]*$cart_itm["qty"]);
-                       //$total = ($total + $subtotal);
+                                   //echo '<input type="hidden" name="item_name['.$cart_items.']" value="'.$obj->product_name.'" />';
+                                   //echo '<input type="hidden" name="item_code['.$cart_items.']" value="'.$product_code.'" />';
+                                   //echo '<input type="hidden" name="item_desc['.$cart_items.']" value="'.$obj->product_desc.'" />';
+                                   //echo '<input type="hidden" name="item_qty['.$cart_items.']" value="'.$cart_itm["qty"].'" />';
+                                   //$cart_items ++;
+                                 }
+                     //echo '<span class="check-out-txt">';
+                     //echo '<strong>Total : '.$currency.$total.'</strong>  ';
+                     //echo '</span>';
+                                   echo '</ul>';
+                                   echo '</form>';
 
-                       //echo '<input type="hidden" name="item_name['.$cart_items.']" value="'.$obj->product_name.'" />';
-                       //echo '<input type="hidden" name="item_code['.$cart_items.']" value="'.$product_code.'" />';
-                       //echo '<input type="hidden" name="item_desc['.$cart_items.']" value="'.$obj->product_desc.'" />';
-                       //echo '<input type="hidden" name="item_qty['.$cart_items.']" value="'.$cart_itm["qty"].'" />';
-                       //$cart_items ++;
-                     }
-         //echo '<span class="check-out-txt">';
-         //echo '<strong>Total : '.$currency.$total.'</strong>  ';
-         //echo '</span>';
-                       echo '</ul>';
-                       echo '</form>';
-
+                              }
+                            }  
+                    
     }
-
-    ?>
-            
-            </div>
+?>       </div>
               <div class="row">
                   <div class="col s6">
                     <a onclick="menu()" href="menu.php"><button>Continue</button></a>

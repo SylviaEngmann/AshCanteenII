@@ -1,7 +1,6 @@
 <?php
 session_start();
 ?>
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -68,11 +67,7 @@ session_start();
             </div>
           </nav>
            <div data-role="content">
-           <div id="shoppingcart"></div>
-            <!--<a class="btn-floating btn-large waves-effect waves-light red right" href="cart.php"><i class="material-icons">shopping_cart</i></a>-->
-
-                <div class="col s6 card-panel" style="">
-                    <ul class="collection">
+                  <ul class='collection'>
                     <?php
                            include('objects.php');
                             $obj=new object();
@@ -82,24 +77,21 @@ session_start();
                             }else{
                               $row=$obj->fetch();
                               while($row){
-                                echo "<ul class='collection'>";
-                                echo "<li class='collection-item avatar'>";
+                                echo "<div class='col s6 card-panel'>";
                                 echo "<img src='{$row['picture']}' style='width:50px;'>";
                                 echo "<span class='title'>{$row['meal_name']}</span>";
                                 echo "<p>{$row['description']}</p>";
-                                echo "<button onclick='add({$row['meal_id']})'><a><i class='material-icons'>shopping_cart</i></a></button>";
+                                echo "<a href='order_details.php' class='secondary-content'><i class='material-icons'>label_outline</i></a>";
+                                //echo "<button onclick='add({$row['meal_id']})'><a><i class='material-icons'>shopping_cart</i></a></button>";
                                 //echo "<a href='functions.php?cmd=2&meal_id={row['meal_id']}'><i class='material-icons'>shopping_cart</i></a>";
-                                echo "</li>";
-                                echo "</ul>";
+                                echo "</div>";
                                 $row=$obj->fetch();
                               }
                             }
                       ?>
-                    </ul>
-                </div>
+                      </ul>
             </div><!--content-->
-        </div><!-- /page -->
-
+        </div><!-- page -->
         
     <script src="scripts/jquery.js"></script>
     <script src="scripts/materialize.min.js"></script>
