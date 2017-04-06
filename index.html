@@ -191,8 +191,9 @@
               var password = document.getElementById("pword").value;
 
                 //$.ajax("http://35.166.18.143/~sylvia.engmann/applied/AshCanteen/login.php?username="+username+"&password="+password,{async:true,complete:loginComplete});
-                
-                $.ajax("login.php?username="+username+"&password="+password,{
+                var url ="login.php?username="+username+"&password="+password;
+                alert(url);
+                $.ajax(url,{
                   async:true,complete:loginComplete
                 });    
             }

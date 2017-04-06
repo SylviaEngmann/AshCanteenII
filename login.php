@@ -28,13 +28,18 @@
 			$obj=new object();
 			$row=$obj->login($username, $password);
 			$row=$obj->fetch();
-			if(!$row){
-              echo '{"row":0,"message":"Username or Password is wrong"}';
-           	}
+			//$person_id =$row['pid'];
+			//print_r($row['pid']);
+			//echo $person_id;
+			//$_SESSION['person_id']=$person_id;
+			if($row){
+				//$_SESSION['person']=$row;
+				//print_r($_SESSION['person']);
+				$_SESSION['username']=$username;
+           		//$_SESSION['person_id']=$row['pid'];
+           		 echo '{"row":0,"message":"Log in success"}';
+           		}
            	else{
-           		$_SESSION['username']=$username;
-           		$_SESSION['person_id']=$row['pid'];
-
-           		 echo '{"row":1,"message":"Log in success"}';
-				}
+           		echo '{"row":1,"message":"Username or Password is wrong"}';
+           		}
 ?>          

@@ -47,9 +47,10 @@ session_start();
           </nav>
           <div data-role = "content">
             <?php
+              $meal_id=$_REQUEST['meal_id'];
               include('objects.php');
                $obj = new object();
-               $result=$obj->getMeal('4');
+               $result=$obj->getMeal($meal_id);
                if($result==false){
                  echo "'$result' is false";
                }
@@ -64,18 +65,21 @@ session_start();
                   echo "<p4>Price: {$row['price']} </p>";
                   echo "</span>";
                   echo "<br>";
-                  echo "<p4><b><center>Quantity</center></b></p4>";
                   echo "<div class = 'row'>";
-                  echo "<div class = 'col s4'>";
-                  echo "<button type='button' class='btn-number btn-floating btn-small waves-effect waves-light deep-orange lighten-1' data-type='plus' data-field='quant[1]'><i class='material-icons'>add</i></button>";
+                  //echo "<div class = 'col s4'>";
+                  //echo "<button type='button' class='btn-number btn-floating btn-small waves-effect waves-light deep-orange lighten-1' data-type='plus' data-field='quant[1]'><i class='material-icons'>add</i></button>";
+                  //echo "</div>";
+                  //echo "<div class = 'col s4'>";
+                  //echo "<input type='text' id='qty_val' name='quant[1]'' class='form-control input-number' value='1' min='1' max='100' style=''>";
+                  //echo "</div>";
+                  echo "<p4><b>Quantity</b></p4>";
+                  echo "<div class='input-field col s4'>";
+                  echo "<input id='qty_val' type='number' value='1' min='1' max='100' class='validate'>";
                   echo "</div>";
-                  echo "<div class = 'col s4'>";
-                  echo "<input type='text' id='qty_val' name='quant[1]'' class='form-control input-number' value='1' min='1' max='100' style=''>";
+                  //echo "<div class = 'col s4'>";
+                  //echo "<button type='button' class='btn-number btn-floating btn-small waves-effect waves-light deep-orange lighten-1' data-type='minus' data-field='quant[1]'><i class='material-icons'>remove</i></button>"; 
                   echo "</div>";
-                  echo "<div class = 'col s4'>";
-                  echo "<button type='button' class='btn-number btn-floating btn-small waves-effect waves-light deep-orange lighten-1' data-type='minus' data-field='quant[1]'><i class='material-icons'>remove</i></button>"; 
-                  echo "</div>";
-                  echo "</div>";
+                  //echo "</div>";
                   echo "<button type='button' class='btn waves-effect light deep-orange lighten-1' onclick='add({$row['meal_id']},{$row['price']})'><a><i class='material-icons'>shopping_cart</i></a></button>";
                 $row=$obj->fetch();
                 }
@@ -89,74 +93,7 @@ session_start();
     <script src="scripts/materialize.min.js"></script>
     <script src="scripts/jquery.mobile-1.4.5.min.js"></script>
     <script type="text/javascript" src="scripts/platformOverrides.js"></script>
-    <script type="text/javascript">
-      //plugin bootstrap minus and plus
-      //http://jsfiddle.net/laelitenetwork/puJ6G/
-      $('.btn-number').click(function(e){
-        e.preventDefault();
-        fieldName = $(this).attr('data-field');
-        type      = $(this).attr('data-type');
-        var input = $("input[name='"+fieldName+"']");
-        var currentVal = parseInt(input.val());
-        if (!isNaN(currentVal)) {
-          if(type == 'minus') {
-            if(currentVal > input.attr('min')) {
-                input.val(currentVal - 1).change();
-              } 
-              if(parseInt(input.val()) == input.attr('min')) {
-                $(this).attr('disabled', true);
-              }
-            } else if(type == 'plus') {
-              if(currentVal < input.attr('max')) {
-                input.val(currentVal + 1).change();
-            }
-            if(parseInt(input.val()) == input.attr('max')) {
-              $(this).attr('disabled', true);
-            }
-          }
-        } else {
-          input.val(0);
-        }
-      });
 
-      $('.input-number').focusin(function(){
-        $(this).data('oldValue', $(this).val());
-      });
-      $('.input-number').change(function() {
-        minValue =  parseInt($(this).attr('min'));
-        maxValue =  parseInt($(this).attr('max'));
-        valueCurrent = parseInt($(this).val());
-
-        name = $(this).attr('name');
-        if(valueCurrent >= minValue) {
-          $(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
-        } else {
-          alert('Sorry, the minimum value was reached');
-          $(this).val($(this).data('oldValue'));
-        }
-        if(valueCurrent <= maxValue) {
-          $(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
-        } else {
-          alert('Sorry, the maximum value was reached');
-          $(this).val($(this).data('oldValue'));
-        }
-      });
-      $(".input-number").keydown(function (e) {
-        // Allow: backspace, delete, tab, escape, enter and .
-        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
-             // Allow: Ctrl+A
-            (e.keyCode == 65 && e.ctrlKey === true) || 
-             // Allow: home, end, left, right
-            (e.keyCode >= 35 && e.keyCode <= 39)) {
-                 // let it happen, don't do anything
-                 return;
-        }
-        // Ensure that it is a number and stop the keypress
-        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-            e.preventDefault();
-          }
-        });
-    </script>
     <script>
         (function($){
             $(function(){
@@ -184,10 +121,11 @@ session_start();
               
         function add(meal_id,price){
           var meal_id = meal_id;
-          var qty = document.getElementById('qty_val');
+          var qty = document.getElementById('qty_val').value;
           var price = price;
 
           var url="functions.php?cmd=2&meal_id="+meal_id+"&qty="+qty+"&price="+price;
+          alert(url);
           $.ajax(url,
             {async:true,complete:addComplete});
         }

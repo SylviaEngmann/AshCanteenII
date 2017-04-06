@@ -81,7 +81,7 @@ session_start();
                                 echo "<img src='{$row['picture']}' style='width:50px;'>";
                                 echo "<span class='title'>{$row['meal_name']}</span>";
                                 echo "<p>{$row['description']}</p>";
-                                echo "<a href='order_details.php' class='secondary-content'><i class='material-icons'>label_outline</i></a>";
+                                echo "<a href='' onclick='details({$row['meal_id']})' class='secondary-content'><i class='material-icons'>label_outline</i></a>";
                                 //echo "<button onclick='add({$row['meal_id']})'><a><i class='material-icons'>shopping_cart</i></a></button>";
                                 //echo "<a href='functions.php?cmd=2&meal_id={row['meal_id']}'><i class='material-icons'>shopping_cart</i></a>";
                                 echo "</div>";
@@ -107,27 +107,10 @@ session_start();
         })(jQuery); // end of jQuery name space
         </script>
 
-    <script>
-        function addComplete(xhr,status){
-          if(status!="success"){
-            alert("Error");
-            return;
-          }
-          divStatus=xhr.responseText;
-          var obj=JSON.parse(xhr.responseText);
-          if(obj.result==0){  
-                     alert(obj.message);
-                }else{
-                      alert("Added to cart");
-               // $("#shoppingcart").append("<a class='btn-floating btn-large waves-effect waves-light red right' href='cart.php'><span class='badge'>5</span><i class='material-icons'>shopping_cart</i></a>");
-                }
-              }
-              
-        function add(meal_id){
-          var meal_id = meal_id;
-          var url="functions.php?cmd=2&meal_id="+meal_id;
-          $.ajax(url,
-            {async:true,complete:addComplete});
+    <script>  
+        function details(meal_id){
+          var meal_id = meal_id;        
+          window.location.href = "order_details.php?meal_id="+meal_id;
         }
     </script>        
   </body>

@@ -34,12 +34,12 @@ function addUser(){
 	$obj=new object();
 	$row=$obj->addUser($name, $username, $email, $password);
 
-	if(!$row==true){
-		echo '{"result":0,"message":"You have not been added"}';
+	if($row==true){
+		echo '{"result":0,"message":"You have been registered"}';
 	}
 
 	else{
-		echo '{"result":1,"message":"You have been registered"}';
+		echo '{"result":1,"message":"You have not been added"}';
 	}
 }
 
@@ -47,15 +47,16 @@ function addtoCart(){
 	$meal_id=$_REQUEST['meal_id'];
 	$qty=$_REQUEST['qty'];
 	$price=$_REQUEST['price'];
-
+	$_SESSION['person_id'];
 	include('objects.php');
 	$obj=new object();
 	$row=$obj->addtoCart($meal_id,$qty,$price);
 	if($row==true){
+		var_dump($_SESSION);
 		echo '{"result":0,"message":"Meal added to cart"}';
 	}
 	else{
-			echo '{"result":1,"message":"Meal not added Cart"}';
+			echo '{"result":1,"message":"Meal not added to Cart"}';
 		}
 	}
 
