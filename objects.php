@@ -11,15 +11,15 @@ class object extends db_connect{
 	function object(){
 	}
     /*This function takes in the entered parameters and enters them in the database*/
-    function addUser($name,$username,$email,$password){
+    function addUser($firstname, $lastname,$username,$password,$email){
 		$strQuery="insert into person
-						(name,username,password)
-						VALUES('$name','$username',MD5('$password'))";
+						(firstname,lastname,username,password,email)
+						VALUES('$firstname','$lastname','$username',MD5('$password'),'$email')";
 		return $this->query($strQuery);
 		}	
 	
 	function login($username,$password){
-		$strQuery="select * from person where username = '$username' and Password='$password'";
+		$strQuery="select * from person where username like '$username' and password like MD5('$password')";
 		return $this->query($strQuery);
 	}
 	function getCafeteria(){
@@ -54,10 +54,10 @@ class object extends db_connect{
 		$strQuery="	select * from meal_cat";
 		return $this->query($strQuery);
 	}*/
-	function addtoCart($meal_id,$qty,$price){
+	function addtoCart($meal_id,$qty,$price,$person_id){
 		$strQuery="INSERT into temp_orders
-					(meal_id,qty,price)
-					VALUES('$meal_id','$qty','$price')";
+					(meal_id,qty,price,pid)
+					VALUES('$meal_id','$qty','$price','$person_id')";
 		return $this->query($strQuery);
 	}
 	function remove($meal_id){

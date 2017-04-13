@@ -28,15 +28,18 @@
 			$obj=new object();
 			$row=$obj->login($username, $password);
 			$row=$obj->fetch();
-			//$person_id =$row['pid'];
-			//print_r($row['pid']);
-			//echo $person_id;
-			//$_SESSION['person_id']=$person_id;
+			$person_id =$row['pid'];
+			//print_r($person_id);
+			$_SESSION['person_id']=$person_id;
+			//print_r($_SESSION['person_id']);
 			if($row){
-				//$_SESSION['person']=$row;
-				//print_r($_SESSION['person']);
 				$_SESSION['username']=$username;
-           		//$_SESSION['person_id']=$row['pid'];
+				$_SESSION['person_id']=$person_id;
+				//print_r($_SESSION['person_id']);
+
+				//echo $_SESSION['person_id'];
+           		//$_SESSION['person_id']=$person_id;
+           		//var_dump($_SESSION['person_id']);
            		 echo '{"row":0,"message":"Log in success"}';
            		}
            	else{

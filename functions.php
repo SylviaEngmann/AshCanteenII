@@ -21,18 +21,19 @@ $cmd=$_REQUEST['cmd'];
 }
 
 function addUser(){
-	if(!isset($_REQUEST['name'])){
-		echo '{"result":0,"message":"Please enter name"}';
+	if(!isset($_REQUEST['fname'])){
+		echo '{"result":0,"message":"Please enter firstname"}';
 		return;
 	}
-	$name=$_REQUEST['name'];
+	$firstname=$_REQUEST['fname'];
+	$lastname=$_REQUEST['lname'];
 	$username=$_REQUEST['username'];
-	$email=$_REQUEST['email'];
 	$password=$_REQUEST['password'];
+	$email=$_REQUEST['email'];
 
 	include('objects.php');
 	$obj=new object();
-	$row=$obj->addUser($name, $username, $email, $password);
+	$row=$obj->addUser($firstname,$lastname,$username,$password,$email);
 
 	if($row==true){
 		echo '{"result":0,"message":"You have been registered"}';
@@ -47,16 +48,16 @@ function addtoCart(){
 	$meal_id=$_REQUEST['meal_id'];
 	$qty=$_REQUEST['qty'];
 	$price=$_REQUEST['price'];
-	$_SESSION['person_id'];
+	$person_id = $_REQUEST['person_id'];
+	//echo $person_id;
 	include('objects.php');
 	$obj=new object();
-	$row=$obj->addtoCart($meal_id,$qty,$price);
+	$row=$obj->addtoCart($meal_id,$qty,$price,$person_id);
 	if($row==true){
-		var_dump($_SESSION);
 		echo '{"result":0,"message":"Meal added to cart"}';
 	}
 	else{
-			echo '{"result":1,"message":"Meal not added to Cart"}';
+		echo '{"result":1,"message":"Meal not added to Cart"}';
 		}
 	}
 

@@ -17,7 +17,9 @@ session_start();
   <link rel="stylesheet" href="css/jquery.mobile-1.4.5.css">
   <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.css">
   <link rel="stylesheet" href="css/jquery.mobile.theme-1.4.5.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="manifest" href="manifest.json">
+
 
          <script>
       var userAgent = navigator.userAgent + '';
@@ -48,6 +50,7 @@ session_start();
           <div data-role = "content">
             <?php
               $meal_id=$_REQUEST['meal_id'];
+              $_SESSION['person_id'];
               include('objects.php');
                $obj = new object();
                $result=$obj->getMeal($meal_id);
@@ -66,21 +69,12 @@ session_start();
                   echo "</span>";
                   echo "<br>";
                   echo "<div class = 'row'>";
-                  //echo "<div class = 'col s4'>";
-                  //echo "<button type='button' class='btn-number btn-floating btn-small waves-effect waves-light deep-orange lighten-1' data-type='plus' data-field='quant[1]'><i class='material-icons'>add</i></button>";
-                  //echo "</div>";
-                  //echo "<div class = 'col s4'>";
-                  //echo "<input type='text' id='qty_val' name='quant[1]'' class='form-control input-number' value='1' min='1' max='100' style=''>";
-                  //echo "</div>";
                   echo "<p4><b>Quantity</b></p4>";
                   echo "<div class='input-field col s4'>";
                   echo "<input id='qty_val' type='number' value='1' min='1' max='100' class='validate'>";
                   echo "</div>";
-                  //echo "<div class = 'col s4'>";
-                  //echo "<button type='button' class='btn-number btn-floating btn-small waves-effect waves-light deep-orange lighten-1' data-type='minus' data-field='quant[1]'><i class='material-icons'>remove</i></button>"; 
                   echo "</div>";
-                  //echo "</div>";
-                  echo "<button type='button' class='btn waves-effect light deep-orange lighten-1' onclick='add({$row['meal_id']},{$row['price']})'><a><i class='material-icons'>shopping_cart</i></a></button>";
+                  echo "<button type='button' class='btn waves-effect' onclick='add({$row['meal_id']},{$row['price']},{$_SESSION['person_id']})'><a>Add To Cart</a></button>";
                 $row=$obj->fetch();
                 }
                }
@@ -119,13 +113,12 @@ session_start();
                 }
               }
               
-        function add(meal_id,price){
+        function add(meal_id,price,person_id){
           var meal_id = meal_id;
           var qty = document.getElementById('qty_val').value;
           var price = price;
-
-          var url="functions.php?cmd=2&meal_id="+meal_id+"&qty="+qty+"&price="+price;
-          alert(url);
+          var person_id = person_id;
+          var url="functions.php?cmd=2&meal_id="+meal_id+"&qty="+qty+"&price="+price+"&person_id="+person_id;
           $.ajax(url,
             {async:true,complete:addComplete});
         }

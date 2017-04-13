@@ -10,11 +10,12 @@
 		<!-- Path to your custom app styles-->
 	<link rel="stylesheet" href="css/materialize.css">
 	<link rel="stylesheet" href="css/material-design-iconic-font.min.css">
-  <link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/jquery.mobile-1.4.5.css">
 	<link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.css">
 	<link rel="stylesheet" href="css/jquery.mobile.theme-1.4.5.css">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="manifest" href="manifest.json">
 
          <script>
 			var userAgent = navigator.userAgent + '';
@@ -87,18 +88,20 @@
                 <div class="row">
                         <form method="get" action="#signup" class="col s12">
                                 <div class="row">
-                                	<div class="input-field">
-                                    		<input placeholder="Your Name" id="name" type="text" name="name" class="validate" required>
+                                <div class="input-field">
+                                        <input placeholder="First Name" id="fname" type="text" name="fname" class="validate" required>
                                   </div>
-                                  <div class="row">
+                                	<div class="input-field">
+                                    		<input placeholder="Last Name" id="lname" type="text" name="lname" class="validate" required>
+                                  </div>
                                   <div class="input-field">
                                         <input placeholder="Preferred Username" id="username" type="text" name="username" class="validate" required>
                                   </div>
                                   <div class="input-field">
-                                    		<input placeholder="Email" type="text" id="email" name="mail" class="validate" required>
+                                    		<input placeholder="Password" type="password" id="pword" name="password" class="validate" required>
                                   </div>
                                   <div class="input-field">
-                                    		<input placeholder="Password" type="password" id="pword" name="password" class="validate" required>
+                                        <input placeholder="Email" type="text" id="email" name="mail" class="validate" required>
                                   </div>
                                 </div>
                 				<div class="row">
@@ -113,8 +116,6 @@
                 </div><!--content-->
         </div><!-- /page -->
 
-
-    
 		<script src="scripts/jquery.js"></script>
 		<script src="scripts/materialize.min.js"></script>
 		<script src="scripts/jquery.mobile-1.4.5.min.js"></script>
@@ -127,10 +128,10 @@
 
              }); // end of document ready
         })(jQuery); // end of jQuery name space
-        </script>
+    </script>
       <script>
-      document.getElementById ("btnlogin").addEventListener ("click", login, false);
-      document.getElementById ("btnsignup").addEventListener ("click", signup, false);
+      document.getElementById ("btnlogin").addEventListener ('click', login, false);
+      document.getElementById ("btnsignup").addEventListener ('click', signup, false);
 
         function signupComplete(xhr,status){
                 if(status!="success"){
@@ -154,14 +155,15 @@
       
             function signup()
             {
-              var name = document.getElementById("name").value;
-              var username = document.getElementById("username").value;    
-              var email = document.getElementById("email").value;
+              var fname = document.getElementById("fname").value;
+              var lname = document.getElementById("lname").value;
+              var username = document.getElementById("username").value;
               var password = document.getElementById("pword").value;
+              var email = document.getElementById("email").value;
                 
               //$.ajax("http://35.166.18.143/~sylvia.engmann/applied/AshCanteen/functions.php?cmd=1&name="+name+"&username="+username+"&email="+email+"&password="+password,{async:true,complete:signupComplete});   
-
-                $.ajax("functions.php?cmd=1&name="+name+"&username="+username+"&email="+email+"&password="+password,
+                var url = "functions.php?cmd=1&fname="+fname+"&lname="+lname+"&username="+username+"&password="+password+"&email="+email;
+                $.ajax(url,
                     {async:true,complete:signupComplete}
                     );   
             }
@@ -192,7 +194,6 @@
 
                 //$.ajax("http://35.166.18.143/~sylvia.engmann/applied/AshCanteen/login.php?username="+username+"&password="+password,{async:true,complete:loginComplete});
                 var url ="login.php?username="+username+"&password="+password;
-                alert(url);
                 $.ajax(url,{
                   async:true,complete:loginComplete
                 });    

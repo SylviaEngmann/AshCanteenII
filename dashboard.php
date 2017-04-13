@@ -14,7 +14,9 @@
 	<link rel="stylesheet" href="css/jquery.mobile-1.4.5.css">
 	<link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.css">
 	<link rel="stylesheet" href="css/jquery.mobile.theme-1.4.5.css">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="manifest" href="manifest.json">
+
 
          <script>
 			var userAgent = navigator.userAgent + '';
