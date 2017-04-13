@@ -135,7 +135,8 @@
 
         function signupComplete(xhr,status){
                 if(status!="success"){
-                    divStatus.innerHTML="error sending request";
+                    //divStatus.innerHTML="error sending request";
+					alert('Error sending request');
                     return;
                 }
                 divStatus=xhr.responseText;

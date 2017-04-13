@@ -1,4 +1,5 @@
 <?php
+include "config.php"; 
 session_start();
 ?>
 <!DOCTYPE html>
@@ -70,7 +71,8 @@ session_start();
            <div data-role="content">
                   <ul class='collection'>
                     <?php
-                           $canteen_id=$_REQUEST['can_id'];
+                           $canteen_id=$_GET['canteen_id'];
+						   
                            include('objects.php');
                             $obj=new object();
                             $result=$obj->getMeals($canteen_id);
@@ -80,9 +82,9 @@ session_start();
                               $row=$obj->fetch();
                               while($row){
                                 echo "<div class='col s6 card-panel'>";
-                                echo "<img src='{$row['picture']}' style='width:50px;'>";
-                                echo "<span class='title'>{$row['meal_name']}</span>";
-                                echo "<p>{$row['description']}</p>";
+                                echo "<img src='{$image_folder}{$row['Picture']}' style='width:50px;'>";
+                                echo "<span class='title'>{$row['fName']}</span>";
+                                echo "<p>{$row['Description']}</p>";
                                 //echo "<a href='' onclick='details({$row['meal_id']})' class='secondary-content'><i class='material-icons'>label_outline</i></a>";
                                 echo "<a href='' onclick='details({$row['F_Id']})' class='secondary-content'><i class='material-icons'>label_outline</i></a>";
                                 echo "</div>";
@@ -112,7 +114,7 @@ session_start();
         function details(food_id){
           //var meal_id = meal_id;  
           var food_id = food_id;        
-          window.location.href = "http://35.166.18.143/~sylvia.engmann/applied/order_details.php?food_id="+food_id;
+          window.location.href = "<?php print $site_root; ?>order_details.php?food_id="+food_id;
         }
     </script>        
   </body>

@@ -36,16 +36,16 @@ function addUser(){
 	$row=$obj->addUser($firstname,$lastname,$username,$password,$email);
 
 	if($row==true){
-		echo '{"result":0,"message":"You have been registered"}';
+		echo '{"result":1,"message":"You have been registered"}';
 	}
 
 	else{
-		echo '{"result":1,"message":"You have not been added"}';
+		echo '{"result":0,"message":"You have not been added"}';
 	}
 }
 
 function addtoCart(){
-	$meal_id=$_REQUEST['meal_id'];
+	$F_Id=$_REQUEST['food_id'];
 	$qty=$_REQUEST['qty'];
 	$price=$_REQUEST['price'];
 	$person_id = $_REQUEST['person_id'];

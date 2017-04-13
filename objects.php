@@ -15,6 +15,7 @@ class object extends db_connect{
 		$strQuery="insert into person
 						(firstname,lastname,username,password,email)
 						VALUES('$firstname','$lastname','$username',MD5('$password'),'$email')";
+		/*print ("\n<div>$strQuery</div>");*/
 		return $this->query($strQuery);
 		}	
 	
@@ -49,7 +50,7 @@ class object extends db_connect{
 	}
 	function getOrders($pid){
 		$strQuery="select temp_orders.F_Id,foodlist.fName,temp_orders.qty, temp_orders.price from temp_orders 
-		join foodlist on temp_orders.F_Id=foodlist.F_Id where pid='$pid'";
+		inner join foodlist on temp_orders.F_Id=foodlist.Id where pid='$pid'";
 		return $this->query($strQuery);
 	}
 }

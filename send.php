@@ -7,7 +7,7 @@ curl_setopt( $ch,CURLOPT_SSL_VERIFYPEER, false );
 
 curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_POSTFIELDS, "{ \"notification\": {    \"title\": \"New Order\",    \"text\": \"New Customer Order\", \"icon\": \"ic.jpg\" ,
- \"sound\": \"helplessly.mp3\" },    \"to\" : \"cEJhp6GDP50:APA91bH-5IA_aR213sHxB0kr9pkbg_lM9z75VTt9RZ_RCUQjOJwzqhVGEpU2ciuoRxXfvriDztIv9TllIzWB22K4QuoVWa8-_W0U_x7xXzzT_DTcxUXww1Yo80iXfc4GifL1Zx-8TFTC\"}");
+ \"sound\": \"helplessly.mp3\" },    \"to\" : \"cEJhp6GDP50:APA91bH-5IA_aR213sHxB0kr9pkbg_lM9z75VTt9RZ_RCUQjOJwzqhVGEpU2ciuoRxXfvriDztIv9TllIzWB22K4QuoVWa8-W0U_x7xXzzT_DTcxUXww1Yo80iXfc4GifL1Zx-8TFTC\"}");
 
 curl_exec($ch);
 curl_close($ch);

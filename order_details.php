@@ -1,4 +1,5 @@
 <?php
+include "config.php"; 
 session_start();
 ?>
 <!DOCTYPE html>
@@ -42,7 +43,7 @@ session_start();
               <a href="menu.php" class="left"><i class="material-icons">reply</i></a>
               <a href="#" class="center brand-logo"><span class="white-text">Bon Appetit</span>
               </a>
-              <a href="http://35.166.18.143/~sylvia.engmann/applied/AshCanteen/cart.php" class="right">
+              <a href="<?php print $site_root; ?>cart.php" class="right">
               <span class="badge" id="comparison-count"></span><i class="material-icons">shopping_cart</i>
               </a> 
           </div>
@@ -60,7 +61,7 @@ session_start();
                else{
                 $row=$obj->fetch();
                 while($row){
-                  echo "<img src='{$row['Picture']}' style='width:300px;height:200px;'>";
+                  echo "<img src='{$image_folder}{$row['Picture']}' style='width:300px;height:200px;'>";
                   echo "<h3><b>{$row['fName']}</b></h3>";
                   echo "<p3>{$row['Description']}</p3>";
                   echo "<br>";
@@ -114,19 +115,20 @@ session_start();
                      alert(obj.message);
                 }else{
                       alert("Added to cart");
-                      window.location.href = "http://35.166.18.143/~sylvia.engmann/applied/AshCanteen/menu.php?canteen_id="+can_id;
+                      window.location.href = "<?php print $site_root; ?>menu.php?canteen_id="+can_id;
                 }
               }
               
         function add(food_id,price,person_id){
+			alert('this is for add');
           var food_id = food_id;
           var qty = document.getElementById('qty_val').value;
           var price = price;
           var person_id = person_id;
-          var url="http://35.166.18.143/~sylvia.engmann/applied/functions.php?cmd=2&food_id="+food_id+"&qty="+qty+"&price="+price+"&person_id="+person_id;
+          var url="<?php print $site_root; ?>functions.php?cmd=2&food_id="+food_id+"&qty="+qty+"&price="+price+"&person_id="+person_id;
           $.ajax(url,
             {async:true,complete:addComplete});
         }
-    </script>        
+    </script>
   </body>
 </html>

@@ -98,7 +98,7 @@ session_start();
                                  echo '<table>';
                                  echo '<tr>';
                                  echo '<td width=30%>';
-                                 echo "<span class='title' style='font-size:14px'>".$row['meal_name']."</span>";
+                                 echo "<span class='title' style='font-size:14px'>".$row['fName']."</span>";
                                  echo '</td>';
                                  echo '<td width=28%>';
                                  echo '<span class="qty" style="font-size:14px">'.$row['qty'].'</span>';
@@ -127,7 +127,7 @@ session_start();
                             echo '<input name="type" type="radio" id="pick" value="pick"/>';
                             echo '<label for="pick">Pickup</label></div></div> '; 
                             echo '<div class="col s6">';
-                            echo "<button type='button' class='btn waves-effect' onclick='add({$row['meal_id']},{$row['qty']},{$row['price']},{$_SESSION['person_id']})'><a>Place Order</a></button>";
+                            echo "<button type='button' class='btn waves-effect' onclick='add({$row['F_Id']},{$row['qty']},{$row['price']},{$_SESSION['person_id']})'><a>Place Order</a></button>";
                             echo '</div>';
 
                     ?>                              
@@ -144,7 +144,7 @@ session_start();
     <script src="scripts/jquery.mobile-1.4.5.min.js"></script>
     <script type="text/javascript" src="scripts/platformOverrides.js"></script>
     <script>
-      document.getElementById('checkout').addEventListener('click',checkout,false);
+      //document.getElementById('checkout').addEventListener('click',checkout,false);
         (function($){
             $(function(){
 
@@ -153,14 +153,14 @@ session_start();
              }); // end of document ready
         })(jQuery); // end of jQuery name space
 
-     function checkout(){
-      var meal_id = document.getElementById('m_name').value;
-      var qty = document.getElementById('m_qty').value;
-      var price = document.getElementById('m_price').value;
-      var person_id = document.getElementById('pid').value;
+     function checkout(F_Id,qty,price,person_id,order_type){
+      var F_Id = F_Id;
+      var qty = qty;
+      var price = price;
+      var person_id = person_id;
       var order_type = $('input[type="radio"]:checked').val();
 
-      var url="checkout.php&meal_id="+meal_id+"&qty="+qty+"&price="+price+"&person_id="+person_id+"&order_type="+order_type;
+      var url="checkout.php&F_Id="+F_Id+"&qty="+qty+"&price="+price+"&person_id="+person_id+"&order_type="+order_type;
       alert(url);
      }
 

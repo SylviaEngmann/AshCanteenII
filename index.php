@@ -1,3 +1,4 @@
+<?php include "config.php"; ?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -95,10 +96,10 @@
                                     		<input placeholder="Last Name" id="lname" type="text" name="lname" class="validate" required>
                                   </div>
                                   <div class="input-field">
-                                        <input placeholder="Preferred Username" id="username" type="text" name="username" class="validate" required>
+                                        <input placeholder="Preferred Username" id="sign_username" type="text" name="username" class="validate" required>
                                   </div>
                                   <div class="input-field">
-                                    		<input placeholder="Password" type="password" id="pword" name="password" class="validate" required>
+                                    		<input placeholder="Password" type="password" id="sign_pword" name="password" class="validate" required>
                                   </div>
                                   <div class="input-field">
                                         <input placeholder="Email" type="text" id="email" name="mail" class="validate" required>
@@ -135,7 +136,8 @@
 
         function signupComplete(xhr,status){
                 if(status!="success"){
-                    divStatus.innerHTML="error sending request";
+                    //divStatus.innerHTML="error sending request";
+					alert('Error sending request');
                     return;
                 }
                 divStatus=xhr.responseText;
@@ -148,7 +150,7 @@
                       alert("You've been added");
                       alert("Please log in now");
                 }
-                window.location="#loginpage";
+                //window.location="#loginpage";
                 currentObject=null;
             }
         
@@ -157,12 +159,12 @@
             {
               var fname = document.getElementById("fname").value;
               var lname = document.getElementById("lname").value;
-              var username = document.getElementById("username").value;
-              var password = document.getElementById("pword").value;
+              var username = document.getElementById("sign_username").value;
+              var password = document.getElementById("sign_pword").value;
               var email = document.getElementById("email").value;
                 
                 //var url = "functions.php?cmd=1&fname="+fname+"&lname="+lname+"&username="+username+"&password="+password+"&email="+email;
-                var url = "http://35.166.18.143/~sylvia.engmann/applied/AshCanteen/functions.php?cmd=1&fname="+fname+"&lname="+lname+"&username="+username+"&password="+password+"&email="+email;
+                var url = "<?php print $site_root; ?>functions.php?cmd=1&fname="+fname+"&lname="+lname+"&username="+username+"&password="+password+"&email="+email;
                 
                 $.ajax(url,
                     {async:true,complete:signupComplete}
@@ -177,14 +179,24 @@
                 }
                 divStatus=xhr.responseText;
                 var obj=JSON.parse(xhr.responseText);
-                if(obj.result==0){
-                    divStatus=obj.message;
-                }else{
+				if(obj.result == 0)
+				{
+					alert(obj.message);
+				}
+				else if (obj.row <= 0)
+				{
+					alert(obj.message);
+				}
+				else if(obj.row>0){
                     //divStatus.innerHTML= "Log in Success";
                       alert("Log in Success");
                       //window.location="dashboard.php";
-                      window.location="http://35.166.18.143/~sylvia.engmann/applied/AshCanteenII/dashboard.php";
+                      window.location="<?php print $site_root; ?>dashboard.php";
+					
+                }else{
+                    divStatus=obj.message;
                 }
+				//alert(xhr.responseText);
                 currentObject=null;
             }
             
@@ -194,7 +206,7 @@
               var password = document.getElementById("pword").value;
 
                 //var url ="login.php?username="+username+"&password="+password;
-                var url = "http://35.166.18.143/~sylvia.engmann/applied/AshCanteenII/login.php?username="+username+"&password="+password;
+                var url = "<?php print $site_root; ?>login.php?username="+username+"&password="+password;
                 $.ajax(url,{
                   async:true,complete:loginComplete
                 });    

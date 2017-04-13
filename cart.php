@@ -1,4 +1,5 @@
 <?php
+include "config.php"; 
 session_start();
 ?>
 
@@ -87,14 +88,13 @@ session_start();
                             }
                             else{
                               $row=$obj->fetch();
-                              //echo '<form name="checkout_form" method="post" action="checkout.php">';
                               while($row){
                                 //$total = 0;
                                  echo '<div class="col s6 card-panel">';
                                  echo '<table>';
                                  echo '<tr>';
                                  echo '<td width=30%>';
-                                 echo "<span class='title' style='font-size:14px'>".$row['meal_name']."</span>";
+                                 echo "<span class='title' style='font-size:14px'>".$row['fName']."</span>";
                                  echo '</td>';
                                  echo '<td width=25%>';
                                  echo '<span class="qty" style="font-size:14px">'.$row['qty'].'</span>';
@@ -107,7 +107,7 @@ session_start();
                                  echo '<span class="meal_total" style="font-size:14px">'.$meal_total.'</span>';
                                  echo '</td>';
                                  echo '<td>';
-                                 echo "<span><a onclick='remove({$row['meal_id']}) 'href=''><i class='material-icons'>delete</i></a></span>";
+                                 echo "<span><a onclick='remove({$row['F_Id']}) 'href=''><i class='material-icons'>delete</i></a></span>";
                                  echo '</td>';
                                  echo '</tr>';
                                  echo '</table>';    
@@ -120,7 +120,7 @@ session_start();
 
               <div class="row">
                   <div class="col s6">
-                    <a onclick="menu()" href="menu.php"><button>Continue</button></a>
+                    <a onclick="menu()" ><button>Continue</button></a>
                   </div>
                   <div class="col s6">
                     <button id ='checkout' type ='submit'>Checkout</button>
@@ -145,13 +145,10 @@ session_start();
         })(jQuery); // end of jQuery name space
 
       function menu(){
-        window.location.href = "http://35.166.18.143/~sylvia.engmann/applied/AshCanteen/menu.php";
+        window.location.href = "<?php print $site_root; ?>menu.php";
       }
      function checkout(){
-        window.location.href = "http://35.166.18.143/~sylvia.engmann/applied/AshCanteen/checkout.php";
-        //var url="checkout.php&meal_id="+meal_id+"&qty="+qty+"&price="+price+"&person_id="+person_id;
-      //alert(url);
-
+        window.location.href = "<?php print $site_root; ?>checkout.php";
      }
 
     function removeComplete(xhr,status){
@@ -165,13 +162,13 @@ session_start();
                      alert(obj.message);
                 }else{
                       alert("Removed");
-                    window.location.href = "http://35.166.18.143/~sylvia.engmann/applied/AshCanteen/cart.php";
+                    window.location.href = "<?php print $site_root; ?>cart.php";
                 }
               }
               
         function remove(F_Id){
           var F_Id = F_Id;
-          var url="http://35.166.18.143/~sylvia.engmann/applied/AshCanteen/functions.php?cmd=3&meal_id="+meal_id;
+          var url="<?php print $site_root; ?>functions.php?cmd=3&F_Id="+F_Id;
           $.ajax(url,
             {async:true,complete:removeComplete});
         }

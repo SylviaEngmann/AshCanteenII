@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php include "config.php"; ?><!DOCTYPE html>
 <html>
 	<head>
 
@@ -79,7 +79,8 @@
                                 //echo "<span style:'margin-right:30cm'><center><img src='{$row['picture']}' style='width:150px;'></center></span>";
                                 echo "<span style:'margin-right:30cm'><center><img src='{$row['Picture']}' style='width:150px;'></center></span>";
                                 //echo '<span style:"margin-right:2cm"><a onclick="menu()" href=""><center><button class="btn waves-effect white">Menu</button></center></a></span></div>';
-                                echo '<span style:"margin-right:2cm"><a href="" onclick"menu({$row[Id]})" ><center><button class="btn waves-effect white">Menu</button></center></a></span></div>';
+                                if($debug) { echo "<div>menu id: {$row['Id']}</div>";}
+								echo "<span style:'margin-right:2cm'><center><button class=\"btn waves-effect white\" onclick=\"menu({$row['Id']})\">Menu</button></center></span></div>";
                                 $row=$obj->fetch();
                               }
                             }
@@ -106,9 +107,9 @@
         </script>  
     <script type="text/javascript">
       function menu(can_id){
+		  alert(can_id);
         var canteen_id = can_id;
-        //window.location.href = "menu.php";
-        window.location.href = "http://35.166.18.143/~sylvia.engmann/applied/AshCanteen/menu.php?canteen_id="+can_id;
+        window.location.href = "<?php print $site_root; ?>menu.php?canteen_id="+can_id;
       }
     </script>      
 	</body>
