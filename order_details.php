@@ -42,30 +42,32 @@ session_start();
               <a href="menu.php" class="left"><i class="material-icons">reply</i></a>
               <a href="#" class="center brand-logo"><span class="white-text">Bon Appetit</span>
               </a>
-              <a href="cart.php" class="right">
+              <a href="http://35.166.18.143/~sylvia.engmann/applied/AshCanteen/cart.php" class="right">
               <span class="badge" id="comparison-count"></span><i class="material-icons">shopping_cart</i>
               </a> 
           </div>
           </nav>
           <div data-role = "content">
             <?php
-              $meal_id=$_REQUEST['meal_id'];
+              $food_id=$_REQUEST['food_id'];
               $_SESSION['person_id'];
               include('objects.php');
                $obj = new object();
-               $result=$obj->getMeal($meal_id);
+               $result=$obj->getFood($food_id);
                if($result==false){
                  echo "'$result' is false";
                }
                else{
                 $row=$obj->fetch();
                 while($row){
-                  echo "<img src='{$row['picture']}' style='width:300px;height:200px;'>";
-                  echo "<h3><b>{$row['meal_name']}</b></h3>";
-                  echo "<p3>{$row['description']}</p3>";
+                  echo "<img src='{$row['Picture']}' style='width:300px;height:200px;'>";
+                  echo "<h3><b>{$row['fName']}</b></h3>";
+                  echo "<p3>{$row['Description']}</p3>";
                   echo "<br>";
                   echo "<span>";
                   echo "<p4>Price: {$row['price']} </p>";
+                  echo "<p4>Price: GHC 8.50 </p>";
+                  $price = '8.50';
                   echo "</span>";
                   echo "<br>";
                   echo "<div class = 'row'>";
@@ -74,7 +76,9 @@ session_start();
                   echo "<input id='qty_val' type='number' value='1' min='1' max='100' class='validate'>";
                   echo "</div>";
                   echo "</div>";
-                  echo "<button type='button' class='btn waves-effect' onclick='add({$row['meal_id']},{$row['price']},{$_SESSION['person_id']})'><a>Add To Cart</a></button>";
+                  //echo "<button type='button' class='btn waves-effect' onclick='add({$row['F_Id']},{$row['price']},{$_SESSION['person_id']})'><a>Add To Cart</a></button>";
+                  echo "<button type='button' class='btn waves-effect' onclick='add({$row['F_Id']},$price,{$_SESSION['person_id']})'><a>Add To Cart</a></button>";
+
                 $row=$obj->fetch();
                 }
                }
@@ -110,15 +114,16 @@ session_start();
                      alert(obj.message);
                 }else{
                       alert("Added to cart");
+                      window.location.href = "http://35.166.18.143/~sylvia.engmann/applied/AshCanteen/menu.php?canteen_id="+can_id;
                 }
               }
               
-        function add(meal_id,price,person_id){
-          var meal_id = meal_id;
+        function add(food_id,price,person_id){
+          var food_id = food_id;
           var qty = document.getElementById('qty_val').value;
           var price = price;
           var person_id = person_id;
-          var url="functions.php?cmd=2&meal_id="+meal_id+"&qty="+qty+"&price="+price+"&person_id="+person_id;
+          var url="http://35.166.18.143/~sylvia.engmann/applied/functions.php?cmd=2&food_id="+food_id+"&qty="+qty+"&price="+price+"&person_id="+person_id;
           $.ajax(url,
             {async:true,complete:addComplete});
         }

@@ -145,10 +145,10 @@ session_start();
         })(jQuery); // end of jQuery name space
 
       function menu(){
-        window.location.href = "menu.php";
+        window.location.href = "http://35.166.18.143/~sylvia.engmann/applied/AshCanteen/menu.php";
       }
      function checkout(){
-        window.location.href = "checkout.php";
+        window.location.href = "http://35.166.18.143/~sylvia.engmann/applied/AshCanteen/checkout.php";
         //var url="checkout.php&meal_id="+meal_id+"&qty="+qty+"&price="+price+"&person_id="+person_id;
       //alert(url);
 
@@ -165,13 +165,13 @@ session_start();
                      alert(obj.message);
                 }else{
                       alert("Removed");
-                    window.location.href = "cart.php";
+                    window.location.href = "http://35.166.18.143/~sylvia.engmann/applied/AshCanteen/cart.php";
                 }
               }
               
-        function remove(meal_id){
-          var meal_id = meal_id;
-          var url="functions.php?cmd=3&meal_id="+meal_id;
+        function remove(F_Id){
+          var F_Id = F_Id;
+          var url="http://35.166.18.143/~sylvia.engmann/applied/AshCanteen/functions.php?cmd=3&meal_id="+meal_id;
           $.ajax(url,
             {async:true,complete:removeComplete});
         }

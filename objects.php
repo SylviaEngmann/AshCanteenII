@@ -22,71 +22,36 @@ class object extends db_connect{
 		$strQuery="select * from person where username like '$username' and password like MD5('$password')";
 		return $this->query($strQuery);
 	}
-	function getCafeteria(){
-		$strQuery="SELECT cafeteria_name,picture from cafeteria";
+	function getCanteens(){
+		$strQuery="SELECT * from canteens";
 		return $this->query($strQuery);
 	}
-	function getAkCafeteria(){
-		$strQuery="SELECT picture from cafeteria where cid=1";
+	
+	function getMeals($canteen_Id){
+		$strQuery="select menu.Id,menu.F_Id,foodlist.fName,foodlist.Description,foodlist.Picture,foodlist.canteen from menu inner join foodlist on menu.F_Id = foodlist.Id where can_Id= '$canteen_Id'";
+		return $this->query($strQuery);
+	}
+	function getFood($food_id){
+		$strQuery="select menu.Id,menu.F_Id,foodlist.fName,foodlist.Description,foodlist.Picture,foodlist.canteen from menu inner join foodlist on menu.F_Id =foodlist.Id where F_Id= '$food_id'";
 		return $this->query($strQuery);
 	}
 
-	function getAkMeals(){
-		$strQuery="SELECT * from menu where cid=1";
-		return $this->query($strQuery);
-	}
-	/*function addUser($name,$username,$password){
-		$strQuery="insert into customers
-						(cName,username,password)
-						VALUES('$name','$username',MD5('$password'))";
-		return $this->query($strQuery);
-		}	*/
-	
-	/*function login($username,$password){
-		$strQuery="select * from customers where username = '$username' and Password='$password'";
-		return $this->query($strQuery);
-	}*/
-	/*function getCafeteria(){
-		$strQuery="	select * from canteens";
-		return $this->query($strQuery);
-	}
-	function getCategories(){
-		$strQuery="	select * from meal_cat";
-		return $this->query($strQuery);
-	}*/
-	function addtoCart($meal_id,$qty,$price,$person_id){
+	function addtoCart($F_Id,$qty,$price,$person_id){
 		$strQuery="INSERT into temp_orders
-					(meal_id,qty,price,pid)
-					VALUES('$meal_id','$qty','$price','$person_id')";
+					(F_Id,qty,price,pid)
+					VALUES('$F_Id','$qty','$price','$person_id')";
 		return $this->query($strQuery);
 	}
-	function remove($meal_id){
-		$strQuery="DELETE from temp_orders where meal_id='$meal_id'";
+	
+	function remove($F_Id){
+		$strQuery="DELETE from temp_orders where F_Id='$F_Id'";
 		return $this->query($strQuery);
 	}
 	function getOrders($pid){
-		$strQuery="select temp_orders.meal_id,menu.meal_name,temp_orders.qty, temp_orders.price from temp_orders 
-		join menu on temp_orders.meal_id=menu.meal_id where pid='$pid'";
+		$strQuery="select temp_orders.F_Id,foodlist.fName,temp_orders.qty, temp_orders.price from temp_orders 
+		join foodlist on temp_orders.F_Id=foodlist.F_Id where pid='$pid'";
 		return $this->query($strQuery);
 	}
-	function getMeal($meal_id){
-		$strQuery="SELECT * from menu where meal_id='$meal_id'";
-		return $this->query($strQuery);
-	}
-	function cuisine(){
-		$strQuery="SELECT menu.meal_name,menu.meal_type,menu.description,cuisine.meal_id from cuisine inner join menu on menu.meal_id= cuisine.meal_id";
-		return $this->query($strQuery);
-	}
-	function addOrder($meal_id){
-		$strQuery="insert into meal_order set meal_id='$meal_id'";
-		return $this->query($strQuery);
-
-	}
-	function getOrder(){
-		$strQuery="SELECT menu.meal_name, menu.price,meal_order.meal_id from meal_order join menu on menu.meal_id=meal_order.meal_id ";
-		return $this->query($strQuery);
-	}
- 
 }
 ?>
  

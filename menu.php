@@ -70,9 +70,10 @@ session_start();
            <div data-role="content">
                   <ul class='collection'>
                     <?php
+                           $canteen_id=$_REQUEST['can_id'];
                            include('objects.php');
                             $obj=new object();
-                            $result=$obj->getAkMeals();
+                            $result=$obj->getMeals($canteen_id);
                             if($result==false){
                               echo "'$result' is false";
                             }else{
@@ -82,9 +83,8 @@ session_start();
                                 echo "<img src='{$row['picture']}' style='width:50px;'>";
                                 echo "<span class='title'>{$row['meal_name']}</span>";
                                 echo "<p>{$row['description']}</p>";
-                                echo "<a href='' onclick='details({$row['meal_id']})' class='secondary-content'><i class='material-icons'>label_outline</i></a>";
-                                //echo "<button onclick='add({$row['meal_id']})'><a><i class='material-icons'>shopping_cart</i></a></button>";
-                                //echo "<a href='functions.php?cmd=2&meal_id={row['meal_id']}'><i class='material-icons'>shopping_cart</i></a>";
+                                //echo "<a href='' onclick='details({$row['meal_id']})' class='secondary-content'><i class='material-icons'>label_outline</i></a>";
+                                echo "<a href='' onclick='details({$row['F_Id']})' class='secondary-content'><i class='material-icons'>label_outline</i></a>";
                                 echo "</div>";
                                 $row=$obj->fetch();
                               }
@@ -109,9 +109,10 @@ session_start();
         </script>
 
     <script>  
-        function details(meal_id){
-          var meal_id = meal_id;        
-          window.location.href = "order_details.php?meal_id="+meal_id;
+        function details(food_id){
+          //var meal_id = meal_id;  
+          var food_id = food_id;        
+          window.location.href = "http://35.166.18.143/~sylvia.engmann/applied/order_details.php?food_id="+food_id;
         }
     </script>        
   </body>

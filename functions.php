@@ -52,7 +52,7 @@ function addtoCart(){
 	//echo $person_id;
 	include('objects.php');
 	$obj=new object();
-	$row=$obj->addtoCart($meal_id,$qty,$price,$person_id);
+	$row=$obj->addtoCart($F_Id,$qty,$price,$person_id);
 	if($row==true){
 		echo '{"result":0,"message":"Meal added to cart"}';
 	}

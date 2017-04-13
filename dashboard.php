@@ -67,19 +67,19 @@
                       <?php
                           include('objects.php');
                             $obj=new object();
-                            $result=$obj->getCafeteria();
+                            //Localhost
+                            //$result=$obj->getCafeteria();
+                            $result=$obj->getCanteens();
                             if($result==false){
                               echo "result is false";
                             }else{
                               $row=$obj->fetch();
                               while($row){
-                                //echo "<li class='collection-item avatar'>";
                                 echo "<div class='col s6 card-panel'>";
-                                echo "<span style:'margin-right:30cm'><center><img src='{$row['picture']}' style='width:150px;'></center></span>";
-                                echo '<span style:"margin-right:2cm"><a onclick="menu()" href=""><center><button class="btn waves-effect white">Menu</button></center></a></span>';
-                                echo "</div>";
-                                //echo '<span style:"margin-right:2cm"><a href="http://35.166.18.143/~sylvia.engmann/applied/AshCanteen/menu.php"><center><button class="btn waves-effect white">Menu</button></center></a></span>';
-                                //echo "</li>";
+                                //echo "<span style:'margin-right:30cm'><center><img src='{$row['picture']}' style='width:150px;'></center></span>";
+                                echo "<span style:'margin-right:30cm'><center><img src='{$row['Picture']}' style='width:150px;'></center></span>";
+                                //echo '<span style:"margin-right:2cm"><a onclick="menu()" href=""><center><button class="btn waves-effect white">Menu</button></center></a></span></div>';
+                                echo '<span style:"margin-right:2cm"><a href="" onclick"menu({$row[Id]})" ><center><button class="btn waves-effect white">Menu</button></center></a></span></div>';
                                 $row=$obj->fetch();
                               }
                             }
@@ -105,8 +105,10 @@
         })(jQuery); // end of jQuery name space
         </script>  
     <script type="text/javascript">
-      function menu(){
-        window.location.href = "menu.php";
+      function menu(can_id){
+        var canteen_id = can_id;
+        //window.location.href = "menu.php";
+        window.location.href = "http://35.166.18.143/~sylvia.engmann/applied/AshCanteen/menu.php?canteen_id="+can_id;
       }
     </script>      
 	</body>
