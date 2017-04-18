@@ -6,7 +6,7 @@
   <name>Bon Appetit</name>
   <description>A Cafeteria App for Ashesi</description>
   <author href="http://cordova.io" email="dev@cordova.apache.org">Sylvia</author>
-  <content src="index.php" />
+  <content src="index.html" />
   <access origin="*" />
   <vs:features />
   <preference name="SplashScreen" value="screen" />
