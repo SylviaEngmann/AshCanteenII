@@ -120,7 +120,9 @@ session_start();
 
               <div class="row">
                   <div class="col s6">
-                    <a onclick="menu()" ><button>Continue</button></a>
+                  <?php $can_id=$_SESSION['canteen_id'];
+                    echo "<a onclick='menu($can_id)'' ><button>Continue</button></a>";
+                    ?>
                   </div>
                   <div class="col s6">
                     <button id ='checkout' type ='submit'>Checkout</button>
@@ -144,9 +146,11 @@ session_start();
              }); // end of document ready
         })(jQuery); // end of jQuery name space
 
-      function menu(){
-        window.location.href = "<?php print $site_root; ?>menu.php";
+      function menu(can_id){
+        var canteen_id = can_id;
+        window.location.href = "<?php print $site_root; ?>menu.php?canteen_id="+can_id;
       }
+      
      function checkout(){
         window.location.href = "<?php print $site_root; ?>checkout.php";
      }

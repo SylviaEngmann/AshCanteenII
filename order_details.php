@@ -40,7 +40,11 @@ session_start();
         <div data-role = "page" id="meal_details" style = "background:white">
           <nav >
             <div class="nav-wrapper" style="background:#ff9e80">
-              <a href="menu.php" class="left"><i class="material-icons">reply</i></a>
+              <?php 
+              $can_id=$_SESSION['canteen_id'];
+              //print_r($can_id);
+              echo "<a href='' onclick='menu($can_id)' class='left'><i class='material-icons'>navigate_before</i></a>";
+              ?>
               <a href="#" class="center brand-logo"><span class="white-text">Bon Appetit</span>
               </a>
               <a href="<?php print $site_root; ?>cart.php" class="right">
@@ -60,26 +64,36 @@ session_start();
                }
                else{
                 $row=$obj->fetch();
+                $price = 0;
                 while($row){
                   echo "<img src='{$image_folder}{$row['Picture']}' style='width:300px;height:200px;'>";
                   echo "<h3><b>{$row['fName']}</b></h3>";
                   echo "<p3>{$row['Description']}</p3>";
                   echo "<br>";
                   echo "<span>";
-                  echo "<p4>Price: {$row['price']} </p>";
-                  echo "<p4>Price: GHC 8.50 </p>";
-                  $price = '8.50';
+				                    echo '<div class ="row">';
+                            echo '<div class ="row col s6">';
+                            echo '<input name="meal_type" type="radio" id="classic" value="classic"/>';
+                             echo '<label for="classic">Classic</label></div>'; 
+
+                             echo '<div class="row col s6">';
+                            echo '<input name="meal_type" type="radio" id="deluxe" value="deluxe"/>';
+                            echo '<label for="deluxe">Deluxe</label></div></div>';
+
+                  echo "<p4>Price: GHC</p>";
+                  echo '<div id = "price">'.$price.'</div>';
+                  $price_n = 7.50;
                   echo "</span>";
                   echo "<br>";
                   echo "<div class = 'row'>";
+                  echo '<div class ="row col s6">';
                   echo "<p4><b>Quantity</b></p4>";
+                  echo "</div>";
                   echo "<div class='input-field col s4'>";
                   echo "<input id='qty_val' type='number' value='1' min='1' max='100' class='validate'>";
                   echo "</div>";
                   echo "</div>";
-                  //echo "<button type='button' class='btn waves-effect' onclick='add({$row['F_Id']},{$row['price']},{$_SESSION['person_id']})'><a>Add To Cart</a></button>";
-                  echo "<button type='button' class='btn waves-effect' onclick='add({$row['F_Id']},$price,{$_SESSION['person_id']})'><a>Add To Cart</a></button>";
-
+                  echo "<button type='button' class='btn waves-effect' onclick='add({$row['F_Id']},$price_n,{$_SESSION['person_id']})'><a>Add To Cart</a></button>";
                 $row=$obj->fetch();
                 }
                }
@@ -104,6 +118,25 @@ session_start();
         </script>
 
     <script>
+
+    var price = document.getElementById("price");
+    var price_val = parseFloat(price.innerHTML);
+    var deluxe = parseFloat('8.50');
+    var classic = parseFloat('7.50');
+
+    $('#deluxe').click(function(){
+      document.getElementById("price").innerHTML = deluxe ;
+    });
+
+    $('#classic').click(function(){
+      document.getElementById("price").innerHTML = classic;
+
+    });
+    
+      function menu(can_id){
+        var canteen_id = can_id;
+        window.location.href = "<?php print $site_root; ?>menu.php?canteen_id="+can_id;
+      }
         function addComplete(xhr,status){
           if(status!="success"){
             alert("Error");
@@ -115,12 +148,11 @@ session_start();
                      alert(obj.message);
                 }else{
                       alert("Added to cart");
-                      window.location.href = "<?php print $site_root; ?>menu.php?canteen_id="+can_id;
+                      window.location.href = "<?php print $site_root; ?>cart.php";
                 }
               }
               
         function add(food_id,price,person_id){
-			alert('this is for add');
           var food_id = food_id;
           var qty = document.getElementById('qty_val').value;
           var price = price;

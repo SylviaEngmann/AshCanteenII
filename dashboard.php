@@ -67,19 +67,16 @@
                       <?php
                           include('objects.php');
                             $obj=new object();
-                            //Localhost
-                            //$result=$obj->getCafeteria();
                             $result=$obj->getCanteens();
                             if($result==false){
                               echo "result is false";
                             }else{
                               $row=$obj->fetch();
                               while($row){
+                                //$_SESSION['canteen_id']=$row['Id'];
+
                                 echo "<div class='col s6 card-panel'>";
-                                //echo "<span style:'margin-right:30cm'><center><img src='{$row['picture']}' style='width:150px;'></center></span>";
                                 echo "<span style:'margin-right:30cm'><center><img src='{$row['Picture']}' style='width:150px;'></center></span>";
-                                //echo '<span style:"margin-right:2cm"><a onclick="menu()" href=""><center><button class="btn waves-effect white">Menu</button></center></a></span></div>';
-                                if($debug) { echo "<div>menu id: {$row['Id']}</div>";}
 								echo "<span style:'margin-right:2cm'><center><button class=\"btn waves-effect white\" onclick=\"menu({$row['Id']})\">Menu</button></center></span></div>";
                                 $row=$obj->fetch();
                               }
@@ -104,12 +101,11 @@
 
              }); // end of document ready
         })(jQuery); // end of jQuery name space
-        </script>  
+    </script>
     <script type="text/javascript">
       function menu(can_id){
-		  alert(can_id);
         var canteen_id = can_id;
-        window.location.href = "<?php print $site_root; ?>menu.php?canteen_id="+can_id;
+        window.location.href = "<?php print $site_root; ?>menu.php?canteen_id="+canteen_id;
       }
     </script>      
 	</body>

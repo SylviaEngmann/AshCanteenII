@@ -1,4 +1,5 @@
 <?php
+include "config.php";
 session_start();
 ?>
 
@@ -90,11 +91,14 @@ session_start();
                               echo "'$result' is false";
                             }
                             else{
-                              $row=$obj->fetch();
+                              //$row=$obj->fetch();
                               $total = 0;
                               $s_total = 0;
-                              while($row){
-                                 echo '<div class="col s6 card-panel">';
+							  $tmp_count = 0;
+							  $order_json = "[";
+                              while($row=$obj->fetch()){
+                                 $tmp_count +=1;
+								 echo '<div class="col s6 card-panel">';
                                  echo '<table>';
                                  echo '<tr>';
                                  echo '<td width=30%>';
@@ -112,24 +116,31 @@ session_start();
                                  echo '<span class="meal_total" style="font-size:14px">'.$meal_total.'</span>';
                                  echo '<td>';
                                  echo '</tr>';
-                                 echo '</table>';    
-                                 echo "</div>";
-                                  $row=$obj->fetch();
+								echo '</table>';    
+                                echo "</div>";
+								if($tmp_count > 1) { $order_json .=","; }
+								$order_json .="{food_id:{$row['F_Id']},qty:{$row['qty']},price:{$row['price']},person_id:{$_SESSION['person_id']} }";
                                 }
+							  $order_json .= "]";
                                }
                             echo '<div class= "row">';
-                            echo '<p>Subtotal: GHC '.$s_total.'</p></div>';
+                            echo '<div class ="row col s6">';
+                            echo '<div>Subtotal: </div>';
+                            echo '<div id = "sub_total">'.$s_total.'</div></div></div>';
                             echo '<div class="row">';
                             echo '<div class ="row col s6">';
-                            echo '<input name="type" type="radio" id="deli" value="deli"/>';
+                            echo '<input name="type" type="radio" id="deli" value="delivery"/>';
                             echo '<label for="deli">Delivery</label></div>';
                             echo '<div class="row col s6">';
-                            echo '<input name="type" type="radio" id="pick" value="pick"/>';
-                            echo '<label for="pick">Pickup</label></div></div> '; 
-                            echo '<div class="col s6">';
-                            echo "<button type='button' class='btn waves-effect' onclick='add({$row['F_Id']},{$row['qty']},{$row['price']},{$_SESSION['person_id']})'><a>Place Order</a></button>";
-                            echo '</div>';
-
+                            echo '<input name="type" type="radio" id="pick" value="pickup"/>';
+                            echo '<label for="pick">Pickup</label></div></div> ';
+                            
+              echo '<div>Total :GHC</div>';
+							 echo '<div id = "total">'.$total.'</div>';
+								    echo '<div class="col s6">';
+							echo "<input value='Checkout' type='button' onclick='checkout_worker($order_json);'>";
+							echo '</div>';
+              unset($_SESSION['canteen_id']);
                     ?>                              
                 </ul>
                 <div class='row'>
@@ -143,8 +154,7 @@ session_start();
     <script src="scripts/materialize.min.js"></script>
     <script src="scripts/jquery.mobile-1.4.5.min.js"></script>
     <script type="text/javascript" src="scripts/platformOverrides.js"></script>
-    <script>
-      //document.getElementById('checkout').addEventListener('click',checkout,false);
+    <script type="text/javascript">
         (function($){
             $(function(){
 
@@ -153,6 +163,55 @@ session_start();
              }); // end of document ready
         })(jQuery); // end of jQuery name space
 
+  var sub_total = document.getElementById("sub_total");
+  var sub_total_val = parseFloat(sub_total.innerHTML);
+  var delivery = parseFloat('2.00');
+
+        $('#deli').click(function(){
+          var new_total = sub_total_val + delivery;
+          document.getElementById("total").innerHTML = new_total;
+    });
+    
+        $('#pick').click(function(){
+          var new_total = sub_total_val;
+          document.getElementById("total").innerHTML = new_total;
+        });
+    
+	function checkout_worker(list_of_orders)
+	{
+		//var total_price = 0; 
+		for (var i =0; i < list_of_orders.length; i++) 
+		{
+			var item_order = list_of_orders[i];
+			//total_price = total_price+item_order.price; 
+			checkout(item_order.food_id,item_order.qty,item_order.price,item_order.person_id);
+			}//alert(total_price);
+	}
+
+  function checkoutComplete(xhr,status){
+                if(status!="success"){
+                    //divStatus.innerHTML="error sending request";
+                    alert("error ");
+                    return;
+                }
+                divStatus=xhr.responseText;
+                var obj=JSON.parse(xhr.responseText);
+        if(obj.result == 0)
+        {
+          alert(obj.message);
+        }
+        else if (obj.result == 1)
+        {
+          alert(obj.message);
+          alert("We're taking you to your account page");
+          window.location="<?php print $site_root; ?>dashboard.php";
+        }else{
+          divStatus=obj.message;
+        }
+                currentObject=null;
+            }
+     
+	
      function checkout(F_Id,qty,price,person_id,order_type){
       var F_Id = F_Id;
       var qty = qty;
@@ -160,9 +219,14 @@ session_start();
       var person_id = person_id;
       var order_type = $('input[type="radio"]:checked').val();
 
-      var url="checkout.php&F_Id="+F_Id+"&qty="+qty+"&price="+price+"&person_id="+person_id+"&order_type="+order_type;
+      var url="<?php print $site_root; ?>functions.php?cmd=5&F_Id="+F_Id+"&qty="+qty+"&price="+price+"&person_id="+person_id+"&order_type="+order_type;
       alert(url);
+       $.ajax(url,{
+                  async:true,complete:checkoutComplete
+                });
      }
 
+
+	</script>
   </body>
 </html>

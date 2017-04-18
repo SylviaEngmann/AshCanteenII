@@ -13,10 +13,52 @@ $cmd=$_REQUEST['cmd'];
 		break;
 		case 3:
 			removefromCart();
-		break;		
+		break;
+		case 4:
+			add_review();
+		break;
+		case 5:
+			place_order();
+		break;				
 		default:
 			echo '{"result":0,"message":"Wrong command"}';
 		break;
+	}
+}
+
+function place_order(){
+	$food_id=$_REQUEST['F_Id'];
+	$qty=$_REQUEST['qty'];
+	$price=$_REQUEST['price'];
+	$person_id = $_REQUEST['person_id'];
+	$order_type=$_REQUEST['order_type'];
+
+	include('objects.php');
+	$obj=new object();
+	$row=$obj->place_order($person_id,$food_id,$qty,$price,$order_type);
+	if($row==true){
+		echo '{"result":1,"message":"Order Placed"}';
+	}
+	else {
+		echo '{"result":0,"message:"Order not placed"}';
+	}
+}
+function add_review(){
+	$food_id=$_REQUEST['food_id'];
+	$review=$_REQUEST['review'];
+	//$rating=$_REQUEST['rating'];
+	
+	include('objects.php');
+	$obj=new object();
+	$row=$obj->addReview($food_id,$review);
+	//$rating
+
+	if($row==true){
+		echo '{"result":1,"message":"Review added"}';
+	}
+
+	else{
+		echo '{"result":0,"message":"Review not completed"}';
 	}
 }
 
@@ -54,25 +96,25 @@ function addtoCart(){
 	$obj=new object();
 	$row=$obj->addtoCart($F_Id,$qty,$price,$person_id);
 	if($row==true){
-		echo '{"result":0,"message":"Meal added to cart"}';
+		echo '{"result":1,"message":"Meal added to cart"}';
 	}
 	else{
-		echo '{"result":1,"message":"Meal not added to Cart"}';
+		echo '{"result":0,"message":"Meal not added to Cart"}';
 		}
 	}
 
 
 function removefromCart(){
-	$meal_id=$_REQUEST['meal_id'];
+	$F_Id=$_REQUEST['F_Id'];
 	include('objects.php');
 	$obj=new object();
-	$row=$obj->remove($meal_id);
+	$row=$obj->remove($F_Id);
 
 	if($row==true){
-		echo '{"result":0,"message":"Removed from cart"}';
+		echo '{"result":1,"message":"Removed from cart"}';
 	}
 	else{
-			echo '{"result":1,"message":"Meal not added Removed"}';
+			echo '{"result":0,"message":"Meal not removed"}';
 		}
 	}
 	

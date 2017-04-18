@@ -30,17 +30,10 @@
 			$row=$obj->login($username, $password);
 			$row=$obj->fetch();
 			$person_id =$row['pid'];
-			//print_r($person_id);
 			$_SESSION['person_id']=$person_id;
-			//print_r($_SESSION['person_id']);
 			if($row){
 				$_SESSION['username']=$username;
 				$_SESSION['person_id']=$person_id;
-				//print_r($_SESSION['person_id']);
-
-				//echo $_SESSION['person_id'];
-           		//$_SESSION['person_id']=$person_id;
-           		//var_dump($_SESSION['person_id']);
            		 echo '{"row":1,"message":"Log in success"}';
            		}
            	else{

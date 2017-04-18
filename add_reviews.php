@@ -21,7 +21,26 @@ session_start();
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="manifest" href="manifest.json">
 
-
+  <style>
+  	.rating {
+  		position: relative;
+  		top: 2px;
+  		float: right;
+  		margin: 0;
+  		padding: 0;
+  	}
+  	.rating li.rated {
+  		float: left;
+  		display: block;
+  		height: 16px;
+  		width: 16px;
+  		margin-left: 5px;
+  		content: url("/AshCanteenII/images/star.png") no-repeat 0 0;
+  	}
+  	 .rating li.rated {
+  	 	background-position: 0px -16px;
+  	 }
+  </style>
          <script>
       var userAgent = navigator.userAgent + '';
       if (userAgent.indexOf('iPhone') > -1) {
@@ -37,7 +56,7 @@ session_start();
     
   </head>
   <body>
-      <div data-role="page" id="menu" style="background:white">
+  <div data-role="page" id="menu" style="background:white">
           <nav >
             <div class="nav-wrapper" style="background:#ff9e80">
               <a href="#" class="center brand-logo"><span class="white-text">Bon Appetit</span>
@@ -69,69 +88,85 @@ session_start();
             </div>
           </nav>
            <div data-role="content">
-                  <ul class='collection'>
-                    <?php
+           <?php
                            $canteen_id=$_GET['canteen_id'];
+                           $food_id=$_REQUEST['food_id'];
                            $_SESSION['canteen_id']=$canteen_id;
                            include('objects.php');
                             $obj=new object();
-                            $result=$obj->getMeals($canteen_id);
+                            $result=$obj->getFood($food_id);
                             if($result==false){
                               echo "'$result' is false";
                             }else{
                               $row=$obj->fetch();
                               while($row){
-                                echo "<div class='col s6 card-panel'>";
-                                echo "<img src='{$image_folder}{$row['Picture']}' style='width:50px;'>";
-                                echo "<span class='title'>{$row['fName']}</span>";
-                                echo "<p>{$row['Description']}</p>";
-                                echo "<div class='card-action'>";
-                                echo "<a href='' onclick='add_rev({$row['F_Id']},{$_SESSION['canteen_id']})' class='secondary-content'><i class='material-icons'>add</i></a>";
-                                echo "<a href='' onclick='view_rev({$row['F_Id']},{$_SESSION['canteen_id']})' class='secondary-content'><i class='material-icons'>comment</i></a>";
-                                echo "<a href='' onclick='details({$row['F_Id']},{$_SESSION['canteen_id']})' class='secondary-content'><i class='material-icons'>open_in_new</i></a>";
-                                echo "</div>";
-                                echo "</div>";
+                                echo "<img src='{$image_folder}{$row['Picture']}' style='width:300px;height:200px;'>";
+                                echo "<h5><center><b>{$row['fName']}</b></center></h5>";
                                 $row=$obj->fetch();
-                              }
                             }
-                      ?>
-                      </ul>
-            </div><!--content-->
-        </div><!-- page -->
-        
-    <script src="scripts/jquery.js"></script>
-    <script src="scripts/materialize.min.js"></script>
-    <script src="scripts/jquery.mobile-1.4.5.min.js"></script>
-    <script type="text/javascript" src="scripts/platformOverrides.js"></script>
-    <script>
-        (function($){
-            $(function(){
+                        }
+            ?>                                      
+           <div class="row">
+           <div id="response"></div>
+           <div id="view"></div>
+           		<form class="col s12">
+           			<div class="row">
+           				<div class="input-field col s12">
+           					<textarea id="textarea1" class="materialize-textarea"></textarea>
+           				</div>
+           			</div>
+           		</form>
+            </div>
+           <div class="row">		
+           	<div class="details">
+           		<!--<span class=”time”>12 hours ago</span>-->
+           		<ul class="rating">
+           			<li class="rated"></li>
+           			<li class="rated"></li>
+           			<li class="rated"></li>
+           			<li class="rated"></li>
+           			<li class="rated"></li>
+           		</ul>
+           	</div>
+           </div>	
+           		<button id = "btn-review" class="waves-effect waves-light btn">Submit Review</button>
+           </div><!--content-->
+           </div><!--page-->
 
-                $('.button-collapse').sideNav();
+	<script src="scripts/jquery.js"></script>
+	<script src="scripts/materialize.min.js"></script>
+	<script src="scripts/jquery.mobile-1.4.5.min.js"></script>
+	<script type="text/javascript" src="scripts/platformOverrides.js"></script>
+	<script>
+		$('#textarea1').val('New Text');
+		$('#textarea1').trigger('autoresize');
 
-             }); // end of document ready
-        })(jQuery); // end of jQuery name space
+		document.getElementById('btn-review').addEventListener('click',add_review,false);
 
-        </script>
-
-    <script>  
-        function details(food_id,can_Id){
+		function add_reviewComplete(xhr,status){
+          if(status!="success"){
+            alert("Error");
+            return;
+          }
+          divStatus=xhr.responseText;
+          var obj=JSON.parse(xhr.responseText);
+          if(obj.result==0){  
+                     alert(obj.message);
+                }else{
+                      document.getElementById("response").innerHTML = obj.message;
+                      //window.location.href = "<?php print $site_root; ?>cart.php";
+                }
+              }
+              
+        function add_review(){
           var food_id = food_id;
-          var can_Id = can_Id;  
-          window.location.href = "<?php print $site_root; ?>order_details.php?food_id="+food_id+"&can_Id="+can_Id;
-        }
-
-        function add_rev(food_id,can_Id){
-          var food_id = food_id;
-          var canteen_id = can_Id;  
-          window.location.href = "<?php print $site_root; ?>add_reviews.php?food_id="+food_id+"&canteen_id="+canteen_id;
-        }
-
-        function view_rev(food_id,can_Id){
-          var food_id = food_id;
-          var canteen_id = can_Id;  
-          window.location.href = "<?php print $site_root; ?>view_reviews.php?food_id="+food_id+"&can_Id="+canteen_id;
-        }
-    </script>        
-  </body>
-</html>
+          var review = document.getElementById('textarea1').value;
+          //var rating =
+          var url="<?php print $site_root; ?>functions.php?cmd=4&food_id="+food_id+"&review="+review;
+          //+"&rating="+rating;
+          $.ajax(url,
+            {async:true,complete:add_reviewComplete});
+      }
+	</script> 
+ </body>
+ </html>

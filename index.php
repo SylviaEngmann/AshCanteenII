@@ -58,6 +58,7 @@
                 <div data-role="content">
                 <center><img src="app_logo.png" width="150" height="150" alt="Bon Appetit"></center>
                 </br>
+                <!--<div id='loading' style='display: none'><img src="loading.gif" title="Loading" /></div>-->
                 <div class = "container">
                   <div class="row">
                         <form method="get" action="#loginpage" class="col s12">
@@ -162,11 +163,9 @@
               var username = document.getElementById("sign_username").value;
               var password = document.getElementById("sign_pword").value;
               var email = document.getElementById("email").value;
-                
-                //var url = "functions.php?cmd=1&fname="+fname+"&lname="+lname+"&username="+username+"&password="+password+"&email="+email;
-                var url = "<?php print $site_root; ?>functions.php?cmd=1&fname="+fname+"&lname="+lname+"&username="+username+"&password="+password+"&email="+email;
-                
-                $.ajax(url,
+              
+              var url = "<?php print $site_root; ?>functions.php?cmd=1&fname="+fname+"&lname="+lname+"&username="+username+"&password="+password+"&email="+email;
+              $.ajax(url,
                     {async:true,complete:signupComplete}
                     );   
             }
@@ -205,11 +204,15 @@
               var username = document.getElementById("username").value;
               var password = document.getElementById("pword").value;
 
-                //var url ="login.php?username="+username+"&password="+password;
                 var url = "<?php print $site_root; ?>login.php?username="+username+"&password="+password;
+
+                //var loadingdiv = document.getElementById('loading');
+                //loadingdiv.style.display = "block";
                 $.ajax(url,{
                   async:true,complete:loginComplete
-                });    
+                });
+                //var loadingdiv = document.getElementById('loading');
+                //loadingdiv.style.display = "none";    
             }
         
         </script>    

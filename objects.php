@@ -29,11 +29,15 @@ class object extends db_connect{
 	}
 	
 	function getMeals($canteen_Id){
-		$strQuery="select menu.Id,menu.F_Id,foodlist.fName,foodlist.Description,foodlist.Picture,foodlist.canteen from menu inner join foodlist on menu.F_Id = foodlist.Id where can_Id= '$canteen_Id'";
+		$strQuery="select menu.Id,menu.F_Id,foodlist.fName,foodlist.Description,foodlist.Picture,foodlist.canteen from menu inner join foodlist on menu.F_Id = foodlist.Id where can_Id= '$canteen_Id' AND menu.category = 1";
 		return $this->query($strQuery);
 	}
 	function getFood($food_id){
 		$strQuery="select menu.Id,menu.F_Id,foodlist.fName,foodlist.Description,foodlist.Picture,foodlist.canteen from menu inner join foodlist on menu.F_Id =foodlist.Id where F_Id= '$food_id'";
+		return $this->query($strQuery);
+	}
+	function getProteinAdditions(){
+		$strQuery= "select menu.Id, menu.F_Id,foodlist.fName from menu inner join foodlist on menu.F_Id=foodlist.Id where menu.category = 2";
 		return $this->query($strQuery);
 	}
 
@@ -52,6 +56,18 @@ class object extends db_connect{
 		$strQuery="select temp_orders.F_Id,foodlist.fName,temp_orders.qty, temp_orders.price from temp_orders 
 		inner join foodlist on temp_orders.F_Id=foodlist.Id where pid='$pid'";
 		return $this->query($strQuery);
+	}
+	function place_order($person_id,$food_id,$qty,$price,$order_type){
+		$strQuery="INSERT into p_orders
+					(C_Id,F_Id,Quantity,price,order_type)
+					VALUES('$person_id','$food_id','$qty','$price','$order_type')";
+			return $this->query($strQuery);		
+	}
+	function addReview($food_id,$review){
+		$strQuery="INSERT into review
+					(F_Id,reviews,rating,time)
+					VALUES('$food_id','$review','4',CURRENT_TIMESTAMP)";
+			return $this->query($strQuery);		
 	}
 }
 ?>
