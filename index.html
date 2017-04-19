@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
-    <meta http-equiv="refresh" content="1;url=http://35.166.18.143/~sylvia.engmann/applied/AshCanteenII/index.php">
+    <!--<meta http-equiv="refresh" content="1;url=http://35.166.18.143/~sylvia.engmann/applied/AshCanteenII/index.php">-->
 		<meta name="format-detection" content="telephone=no">
 		<meta name="msapplication-tap-highlight" content="no">
 		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
 		<title>Page Redirection</title>
-        <script type="text/javascript">
-            window.location.href = "http://35.166.18.143/~sylvia.engmann/applied/AshCanteenII/index.php"
-        </script>
     <script>
 			var userAgent = navigator.userAgent + '';
 			if (userAgent.indexOf('iPhone') > -1) {
@@ -21,10 +18,17 @@
 				var mobile_system = '';
 			}
 		</script>
-		
 	</head>
-	<body>
-    If you are not redirected automatically, follow this <a href='http://35.166.18.143/~sylvia.engmann/applied/AshCanteenII/index.php'>HomePage</a>.
-		<script type="text/javascript" src="scripts/platformOverrides.js"></script>
+	<body onload="redirect()">
+    <script src="scripts/jquery.js"></script>
+    <script type="text/javascript" src="scripts/platformOverrides.js"></script>
+    <script type="text/javascript">
+    function redirect(){
+      var url = "http://35.166.18.143/~sylvia.engmann/applied/AshCanteenII/index.php";
+              $.ajax(url,
+                    {async:false}
+                    );
+    }
+    </script>
 	</body>
 </html>

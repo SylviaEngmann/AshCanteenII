@@ -154,8 +154,7 @@
                 //window.location="#loginpage";
                 currentObject=null;
             }
-        
-      
+                
             function signup()
             {
               var fname = document.getElementById("fname").value;
