@@ -63,10 +63,10 @@ class object extends db_connect{
 					VALUES('$person_id','$food_id','$qty','$price','$order_type')";
 			return $this->query($strQuery);		
 	}
-	function addReview($food_id,$review){
+	function addReview($food_id,$review,$rating){
 		$strQuery="INSERT into review
 					(F_Id,reviews,rating,time)
-					VALUES('$food_id','$review','4',CURRENT_TIMESTAMP)";
+					VALUES('$food_id','$review','$rating',CURRENT_TIMESTAMP)";
 			return $this->query($strQuery);		
 	}
 }

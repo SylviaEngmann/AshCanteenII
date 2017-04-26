@@ -20,28 +20,7 @@ session_start();
   <link rel="stylesheet" href="css/jquery.mobile.theme-1.4.5.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="manifest" href="manifest.json">
-
-  <style>
-  	.rating {
-  		position: relative;
-  		top: 2px;
-  		float: right;
-  		margin: 0;
-  		padding: 0;
-  	}
-  	.rating li.rated {
-  		float: left;
-  		display: block;
-  		height: 16px;
-  		width: 16px;
-  		margin-left: 5px;
-  		content: url("/AshCanteenII/images/star.png") no-repeat 0 0;
-  	}
-  	 .rating li.rated {
-  	 	background-position: 0px -16px;
-  	 }
-  </style>
-         <script>
+  <script>
       var userAgent = navigator.userAgent + '';
       if (userAgent.indexOf('iPhone') > -1) {
         document.write('<script src="scripts/cordova-iphone.js"></sc' + 'ript>');
@@ -102,6 +81,7 @@ session_start();
                               while($row){
                                 echo "<img src='{$image_folder}{$row['Picture']}' style='width:300px;height:200px;'>";
                                 echo "<h5><center><b>{$row['fName']}</b></center></h5>";
+                                echo "<input type='hidden' id ='fid' value = '{$row['F_Id']}'>";
                                 $row=$obj->fetch();
                             }
                         }
@@ -117,18 +97,33 @@ session_start();
            			</div>
            		</form>
             </div>
-           <div class="row">		
-           	<div class="details">
-           		<!--<span class=”time”>12 hours ago</span>-->
-           		<ul class="rating">
-           			<li class="rated"></li>
-           			<li class="rated"></li>
-           			<li class="rated"></li>
-           			<li class="rated"></li>
-           			<li class="rated"></li>
-           		</ul>
-           	</div>
-           </div>	
+
+        <div class="row">
+          <div class= "rating">
+           <div class ="col s2">
+                    <input name="type" type="radio" id="one" value="1"/>
+                    <label for="one">1</label>
+                </div>
+                <div class="col s2">
+                    <input name="type" type="radio" id="two" value="2"/>
+                    <label for="two">2</label>
+                </div>
+                <div class="col s2">
+                    <input name="type" type="radio" id="three" value="3"/>
+                    <label for="three">3</label>
+                </div>
+                <div class="col s2">
+                    <input name="type" type="radio" id="four" value="4"/>
+                    <label for="four">4</label>
+                </div>
+                <div class="col s2">
+                    <input name="type" type="radio" id="five" value="5"/>
+                    <label for="five">5</label>
+                </div>
+            </div>
+            </div>
+                   
+            <div id="rate"></div>
            		<button id = "btn-review" class="waves-effect waves-light btn">Submit Review</button>
            </div><!--content-->
            </div><!--page-->
@@ -140,6 +135,11 @@ session_start();
 	<script>
 		$('#textarea1').val('New Text');
 		$('#textarea1').trigger('autoresize');
+
+    $('.rating').click(function(){
+          var rating = $('input[type="radio"]:checked').val();
+          alert("You have rated: "+rating);
+    });
 
 		document.getElementById('btn-review').addEventListener('click',add_review,false);
 
@@ -154,16 +154,15 @@ session_start();
                      alert(obj.message);
                 }else{
                       document.getElementById("response").innerHTML = obj.message;
-                      //window.location.href = "<?php print $site_root; ?>cart.php";
+                      window.location.href = "<?php print $site_root; ?>menu.php";
                 }
               }
               
         function add_review(){
-          var food_id = food_id;
+          var food_id = document.getElementById('fid').value;
           var review = document.getElementById('textarea1').value;
-          //var rating =
-          var url="<?php print $site_root; ?>functions.php?cmd=4&food_id="+food_id+"&review="+review;
-          //+"&rating="+rating;
+          var rating = $('input[type="radio"]:checked').val();
+          var url="<?php print $site_root; ?>functions.php?cmd=4&food_id="+food_id+"&review="+review+"&rating="+rating;
           $.ajax(url,
             {async:true,complete:add_reviewComplete});
       }

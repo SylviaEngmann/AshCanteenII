@@ -36,7 +36,7 @@
         <div data-role="page" id="initpage" style="background:white">
               <div data-role="content">
               <div class="container">
-                <center><img src="app_logo.png" width="200" height="200" alt="Bon Appetit"></center>
+                <center><img src="<?php print $image_folder; ?>app_logo.png" width="200" height="200" alt="Bon Appetit"></center>
                 </div>
                 <div class ="container">
                   <div class="section">                           
@@ -56,7 +56,7 @@
 
     <div data-role="page" id="loginpage" style="background:white">
                 <div data-role="content">
-                <center><img src="app_logo.png" width="150" height="150" alt="Bon Appetit"></center>
+                <center><img src="<?php print $image_folder; ?>app_logo.png" width="150" height="150" alt="Bon Appetit"></center>
                 </br>
                 <!--<div id='loading' style='display: none'><img src="loading.gif" title="Loading" /></div>-->
                 <div class = "container">
@@ -84,7 +84,7 @@
 
     <div data-role="page" id="signup" style="background:white">
                 <div data-role="content">
-                <center><img src="app_logo.png" width="150" height="150" alt="Bon Appetit"></center>
+                <center><img src="<?php print $image_folder; ?>app_logo.png" width="150" height="150" alt="Bon Appetit"></center>
                 </br>
                 <p3 class="black-text"><center><strong>Enter Your Details</strong></center></p3>
                 <div class="row">
@@ -151,7 +151,7 @@
                       alert("You've been added");
                       alert("Please log in now");
                 }
-                //window.location="#loginpage";
+                window.location="#loginpage";
                 currentObject=null;
             }
                 

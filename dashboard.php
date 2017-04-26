@@ -1,4 +1,7 @@
-<?php include "config.php"; ?><!DOCTYPE html>
+<?php include "config.php"; 
+session_start();
+?>
+<!DOCTYPE html>
 <html>
 	<head>
 
@@ -74,9 +77,8 @@
                               $row=$obj->fetch();
                               while($row){
                                 //$_SESSION['canteen_id']=$row['Id'];
-
                                 echo "<div class='col s6 card-panel'>";
-                                echo "<span style:'margin-right:30cm'><center><img src='{$row['Picture']}' style='width:150px;'></center></span>";
+                                echo "<span style:'margin-right:30cm'><center><img src='{$image_folder}{$row['Picture']}' style='width:150px;'></center></span>";
 								echo "<span style:'margin-right:2cm'><center><button class=\"btn waves-effect white\" onclick=\"menu({$row['Id']})\">Menu</button></center></span></div>";
                                 $row=$obj->fetch();
                               }

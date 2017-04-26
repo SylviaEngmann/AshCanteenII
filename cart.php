@@ -121,7 +121,7 @@ session_start();
               <div class="row">
                   <div class="col s6">
                   <?php $can_id=$_SESSION['canteen_id'];
-                    echo "<a onclick='menu($can_id)'' ><button>Continue</button></a>";
+                    echo "<a onclick='menu($can_id)'><button>Continue</button></a>";
                     ?>
                   </div>
                   <div class="col s6">

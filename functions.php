@@ -19,11 +19,56 @@ $cmd=$_REQUEST['cmd'];
 		break;
 		case 5:
 			place_order();
-		break;				
+		break;	
+		case 6:
+			view_canteens();
+		break;			
 		default:
 			echo '{"result":0,"message":"Wrong command"}';
 		break;
 	}
+}
+function view_menu(){
+	$canteen_id=$_GET['can_Id'];
+    $_SESSION['canteen_id']=$canteen_id;
+	include('objects.php');
+	$obj=new object();
+	$result=$obj->getMeals($canteen_id);
+	if($result==false){
+		echo '{"result":0,"message":"Not found"}';
+	}else{
+		$row=$obj->fetch();
+		echo '{"result":1 , "meal":[';
+		while($row){
+			echo json_encode($row);
+			$row=$obj->fetch();
+			if($row!=false){
+                echo ",";
+            }
+        }
+        echo "]}";
+    }
+}
+
+function view_canteens(){
+	include('objects.php');
+	$obj=new object();
+	$result=$obj->getCanteens();
+	if($result==false){
+		echo '{"result":0,"message":"Not found"}';
+	}else{
+		$row=$obj->fetch();
+		echo '{"result":1 , "canteen":[';
+		//$_SESSION['canteen_id']=$row['Id'];
+		while($row){
+			echo json_encode($row);
+			$row=$obj->fetch();
+			if($row!=false){
+                echo ",";
+            }
+        }
+        echo "]}";
+    }
 }
 
 function place_order(){
@@ -46,13 +91,12 @@ function place_order(){
 function add_review(){
 	$food_id=$_REQUEST['food_id'];
 	$review=$_REQUEST['review'];
-	//$rating=$_REQUEST['rating'];
-	
+	$rating=$_REQUEST['rating'];
+
 	include('objects.php');
 	$obj=new object();
-	$row=$obj->addReview($food_id,$review);
-	//$rating
-
+	$row=$obj->addReview($food_id,$review,$rating);
+	
 	if($row==true){
 		echo '{"result":1,"message":"Review added"}';
 	}
@@ -117,9 +161,5 @@ function removefromCart(){
 			echo '{"result":0,"message":"Meal not removed"}';
 		}
 	}
-	
-
-	
-    			
 ?>
 		

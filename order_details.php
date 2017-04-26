@@ -42,7 +42,6 @@ session_start();
             <div class="nav-wrapper" style="background:#ff9e80">
               <?php 
               $can_id=$_SESSION['canteen_id'];
-              //print_r($can_id);
               echo "<a href='' onclick='menu($can_id)' class='left'><i class='material-icons'>navigate_before</i></a>";
               ?>
               <a href="#" class="center brand-logo"><span class="white-text">Bon Appetit</span>
@@ -82,7 +81,6 @@ session_start();
 
                   echo "<p4>Price: GHC</p>";
                   echo '<div id = "price">'.$price.'</div>';
-                  $price_n = 7.50;
                   echo "</span>";
                   echo "<br>";
                   echo "<div class = 'row'>";
@@ -93,7 +91,7 @@ session_start();
                   echo "<input id='qty_val' type='number' value='1' min='1' max='100' class='validate'>";
                   echo "</div>";
                   echo "</div>";
-                  echo "<button type='button' class='btn waves-effect' onclick='add({$row['F_Id']},$price_n,{$_SESSION['person_id']})'><a>Add To Cart</a></button>";
+                  echo "<button type='button' class='btn waves-effect' onclick='add({$row['F_Id']},{$_SESSION['person_id']})'><a>Add To Cart</a></button>";
                 $row=$obj->fetch();
                 }
                }
@@ -152,10 +150,11 @@ session_start();
                 }
               }
               
-        function add(food_id,price,person_id){
+        function add(food_id,person_id){
           var food_id = food_id;
           var qty = document.getElementById('qty_val').value;
-          var price = price;
+          var price_val = document.getElementById("price");
+          var price = parseFloat(price_val.innerHTML);
           var person_id = person_id;
           var url="<?php print $site_root; ?>functions.php?cmd=2&food_id="+food_id+"&qty="+qty+"&price="+price+"&person_id="+person_id;
           $.ajax(url,
