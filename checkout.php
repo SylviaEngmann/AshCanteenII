@@ -2,11 +2,9 @@
 include "config.php";
 session_start();
 ?>
-
 <!DOCTYPE html>
 <html>
   <head>
-
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
@@ -16,9 +14,6 @@ session_start();
   <link rel="stylesheet" href="css/materialize.css">
   <link rel="stylesheet" href="css/material-design-iconic-font.min.css">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/jquery.mobile-1.4.5.css">
-  <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.css">
-  <link rel="stylesheet" href="css/jquery.mobile.theme-1.4.5.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="manifest" href="manifest.json">
 
@@ -38,7 +33,6 @@ session_start();
     
   </head>
   <body>
-      <div data-role="page" id="cart" style="background:white">
           <nav >
             <div class="nav-wrapper" style="background:#ff9e80">
               <a href="#" class="center brand-logo"><span class="white-text">Bon Appetit</span>
@@ -49,13 +43,9 @@ session_start();
             <ul class="side-nav" id="mobile-demo">
               <li>
                  <div class="userView">
-                    <?php 
-                            session_start();
-                            echo "<span class='black-text'>{$_SESSION['username']}</span>";
-                    ?>
+                    <?php echo "<span class='black-text'>{$_SESSION['username']}</span>";?>
                   </div>
               </li>
-
               <li><a href="#"><i class="material-icons">menu</i>Menu</a></li>
               <li><a href="#"><i class="material-icons">account_circle</i>Account</a></li>
               <li><a href="#"><i class="material-icons">message</i>Notifications</a></li>
@@ -68,7 +58,7 @@ session_start();
             </ul>
             </div>
           </nav>
-           <div data-role="content">
+           <div class="container">
               <div class="row">
                 <h5><b><center>Order Details</center></b></h5>
               </div>
@@ -80,7 +70,6 @@ session_start();
                 <li class="tab"><a href="#">Total</a></li>
               </ul>
             </div>
-            
               <ul class="collection">
               <?php
                   $pid = $_SESSION['person_id'];
@@ -138,7 +127,7 @@ session_start();
               echo '<div>Total :GHC</div>';
 							 echo '<div id = "total">'.$total.'</div>';
 								    echo '<div class="col s6">';
-							echo "<input value='Checkout' type='button' onclick='checkout_worker($order_json);'>";
+							echo "<center><input value='Checkout' type='button' class='btn-large waves-effect waves-light deep-orange' onclick='checkout_worker($order_json);'></center>";
 							echo '</div>';
               unset($_SESSION['canteen_id']);
                     ?>                              
@@ -152,7 +141,6 @@ session_start();
         
     <script src="scripts/jquery.js"></script>
     <script src="scripts/materialize.min.js"></script>
-    <script src="scripts/jquery.mobile-1.4.5.min.js"></script>
     <script type="text/javascript" src="scripts/platformOverrides.js"></script>
     <script type="text/javascript">
         (function($){
@@ -203,8 +191,8 @@ session_start();
         else if (obj.result == 1)
         {
           alert(obj.message);
-          alert("We're taking you to your account page");
-          window.location="<?php print $site_root; ?>dashboard.php";
+          alert("We're taking you to your orders page");
+          window.location="<?php print $site_root; ?>viewOrders.php";
         }else{
           divStatus=obj.message;
         }
@@ -220,7 +208,7 @@ session_start();
       var order_type = $('input[type="radio"]:checked').val();
 
       var url="<?php print $site_root; ?>functions.php?cmd=5&F_Id="+F_Id+"&qty="+qty+"&price="+price+"&person_id="+person_id+"&order_type="+order_type;
-      alert(url);
+      //alert(url);
        $.ajax(url,{
                   async:true,complete:checkoutComplete
                 });

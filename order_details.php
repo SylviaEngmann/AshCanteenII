@@ -5,7 +5,6 @@ session_start();
 <!DOCTYPE html>
 <html>
   <head>
-
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
@@ -15,9 +14,6 @@ session_start();
   <link rel="stylesheet" href="css/materialize.css">
   <link rel="stylesheet" href="css/material-design-iconic-font.min.css">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/jquery.mobile-1.4.5.css">
-  <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.css">
-  <link rel="stylesheet" href="css/jquery.mobile.theme-1.4.5.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="manifest" href="manifest.json">
 
@@ -37,8 +33,7 @@ session_start();
     
   </head>
   <body>
-        <div data-role = "page" id="meal_details" style = "background:white">
-          <nav >
+            <nav >
             <div class="nav-wrapper" style="background:#ff9e80">
               <?php 
               $can_id=$_SESSION['canteen_id'];
@@ -51,7 +46,7 @@ session_start();
               </a> 
           </div>
           </nav>
-          <div data-role = "content">
+          <div class = "container">
             <?php
               $food_id=$_REQUEST['food_id'];
               $_SESSION['person_id'];
@@ -66,7 +61,7 @@ session_start();
                 $price = 0;
                 while($row){
                   echo "<img src='{$image_folder}{$row['Picture']}' style='width:300px;height:200px;'>";
-                  echo "<h3><b>{$row['fName']}</b></h3>";
+                  echo "<h3><b><center>{$row['fName']}</center></b></h3>";
                   echo "<p3>{$row['Description']}</p3>";
                   echo "<br>";
                   echo "<span>";
@@ -87,11 +82,13 @@ session_start();
                   echo '<div class ="row col s6">';
                   echo "<p4><b>Quantity</b></p4>";
                   echo "</div>";
-                  echo "<div class='input-field col s4'>";
+                  echo "<div class='row col s6'>";
                   echo "<input id='qty_val' type='number' value='1' min='1' max='100' class='validate'>";
                   echo "</div>";
                   echo "</div>";
-                  echo "<button type='button' class='btn waves-effect' onclick='add({$row['F_Id']},{$_SESSION['person_id']})'><a>Add To Cart</a></button>";
+                  echo "<div";
+                  echo "<span><center><button type='button' class='btn waves-effect deep orange' onclick='add({$row['F_Id']},{$_SESSION['person_id']})'><a class='white-text'>Add To Cart</a></button></center></span>";
+                  echo "<div>";
                 $row=$obj->fetch();
                 }
                }
@@ -102,9 +99,7 @@ session_start();
         
     <script src="scripts/jquery.js"></script>
     <script src="scripts/materialize.min.js"></script>
-    <script src="scripts/jquery.mobile-1.4.5.min.js"></script>
     <script type="text/javascript" src="scripts/platformOverrides.js"></script>
-
     <script>
         (function($){
             $(function(){
@@ -142,8 +137,8 @@ session_start();
           }
           divStatus=xhr.responseText;
           var obj=JSON.parse(xhr.responseText);
-          if(obj.result==0){  
-                     alert(obj.message);
+          if(obj.result == 0){  
+              alert(obj.message);
                 }else{
                       alert("Added to cart");
                       window.location.href = "<?php print $site_root; ?>cart.php";

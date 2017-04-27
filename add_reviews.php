@@ -15,9 +15,6 @@ session_start();
   <link rel="stylesheet" href="css/materialize.css">
   <link rel="stylesheet" href="css/material-design-iconic-font.min.css">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/jquery.mobile-1.4.5.css">
-  <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.css">
-  <link rel="stylesheet" href="css/jquery.mobile.theme-1.4.5.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="manifest" href="manifest.json">
   <script>
@@ -35,7 +32,6 @@ session_start();
     
   </head>
   <body>
-  <div data-role="page" id="menu" style="background:white">
           <nav >
             <div class="nav-wrapper" style="background:#ff9e80">
               <a href="#" class="center brand-logo"><span class="white-text">Bon Appetit</span>
@@ -48,13 +44,9 @@ session_start();
             <ul class="side-nav" id="mobile-demo">
               <li>
                  <div class="userView">
-                    <?php 
-                            session_start();
-                            echo "<span class='black-text'>{$_SESSION['username']}</span>";
-                    ?>
+                    <?php echo "<span class='black-text'>{$_SESSION['username']}</span>";?>
                   </div>
               </li>
-
               <li><a href="#"><i class="material-icons">account_circle</i>Account</a></li>
               <li><a href="#"><i class="material-icons">message</i>Notifications</a></li>
               <li><a href="#"><i class="material-icons">settings_applications</i>Settings</a>
@@ -66,7 +58,7 @@ session_start();
             </ul>
             </div>
           </nav>
-           <div data-role="content">
+           <div class="container">
            <?php
                            $canteen_id=$_GET['canteen_id'];
                            $food_id=$_REQUEST['food_id'];
@@ -82,6 +74,7 @@ session_start();
                                 echo "<img src='{$image_folder}{$row['Picture']}' style='width:300px;height:200px;'>";
                                 echo "<h5><center><b>{$row['fName']}</b></center></h5>";
                                 echo "<input type='hidden' id ='fid' value = '{$row['F_Id']}'>";
+                                echo "<input type='hidden' id ='cid' value ='$canteen_id'>";
                                 $row=$obj->fetch();
                             }
                         }
@@ -98,50 +91,53 @@ session_start();
            		</form>
             </div>
 
-        <div class="row">
-          <div class= "rating">
-           <div class ="col s2">
-                    <input name="type" type="radio" id="one" value="1"/>
+            <div class="row">
+                <div class ="row col s2">
+                    <input name="rating" type="radio" id="one" value="1"/>
                     <label for="one">1</label>
                 </div>
-                <div class="col s2">
-                    <input name="type" type="radio" id="two" value="2"/>
+                <div class="row col s2">
+                    <input name="rating" type="radio" id="two" value="2"/>
                     <label for="two">2</label>
                 </div>
-                <div class="col s2">
-                    <input name="type" type="radio" id="three" value="3"/>
+                <div class="row col s2">
+                    <input name="rating" type="radio" id="three" value="3"/>
                     <label for="three">3</label>
                 </div>
-                <div class="col s2">
-                    <input name="type" type="radio" id="four" value="4"/>
+                <div class="row col s2">
+                    <input name="rating" type="radio" id="four" value="4"/>
                     <label for="four">4</label>
                 </div>
-                <div class="col s2">
-                    <input name="type" type="radio" id="five" value="5"/>
+                <div class="row col s2">
+                    <input name="rating" type="radio" id="five" value="5"/>
                     <label for="five">5</label>
                 </div>
             </div>
+              <div class="col s8">
+           		<span><center><button id = "btn-review" class="waves-effect waves-light btn">Submit Review</button></center></span>
+              </div>
+
+            <div class="row">
+              <div class="col s6 left">
+              <button class="btn-small waves-effect waves-light teal" id="back"><a class="black-text">Go Back</a></button>
+              </div>
             </div>
-                   
-            <div id="rate"></div>
-           		<button id = "btn-review" class="waves-effect waves-light btn">Submit Review</button>
-           </div><!--content-->
-           </div><!--page-->
+           </div>
 
 	<script src="scripts/jquery.js"></script>
 	<script src="scripts/materialize.min.js"></script>
-	<script src="scripts/jquery.mobile-1.4.5.min.js"></script>
 	<script type="text/javascript" src="scripts/platformOverrides.js"></script>
 	<script>
 		$('#textarea1').val('New Text');
 		$('#textarea1').trigger('autoresize');
 
-    $('.rating').click(function(){
-          var rating = $('input[type="radio"]:checked').val();
-          alert("You have rated: "+rating);
-    });
-
 		document.getElementById('btn-review').addEventListener('click',add_review,false);
+    document.getElementById('back').addEventListener('click',back,false);
+
+        function back(){
+          var can_id = document.getElementById('cid').value;
+          window.location.href = "<?php print $site_root; ?>menu.php?canteen_id="+can_id;
+        }
 
 		function add_reviewComplete(xhr,status){
           if(status!="success"){
@@ -154,7 +150,6 @@ session_start();
                      alert(obj.message);
                 }else{
                       document.getElementById("response").innerHTML = obj.message;
-                      window.location.href = "<?php print $site_root; ?>menu.php";
                 }
               }
               

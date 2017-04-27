@@ -14,9 +14,7 @@ session_start();
 	<link rel="stylesheet" href="css/materialize.css">
 	<link rel="stylesheet" href="css/material-design-iconic-font.min.css">
   <link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="css/jquery.mobile-1.4.5.css">
-	<link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.css">
-	<link rel="stylesheet" href="css/jquery.mobile.theme-1.4.5.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="manifest" href="manifest.json">
 
@@ -36,7 +34,6 @@ session_start();
 		
 	</head>
 	<body>
-      <div data-role="page" id="dashboard" style="background:white">
         	<nav >
         		<div class="nav-wrapper" style="background:#ff9e80">
         			<a href="#" class="brand-logo"><span class="white-text">Bon Appetit</span>
@@ -46,15 +43,12 @@ session_start();
 						<ul class="side-nav" id="mobile-demo">
 							<li>
 							   <div class="userView">
-                    <?php 
-                            session_start();
-                            echo "<span class='black-text'>{$_SESSION['username']}</span>";
-                    ?>
+                    <?php echo "<span class='black-text'>{$_SESSION['username']}</span>";?>
                   </div>
 							</li>
 
-        			<li><a href="#"><i class="material-icons">menu</i>Menu</a></li>
-              <li><a href="#"><i class="material-icons">account_circle</i>Account</a></li>
+        			<li><a href="<?php print $site_root; ?>viewOrders.php"><i class="material-icons">menu</i>Orders</a></li>
+              <li><a href="<?php print $site_root; ?>user_account.php"><i class="material-icons">account_circle</i>Account</a></li>
         			<li><a href="#"><i class="material-icons">settings</i>Settings</a>
               </li>
         			<li><a href="#"><i class="material-icons">help</i>Help</a>
@@ -64,7 +58,6 @@ session_start();
         		</ul>
             </div>
         	</nav>
-        	 <div data-role="content">
               <div class="container">
                     <ul class="collection">
                       <?php
@@ -76,10 +69,9 @@ session_start();
                             }else{
                               $row=$obj->fetch();
                               while($row){
-                                //$_SESSION['canteen_id']=$row['Id'];
                                 echo "<div class='col s6 card-panel'>";
                                 echo "<span style:'margin-right:30cm'><center><img src='{$image_folder}{$row['Picture']}' style='width:150px;'></center></span>";
-								echo "<span style:'margin-right:2cm'><center><button class=\"btn waves-effect white\" onclick=\"menu({$row['Id']})\">Menu</button></center></span></div>";
+								echo "<span style:'margin-right:2cm'><center><button class=\"btn waves-effect white\" onclick=\"menu({$row['Id']})\"><a class='black-text'>Menu</a></button></center></span></div>";
                                 $row=$obj->fetch();
                               }
                             }
@@ -87,13 +79,9 @@ session_start();
                     </ul>
                 </div>
               </div><!--container-->  
-            </div><!--content-->
-        </div><!-- /page -->
-
         
 		<script src="scripts/jquery.js"></script>
 		<script src="scripts/materialize.min.js"></script>
-		<script src="scripts/jquery.mobile-1.4.5.min.js"></script>
 		<script type="text/javascript" src="scripts/platformOverrides.js"></script>
 		<script>
         (function($){

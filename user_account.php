@@ -1,5 +1,5 @@
 <?php
-include "config.php"; 
+include "config.php";
 session_start();
 ?>
 <!DOCTYPE html>
@@ -15,10 +15,9 @@ session_start();
   <link rel="stylesheet" href="css/materialize.css">
   <link rel="stylesheet" href="css/material-design-iconic-font.min.css">
   <link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="manifest" href="manifest.json">
-  <script>
+<script>
       var userAgent = navigator.userAgent + '';
       if (userAgent.indexOf('iPhone') > -1) {
         document.write('<script src="scripts/cordova-iphone.js"></sc' + 'ript>');
@@ -29,25 +28,72 @@ session_start();
       } else {
         var mobile_system = '';
       }
+      </script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Work',     11],
+          ['Eat',      2],
+          ['Commute',  2],
+          ['Watch TV', 2],
+          ['Sleep',    7]
+        ]);
+
+        var options = {
+          title: 'My Daily Activities'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+
+    //function drawChart() {
+     // var jsonData = $.ajax({
+          //url: "user_data.php",
+          //dataType: "json",
+          //async: false
+          //}).responseText;
+          
+      // Create our data table out of JSON data loaded from server.
+      //var data = new google.visualization.DataTable(jsonData);
+
+      // Instantiate and draw our chart, passing in some options.
+      //var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+      //chart.draw(data, {width: 400, height: 300});
+    //}
+
     </script>
-    
+  </head>
+
+  <body>
+    <!--Div that will hold the pie chart-->
+    <div id="chart_div"></div>
+  </body>
+</html>
+    </script>
   </head>
   <body>
-    <nav>
+          <nav >
             <div class="nav-wrapper" style="background:#ff9e80">
               <a href="#" class="center brand-logo"><span class="white-text">Bon Appetit</span>
               </a>
-              <a href="cart.php" class="right">
-              <span class="badge" id="comparison-count"></span><i class="material-icons">shopping_cart</i>
-              </a> 
               <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i>
               </a>
             <ul class="side-nav" id="mobile-demo">
               <li>
                  <div class="userView">
                     <?php echo "<span class='black-text'>{$_SESSION['username']}</span>";?>
-                  </div>
+                 </div>
               </li>
+              <li><a href="dashboard.php"><i class="material-icons">menu</i>Dashboard</a></li>
               <li><a href="#"><i class="material-icons">account_circle</i>Account</a></li>
               <li><a href="#"><i class="material-icons">message</i>Notifications</a></li>
               <li><a href="#"><i class="material-icons">settings_applications</i>Settings</a>
@@ -59,40 +105,39 @@ session_start();
             </ul>
             </div>
           </nav>
-          <div class="container">
-                    <?php
-                           $canteen_id=$_GET['canteen_id'];
-                           $_SESSION['canteen_id']=$canteen_id;
-                           include('objects.php');
-                            $obj=new object();
-                            $result=$obj->getMeals($canteen_id);
-                            if($result==false){
+           <div class="container">
+              
+              <?php
+                  $pid = $_SESSION['person_id'];
+                    include('objects.php');
+                        $obj=new object();
+                        $result=$obj->viewUser($pid);
+                          if($result==false){
                               echo "'$result' is false";
-                            }else{
-                              $row=$obj->fetch();
-                              while($row){
-                                echo "<div class='col s6 card-panel'>";
-                                echo "<img src='{$image_folder}{$row['Picture']}' style='width:50px;'>";
-                                echo "<span class='title'>{$row['fName']}</span>";
-                                echo "<p>{$row['Description']}</p>";
-                                echo "<div class='card-action'>";
-                                echo "<a href='' onclick='add_rev({$row['F_Id']},{$_SESSION['canteen_id']})' class='secondary-content'><i class='material-icons'>add</i></a>";
-                                echo "<a href='' onclick='view_rev({$row['F_Id']},{$_SESSION['canteen_id']})' class='secondary-content'><i class='material-icons'>comment</i></a>";
-                                echo "<a href='' onclick='details({$row['F_Id']},{$_SESSION['canteen_id']})' class='secondary-content'><i class='material-icons'>open_in_new</i></a>";
-                                echo "</div>";
-                                echo "</div>";
+                            }
+                            else{
+                              while($row=$obj->fetch()){
+                                 echo "<center>";
+                                 echo "<div class='col s6 card-panel'>";
+                                 echo '<span style="font-size:14px">'.$row['firstname'].'</span>';
+                                 echo '<span style="font-size:14px">'.$row['lastname'].'</span>';
+                                 echo "<div style='font-size:14px'>".$row['username']."</div>"; 
+                                 echo "</div>";
+                                 echo "</center>";
                                 $row=$obj->fetch();
                               }
                             }
-                      ?>
-                    </div>
+                    ?> 
 
-        
+                <div id="piechart" style="width: 400px; height: 300px;"></div>
+                <div id="chart_div"></div>             
+             
+               </div>
+
     <script src="scripts/jquery.js"></script>
     <script src="scripts/materialize.min.js"></script>
-    <script src="scripts/jquery.mobile-1.4.5.min.js"></script>
     <script type="text/javascript" src="scripts/platformOverrides.js"></script>
-    <script>
+    <script type="text/javascript">
         (function($){
             $(function(){
 
@@ -100,27 +145,6 @@ session_start();
 
              }); // end of document ready
         })(jQuery); // end of jQuery name space
-
-        </script>
-
-    <script>  
-        function details(food_id,can_Id){
-          var food_id = food_id;
-          var can_Id = can_Id;  
-          window.location.href = "<?php print $site_root; ?>order_details.php?food_id="+food_id+"&can_Id="+can_Id;
-        }
-
-        function add_rev(food_id,can_Id){
-          var food_id = food_id;
-          var canteen_id = can_Id;  
-          window.location.href = "<?php print $site_root; ?>add_reviews.php?food_id="+food_id+"&canteen_id="+canteen_id;
-        }
-
-        function view_rev(food_id,can_Id){
-          var food_id = food_id;
-          var canteen_id = can_Id;  
-          window.location.href = "<?php print $site_root; ?>view_reviews.php?food_id="+food_id+"&canteen_id="+canteen_id;
-        }
-    </script>        
+    </script>
   </body>
 </html>

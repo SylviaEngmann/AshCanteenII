@@ -72,6 +72,20 @@ function view_canteens(){
 }
 
 function place_order(){
+
+	if(!isset($_REQUEST['F_Id'])){
+				echo '{"result":0,"message":"Please choose a meal"}';
+					return;
+				}
+			if(!isset($_REQUEST['qty'])){
+				echo '{"result":0,"message":"Please specify quantity"}';
+					return;
+				}
+	
+			if($_REQUEST['price'] == ""){
+				echo '{"result":0,"message":"Please select meal type"}';
+					return;
+				}
 	$food_id=$_REQUEST['F_Id'];
 	$qty=$_REQUEST['qty'];
 	$price=$_REQUEST['price'];

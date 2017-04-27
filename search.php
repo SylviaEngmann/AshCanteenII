@@ -10,13 +10,6 @@
 		<!-- Path to your custom app styles-->
 	<link rel="stylesheet" href="css/materialize.css">
 	<link rel="stylesheet" href="css/material-design-iconic-font.min.css">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" type="text/css" href="css/normalize.css" />
-  <link rel="stylesheet" type="text/css" href="css/demo.css" />
-  <link rel="stylesheet" type="text/css" href="css/component2.css" />
-	<link rel="stylesheet" href="css/jquery.mobile-1.4.5.css">
-	<link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.css">
-	<link rel="stylesheet" href="css/jquery.mobile.theme-1.4.5.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
 
          <script>
@@ -34,14 +27,12 @@
 		
 	</head>
 	<body>
-        <div data-role="page" id="menu" style="background:white">
           <nav >  
             <div class="nav-wrapper" style="background:#ff9e80">
                 <a href="cart.php"><i class="right material-icons">shopping_cart</i></a>
                 <a href="menu.php"><i class="left material-icons">back</i></a>
             </div> 
           </nav>
-           <div data-role="content">
               <div class="container">
               <form>
                    <div class="input-field">
@@ -54,11 +45,6 @@
                           
                       ?>
               </div><!--container-->  
-            </div><!--content-->
-        </div><!-- /page -->
-
-
-        
 		<script src="scripts/jquery.js"></script>
 		<script src="scripts/materialize.min.js"></script>
 		<script src="scripts/jquery.mobile-1.4.5.min.js"></script>

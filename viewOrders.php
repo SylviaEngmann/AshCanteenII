@@ -1,8 +1,7 @@
 <?php
-include "config.php"; 
+include "config.php";
 session_start();
 ?>
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -18,9 +17,7 @@ session_start();
   <link rel="stylesheet" href="css/style.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="manifest" href="manifest.json">
-
-
-         <script>
+<script>
       var userAgent = navigator.userAgent + '';
       if (userAgent.indexOf('iPhone') > -1) {
         document.write('<script src="scripts/cordova-iphone.js"></sc' + 'ript>');
@@ -31,11 +28,10 @@ session_start();
       } else {
         var mobile_system = '';
       }
-    </script>
+      </script>
     
   </head>
   <body>
-      <div data-role="page" id="cart" style="background:white">
           <nav >
             <div class="nav-wrapper" style="background:#ff9e80">
               <a href="#" class="center brand-logo"><span class="white-text">Bon Appetit</span>
@@ -47,9 +43,9 @@ session_start();
               <li>
                  <div class="userView">
                     <?php echo "<span class='black-text'>{$_SESSION['username']}</span>";?>
-                  </div>
+                 </div>
               </li>
-              <li><a href="#"><i class="material-icons">menu</i>Menu</a></li>
+              <li><a href="dashboard.php"><i class="material-icons">menu</i>Dashboard</a></li>
               <li><a href="#"><i class="material-icons">account_circle</i>Account</a></li>
               <li><a href="#"><i class="material-icons">message</i>Notifications</a></li>
               <li><a href="#"><i class="material-icons">settings_applications</i>Settings</a>
@@ -62,74 +58,50 @@ session_start();
             </div>
           </nav>
            <div data-role="content">
-            <div class="card-tabs">
+              <div class="row">
+                <h5><b><center>Order Status</center></b></h5>
+              </div>
+              <div class="card-tabs">
               <ul class="tabs tabs-fixed-width">
+                <li class="tab"><a href="#">Order</a></li>
                 <li class="tab"><a href="#">Meal</a></li>
-                <li class="tab"><a href="#">Q'ty</a></li>
-                <li class="tab"><a href="#">Price</a></li>
-                <li class="tab"><a href="#">Total</a></li>
+                <li class="tab"><a href="#">Order Status</a></li>
               </ul>
             </div>
-            <ul class="collection">
               <?php
                   $pid = $_SESSION['person_id'];
                     include('objects.php');
                         $obj=new object();
-                        $result=$obj->getOrders($pid);
+                        $result=$obj->viewOrders($pid);
                           if($result==false){
                               echo "'$result' is false";
                             }
                             else{
-                              $row=$obj->fetch();
-                              while($row){
-                                //$total = 0;
-                                 echo '<div class="col s6 card-panel">';
+                              while($row=$obj->fetch()){
+                                echo '<div class="col s6 card-panel">';
                                  echo '<table>';
                                  echo '<tr>';
+                                 echo '<td width=25%>';
+                                 echo '<span class="o_num" style="font-size:14px">'.$row['Id'].'</span>';
+                                 echo '</td>';
                                  echo '<td width=30%>';
                                  echo "<span class='title' style='font-size:14px'>".$row['fName']."</span>";
                                  echo '</td>';
-                                 echo '<td width=25%>';
-                                 echo '<span class="qty" style="font-size:14px">'.$row['qty'].'</span>';
-                                 echo '</td>';
-                                 echo '<td width=20%>';
-                                 echo '<span class="price" style="font-size:14px">'.$row['price'].'</span>';
-                                 echo '</td>';
-                                 $meal_total = ($row['price']*$row['qty']);
-                                 echo '<td width=20%>';
-                                 echo '<span class="meal_total" style="font-size:14px">'.$meal_total.'</span>';
-                                 echo '</td>';
-                                 echo '<td>';
-                                 echo "<span><a onclick='remove({$row['F_Id']}) 'href=''><i class='material-icons'>delete</i></a></span>";
+                                 echo '<td width=30%>';
+                                 echo "<span class='title' style='font-size:14px'>Pending</span>";
                                  echo '</td>';
                                  echo '</tr>';
                                  echo '</table>';    
-                                 echo '</div>';
-                                  $row=$obj->fetch();
+                                echo "</div>";
                               }
                             }
-                              ?>
-                                
-                              </ul>
-              <div class="row">
-                  <div class="col s6">
-                  <?php $can_id=$_SESSION['canteen_id'];
-                    echo "<a onclick='menu($can_id)'><button class='btn-large waves-effect waves-light deep-orange'>Continue</button></a>";
-                    ?>
-                  </div>
-                  <div class="col s6">
-                    <button class='btn-large waves-effect waves-light deep-orange' id ='checkout' type ='submit'>Checkout</button>
-                  </div>
-                </div>
-            </div><!--content-->
-        </div><!-- /page -->
-
+                    ?>                              
+               </div>
         
     <script src="scripts/jquery.js"></script>
     <script src="scripts/materialize.min.js"></script>
     <script type="text/javascript" src="scripts/platformOverrides.js"></script>
-    <script>
-      document.getElementById('checkout').addEventListener('click',checkout,false);
+    <script type="text/javascript">
         (function($){
             $(function(){
 
@@ -137,38 +109,6 @@ session_start();
 
              }); // end of document ready
         })(jQuery); // end of jQuery name space
-
-      function menu(can_id){
-        var canteen_id = can_id;
-        window.location.href = "<?php print $site_root; ?>menu.php?canteen_id="+can_id;
-      }
-      
-     function checkout(){
-        window.location.href = "<?php print $site_root; ?>checkout.php";
-     }
-
-    function removeComplete(xhr,status){
-          if(status!="success"){
-            alert("Error");
-            return;
-          }
-          divStatus=xhr.responseText;
-          var obj=JSON.parse(xhr.responseText);
-          if(obj.result==0){  
-                     alert(obj.message);
-                }else{
-                      alert("Removed");
-                    window.location.href = "<?php print $site_root; ?>cart.php";
-                }
-              }
-              
-        function remove(F_Id){
-          var F_Id = F_Id;
-          var url="<?php print $site_root; ?>functions.php?cmd=3&F_Id="+F_Id;
-          $.ajax(url,
-            {async:true,complete:removeComplete});
-        }
-        </script>
-
+    </script>
   </body>
 </html>

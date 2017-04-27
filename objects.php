@@ -1,6 +1,4 @@
 <?php
-//session_start();
-
 /**
 */
 include_once("db_connect.php");
@@ -27,7 +25,6 @@ class object extends db_connect{
 		$strQuery="SELECT * from canteens";
 		return $this->query($strQuery);
 	}
-	
 	function getMeals($canteen_Id){
 		$strQuery="select menu.Id,menu.F_Id,foodlist.fName,foodlist.Description,foodlist.Picture,foodlist.canteen from menu inner join foodlist on menu.F_Id = foodlist.Id where can_Id= '$canteen_Id' AND menu.category = 1";
 		return $this->query($strQuery);
@@ -57,6 +54,15 @@ class object extends db_connect{
 		inner join foodlist on temp_orders.F_Id=foodlist.Id where pid='$pid'";
 		return $this->query($strQuery);
 	}
+	function viewOrders($pid){
+		$strQuery="select p_orders.Id, p_orders.F_Id,foodlist.fName from p_orders 
+		inner join foodlist on p_orders.F_Id=foodlist.Id where C_Id='$pid'";
+		return $this->query($strQuery);
+	}
+	function viewUser($pid){
+		$strQuery="select * from person where pid='$pid'";
+		return $this->query($strQuery);
+	}
 	function place_order($person_id,$food_id,$qty,$price,$order_type){
 		$strQuery="INSERT into p_orders
 					(C_Id,F_Id,Quantity,price,order_type)
@@ -67,6 +73,12 @@ class object extends db_connect{
 		$strQuery="INSERT into review
 					(F_Id,reviews,rating,time)
 					VALUES('$food_id','$review','$rating',CURRENT_TIMESTAMP)";
+			return $this->query($strQuery);		
+	}
+
+	function viewReview($food_id){
+		$strQuery="select review.F_Id, review.reviews,review.rating, review.time,foodlist.Picture,foodlist.fName from review 
+		inner join foodlist on review.F_Id=foodlist.Id where F_Id='$food_id'";
 			return $this->query($strQuery);		
 	}
 }
