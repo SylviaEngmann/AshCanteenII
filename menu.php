@@ -15,7 +15,6 @@ session_start();
   <link rel="stylesheet" href="css/materialize.css">
   <link rel="stylesheet" href="css/material-design-iconic-font.min.css">
   <link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="manifest" href="manifest.json">
   <script>
@@ -60,6 +59,11 @@ session_start();
             </div>
           </nav>
           <div class="container">
+          <div class="row">
+                          <div class="col s6 left">
+                            <button class="btn-small waves-effect waves-light deep-orange" id="back"><a href="<?php print $site_root; ?>dashboard.php" class="white-text">Go Back</a></button>
+                          </div>
+          </div>
                     <?php
                            $canteen_id=$_GET['canteen_id'];
                            $_SESSION['canteen_id']=$canteen_id;
@@ -76,9 +80,9 @@ session_start();
                                 echo "<span class='title'>{$row['fName']}</span>";
                                 echo "<p>{$row['Description']}</p>";
                                 echo "<div class='card-action'>";
-                                echo "<a href='' onclick='add_rev({$row['F_Id']},{$_SESSION['canteen_id']})' class='secondary-content'><i class='material-icons'>add</i></a>";
-                                echo "<a href='' onclick='view_rev({$row['F_Id']},{$_SESSION['canteen_id']})' class='secondary-content'><i class='material-icons'>comment</i></a>";
-                                echo "<a href='' onclick='details({$row['F_Id']},{$_SESSION['canteen_id']})' class='secondary-content'><i class='material-icons'>open_in_new</i></a>";
+                                echo "<a onclick='add_rev({$row['F_Id']},{$_SESSION['canteen_id']})' class='secondary-content'><i class='material-icons'>add</i></a>";
+                                echo "<a onclick='view_rev({$row['F_Id']},{$_SESSION['canteen_id']})' class='secondary-content'><i class='material-icons'>comment</i></a>";
+                                echo "<a onclick='details({$row['F_Id']},{$_SESSION['canteen_id']})' class='secondary-content'><i class='material-icons'>open_in_new</i></a>";
                                 echo "</div>";
                                 echo "</div>";
                                 $row=$obj->fetch();
@@ -90,7 +94,6 @@ session_start();
         
     <script src="scripts/jquery.js"></script>
     <script src="scripts/materialize.min.js"></script>
-    <script src="scripts/jquery.mobile-1.4.5.min.js"></script>
     <script type="text/javascript" src="scripts/platformOverrides.js"></script>
     <script>
         (function($){

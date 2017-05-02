@@ -44,15 +44,24 @@ class object extends db_connect{
 					VALUES('$F_Id','$qty','$price','$person_id')";
 		return $this->query($strQuery);
 	}
-	
+	function setToken($username,$token){
+		$strQuery="UPDATE person set fcm='$token' where username='$username'";
+		return $this->query($strQuery);
+	}
 	function remove($F_Id){
 		$strQuery="DELETE from temp_orders where F_Id='$F_Id'";
 		return $this->query($strQuery);
 	}
 	function getOrders($pid){
-		$strQuery="select temp_orders.F_Id,foodlist.fName,temp_orders.qty, temp_orders.price from temp_orders 
-		inner join foodlist on temp_orders.F_Id=foodlist.Id where pid='$pid'";
+		$strQuery="select temp_orders.temp_id, temp_orders.F_Id,foodlist.fName,temp_orders.qty, temp_orders.price,foodlist.canteen,canteens.fcm  from temp_orders 
+		inner join foodlist on temp_orders.F_Id=foodlist.Id 
+        inner join canteens on foodlist.canteen=canteens.Id
+        where pid='$pid'";
 		return $this->query($strQuery);
+	}
+	function delete_order($temp_id){
+		$strQuery="delete from temp_orders where temp_id = '$temp_id'";
+	    return $this->query($strQuery);
 	}
 	function viewOrders($pid){
 		$strQuery="select p_orders.Id, p_orders.F_Id,foodlist.fName from p_orders 

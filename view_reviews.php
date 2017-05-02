@@ -69,7 +69,13 @@ session_start();
                               echo "Nothing found";
                             }else{
                               $row=$obj->fetch();
+                              if(empty($row)){
+                                echo "No reviews for this meal";
+                                echo "<input type='hidden' id ='cid' value ='$canteen_id'>";
+                              }
+                              else{
                               echo "<img src='{$image_folder}{$row['Picture']}' style='width:300px;height:200px;'>";
+                              echo "<input type='hidden' id ='cid' value ='$canteen_id'>";
                               echo "<h5><center><b>{$row['fName']}</b></center></h5>";
                               while($row){
                                 echo '<div class="col s6 card-panel">';
@@ -79,10 +85,10 @@ session_start();
                                 echo "<br>";
                                 echo "<span>{$row['time']}</span>";
                                 echo "</div>";
-                                echo "<input type='hidden' id ='cid' value ='$canteen_id'>";
                                 $row=$obj->fetch();
                             }
                         }
+                      }
             ?>                                      
            <div class="row">
               <div class="col s6 left">

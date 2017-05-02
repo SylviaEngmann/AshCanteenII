@@ -37,7 +37,7 @@ session_start();
             <div class="nav-wrapper" style="background:#ff9e80">
               <?php 
               $can_id=$_SESSION['canteen_id'];
-              echo "<a href='' onclick='menu($can_id)' class='left'><i class='material-icons'>navigate_before</i></a>";
+              echo "<a onclick='menu($can_id)' class='left'><i class='material-icons'>navigate_before</i></a>";
               ?>
               <a href="#" class="center brand-logo"><span class="white-text">Bon Appetit</span>
               </a>

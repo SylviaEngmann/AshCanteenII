@@ -86,6 +86,7 @@ function place_order(){
 				echo '{"result":0,"message":"Please select meal type"}';
 					return;
 				}
+    $temp_id=$_REQUEST['temp_id'];			
 	$food_id=$_REQUEST['F_Id'];
 	$qty=$_REQUEST['qty'];
 	$price=$_REQUEST['price'];
@@ -94,14 +95,20 @@ function place_order(){
 
 	include('objects.php');
 	$obj=new object();
+    $obj1=new object();
+
 	$row=$obj->place_order($person_id,$food_id,$qty,$price,$order_type);
+	$row1=$obj1->delete_order($temp_id);
+
 	if($row==true){
 		echo '{"result":1,"message":"Order Placed"}';
 	}
 	else {
 		echo '{"result":0,"message:"Order not placed"}';
 	}
+
 }
+
 function add_review(){
 	$food_id=$_REQUEST['food_id'];
 	$review=$_REQUEST['review'];

@@ -12,9 +12,9 @@
 	<link rel="stylesheet" href="css/materialize.css">
 	<link rel="stylesheet" href="css/material-design-iconic-font.min.css">
 	<link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="manifest" href="manifest.json">
+	<link rel="manifest" href="manifest.json">
 
          <script>
 			var userAgent = navigator.userAgent + '';
@@ -33,19 +33,22 @@
 	<body>
               <div class="container">
                 <center><img src="<?php print $image_folder; ?>app_logo.png" width="200" height="200" alt="Bon Appetit"></center>
-                </div>
-                <div class ="container">
-                  <div class="section">                           
-                		<div class="row">
-								      <div class="col s6">
-                          <button class="btn waves-effect waves-light deep-orange" name="action" id="fixed-btn"><a class="white-text" href="<?php print $site_root; ?>login_page.php">Log in</a>
-                          </button>
-                      </div>
-                      <div class="col s6">
-                          <button class="btn waves-effect waves-light deep-orange" name="action" id="fixed-btn"><a class="white-text" href="<?php print $site_root; ?>signup.php">Sign Up</a></button>
-                      </div>
+              </div>
+              <div class ="container">
+              	<div class="section">
+              		<div class="row">
+                		<div class="col s6">
+                			<button class="btn waves-effect waves-light deep-orange" name="action" id="fixed-btn">
+                				<a class="white-text" href="<?php print $site_root; ?>login_page.php">Log in</a>
+                			</button>
+                		</div>
+                        <div class="col s6">
+                        	<button class="btn waves-effect waves-light deep-orange" name="action" id="fixed-btn">
+                        		<a class="white-text" href="<?php print $site_root; ?>signup.php">Sign Up</a>
+                        	</button>
+                        </div>
                     </div>
-                  </div>
+                </div>
                 
 		<script src="scripts/jquery.js"></script>
 		<script src="scripts/materialize.min.js"></script>

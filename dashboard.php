@@ -14,7 +14,6 @@ session_start();
 	<link rel="stylesheet" href="css/materialize.css">
 	<link rel="stylesheet" href="css/material-design-iconic-font.min.css">
   <link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="manifest" href="manifest.json">
 
@@ -33,7 +32,7 @@ session_start();
 		</script>
 		
 	</head>
-	<body>
+	<body onload='requestPermission()'>
         	<nav >
         		<div class="nav-wrapper" style="background:#ff9e80">
         			<a href="#" class="brand-logo"><span class="white-text">Bon Appetit</span>
@@ -79,10 +78,118 @@ session_start();
                     </ul>
                 </div>
               </div><!--container-->  
-        
+     
+    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
 		<script src="scripts/jquery.js"></script>
 		<script src="scripts/materialize.min.js"></script>
 		<script type="text/javascript" src="scripts/platformOverrides.js"></script>
+    <script type="text/javascript">
+      var config = {
+    apiKey: "AIzaSyCQJAXYH2tfABXZGHV03C6T21TltFosTNo",
+    authDomain: "order-48f1f.firebaseapp.com",
+    databaseURL: "https://order-48f1f.firebaseio.com",
+    projectId: "order-48f1f",
+    storageBucket: "order-48f1f.appspot.com",
+    messagingSenderId: "627691006531"
+  };
+
+  firebase.initializeApp(config);
+
+  const messaging = firebase.messaging();
+  const tokenDivId = 'token_div';
+  const permissionDivId = 'permission_div';
+
+  messaging.onTokenRefresh(function() {
+    messaging.getToken()
+    .then(function(refreshedToken) {
+      console.log('Token refreshed.');
+      setTokenSentToServer(false);
+      sendTokenToServer(refreshedToken);
+      
+      resetUI();
+    })
+    .catch(function(err) {
+      console.log('Unable to retrieve refreshed token ', err);
+    });
+  });
+  
+  messaging.onMessage(function(payload) {
+    // console.log("Message received. ", payload);
+    var audioElement = document.createElement('audio');
+  audioElement.setAttribute('src', 'sms-alert-2-daniel_simon.mp3');
+  audioElement.play();
+  });
+
+  function resetUI() {    
+    messaging.getToken()
+    .then(function(currentToken) {
+      if (currentToken) {
+        sendTokenToServer(currentToken);
+        upd(currentToken);    
+      } else {
+        console.log('No Instance ID token available. Request permission to generate one.');
+        setTokenSentToServer(false);
+      }
+    })
+    .catch(function(err) {
+      console.log('An error occurred while retrieving token. ', err);
+      setTokenSentToServer(false);
+    });
+  }
+  
+  function upd(currentToken){
+      var username= "<?php echo $_SESSION['username']; ?>";
+      console.log(currentToken);
+
+    $.ajax({   
+          type: "POST",  
+          url: "fcm.php",  
+          cache:false,  
+          data:{
+          token:currentToken,
+          username:username
+          },
+          dataType: "html",       
+          success: function(response)  
+          {   
+          }   
+        });  
+  }
+  
+  function sendTokenToServer(currentToken) {
+    if (!isTokenSentToServer()) {
+      console.log('Sending token to server...');
+      setTokenSentToServer(true);
+    } else {
+      console.log('Token already sent to server so won\'t send it again ' +
+          'unless it changes');
+    }
+  }
+  function isTokenSentToServer() {
+    if (window.localStorage.getItem('sentToServer') == 1) {
+          return true;
+    }
+    return false;
+  }
+  function setTokenSentToServer(sent) {
+    window.localStorage.setItem('sentToServer', sent ? 1 : 0);
+  }
+ 
+  function requestPermission() {
+    console.log('Requesting permission...');
+    messaging.requestPermission()
+    .then(function() {
+      console.log('Notification permission granted.');
+      
+      resetUI();
+    })
+    .catch(function(err) {
+      console.log('Unable to get permission to notify.', err);
+    });
+  }
+   resetUI();
+    </script>
+    
 		<script>
         (function($){
             $(function(){

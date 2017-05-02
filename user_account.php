@@ -106,7 +106,6 @@ session_start();
             </div>
           </nav>
            <div class="container">
-              
               <?php
                   $pid = $_SESSION['person_id'];
                     include('objects.php');

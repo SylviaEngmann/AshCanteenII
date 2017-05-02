@@ -36,7 +36,6 @@ session_start();
             <div class="nav-wrapper" style="background:#ff9e80">
               <a href="#" class="center brand-logo"><span class="white-text">Bon Appetit</span>
               </a>
-              <a href="cart.php" class="right"><i class="material-icons">shopping_cart</i></a> 
               <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i>
               </a>
             <ul class="side-nav" id="mobile-demo">

@@ -86,9 +86,11 @@ session_start();
 							  $tmp_count = 0;
 							  $order_json = "[";
                               while($row=$obj->fetch()){
+                                echo "<input type='text' id ='can_fcm' value='{$row['fcm']}' hidden/>";
                                  $tmp_count +=1;
 								 echo '<div class="col s6 card-panel">';
                                  echo '<table>';
+                                 echo "<input type='text' id ='temp_id' value='{$row['temp_id']}' hidden/>";
                                  echo '<tr>';
                                  echo '<td width=30%>';
                                  echo "<span class='title' style='font-size:14px'>".$row['fName']."</span>";
@@ -108,7 +110,7 @@ session_start();
 								echo '</table>';    
                                 echo "</div>";
 								if($tmp_count > 1) { $order_json .=","; }
-								$order_json .="{food_id:{$row['F_Id']},qty:{$row['qty']},price:{$row['price']},person_id:{$_SESSION['person_id']} }";
+								$order_json .="{order_id:{$row['temp_id']},food_id:{$row['F_Id']},qty:{$row['qty']},price:{$row['price']},person_id:{$_SESSION['person_id']} }";
                                 }
 							  $order_json .= "]";
                                }
@@ -142,6 +144,19 @@ session_start();
     <script src="scripts/jquery.js"></script>
     <script src="scripts/materialize.min.js"></script>
     <script type="text/javascript" src="scripts/platformOverrides.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+    <script>
+    // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCGdK6I94ELulY_4xSmVUHZRBqqQlsTrL8",
+    authDomain: "capstone-project-applied-proj.firebaseapp.com",
+    databaseURL: "https://capstone-project-applied-proj.firebaseio.com",
+    projectId: "capstone-project-applied-proj",
+    storageBucket: "capstone-project-applied-proj.appspot.com",
+    messagingSenderId: "754159741664"
+  };
+  firebase.initializeApp(config);
+</script>
     <script type="text/javascript">
         (function($){
             $(function(){
@@ -167,13 +182,12 @@ session_start();
     
 	function checkout_worker(list_of_orders)
 	{
-		//var total_price = 0; 
 		for (var i =0; i < list_of_orders.length; i++) 
 		{
 			var item_order = list_of_orders[i];
 			//total_price = total_price+item_order.price; 
-			checkout(item_order.food_id,item_order.qty,item_order.price,item_order.person_id);
-			}//alert(total_price);
+			checkout(item_order.temp_id,item_order.food_id,item_order.qty,item_order.price,item_order.person_id);
+			}
 	}
 
   function checkoutComplete(xhr,status){
@@ -190,6 +204,7 @@ session_start();
         }
         else if (obj.result == 1)
         {
+          send_notification();
           alert(obj.message);
           alert("We're taking you to your orders page");
           window.location="<?php print $site_root; ?>viewOrders.php";
@@ -200,18 +215,37 @@ session_start();
             }
      
 	
-     function checkout(F_Id,qty,price,person_id,order_type){
+     function checkout(temp_id,F_Id,qty,price,person_id,order_type){
+      var temp_id = temp_id;
       var F_Id = F_Id;
       var qty = qty;
       var price = price;
       var person_id = person_id;
       var order_type = $('input[type="radio"]:checked').val();
 
-      var url="<?php print $site_root; ?>functions.php?cmd=5&F_Id="+F_Id+"&qty="+qty+"&price="+price+"&person_id="+person_id+"&order_type="+order_type;
-      //alert(url);
+      var url="<?php print $site_root; ?>functions.php?cmd=5&temp_id="+temp_id+"&F_Id="+F_Id+"&qty="+qty+"&price="+price+"&person_id="+person_id+"&order_type="+order_type;
        $.ajax(url,{
                   async:true,complete:checkoutComplete
                 });
+     }
+
+     function send_notification(){
+      var can_fcm = document.getElementById('can_fcm').value;
+      console.log(can_fcm);
+      
+       $.ajax({   
+          type: "POST",  
+          url: "send.php",  
+          cache:false,  
+          data:{
+          can_fcm:can_fcm
+          },
+          dataType: "html",       
+          success: function(response)  
+          {   
+          }   
+        });  
+
      }
 
 

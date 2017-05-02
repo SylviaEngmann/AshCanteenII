@@ -77,7 +77,7 @@ session_start();
                         $obj=new object();
                         $result=$obj->getOrders($pid);
                           if($result==false){
-                              echo "'$result' is false";
+                              echo "Nothing In here";
                             }
                             else{
                               $row=$obj->fetch();
